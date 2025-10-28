@@ -117,7 +117,7 @@ const StatCard: React.FC<StatCardProps> = ({
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-[90vh] relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -138,7 +138,15 @@ const HeroSection: React.FC = () => {
           </div> */}
 
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Get Your Import <br /> Clearance in Record Time
+            Get Your{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              Import
+            </span>{" "}
+            <br />{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              Clearance
+            </span>{" "}
+            in Record Time
           </h1>
 
           <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-10">
