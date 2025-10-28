@@ -70,51 +70,6 @@ const MotionImage = motion(Image);
 //   );
 // }
 
-import {
-  TrendingUp,
-  TrendingDown,
-  Package,
-  DollarSign,
-  Clock,
-  Users,
-} from "lucide-react";
-
-interface StatCardProps {
-  title: string;
-  value: string;
-  change: string;
-  isPositive: boolean;
-  icon: React.ReactNode;
-}
-
-const StatCard: React.FC<StatCardProps> = ({
-  title,
-  value,
-  change,
-  isPositive,
-  icon,
-}) => {
-  return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-4">
-        <span className="text-gray-500 text-sm font-medium">{title}</span>
-        <div className="text-gray-400">{icon}</div>
-      </div>
-      <div className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
-      <div className="flex items-center gap-1 text-sm">
-        {isPositive ? (
-          <TrendingUp className="w-4 h-4 text-emerald-500" />
-        ) : (
-          <TrendingDown className="w-4 h-4 text-red-500" />
-        )}
-        <span className={isPositive ? "text-emerald-500" : "text-red-500"}>
-          {change}
-        </span>
-      </div>
-    </div>
-  );
-};
-
 const HeroSection: React.FC = () => {
   return (
     <div className="min-h-[90vh] relative overflow-hidden">
@@ -165,6 +120,29 @@ const HeroSection: React.FC = () => {
               href="/login"
               className="bg-transparent border-2 border-green-700 text-green-700 w-[130px]"
             />
+          </div>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            {" "}
+            {heroContent.map((item) => (
+              <div className="mt-2">
+                <div
+                  key={item.id}
+                  className={`flex items-center w-60 text-sm gap-4 bg-white shadow-lg p-2 rounded-[15px]`}
+                >
+                  <div>
+                    <Image
+                      width={item.id === 3 ? 40 : 60}
+                      src={item.image}
+                      alt="cert"
+                    />
+                  </div>
+                  <div className="">
+                    <p className="font-bold font-sm">{item.number}</p>
+                    <p className="font-sm">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
