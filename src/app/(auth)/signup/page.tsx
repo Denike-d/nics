@@ -173,7 +173,6 @@ export default function SignUpForm() {
     e.preventDefault();
     if (!canSubmit) return;
     console.log({ email, password });
-    alert("Signed up — check console (replace with API call)");
   }
 
   return (
@@ -262,7 +261,7 @@ export default function SignUpForm() {
             type="submit"
             className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
           >
-            Create an Account
+            <a href="/verify-email"> Create an Account</a>
           </button>
           <p className="text-sm text-center text-gray-700 mt-4">
             Already have an account?{" "}
