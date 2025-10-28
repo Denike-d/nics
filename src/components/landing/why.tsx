@@ -102,7 +102,7 @@ export default function NESREAFeatures() {
         <h2 className="text-xl md:text-2xl font-bold text-center text-gray-900 mb-8">
           Why use{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-            NESREA
+            NICS
           </span>{" "}
           system
         </h2>
