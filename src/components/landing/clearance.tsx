@@ -35,7 +35,7 @@ export default function Clearance() {
           ))}
         </div>
       </section> */}
-      <section className="flex flex-col md:flex-row items-center justify-between bg-[#eff5f3] p-8 md:px-32 mx-auto w-full">
+      <section className="flex flex-col md:flex-row items-center justify-between bg-[#eff5f3] py-8 px-6 md:px-32 mx-auto w-full">
         {/* Left: Image Grid */}
         <div className="grid grid-cols-2 gap-4 rounded-[2rem] border-2 border-dashed border-green-300 p-4 bg-white">
           {[
@@ -59,14 +59,14 @@ export default function Clearance() {
 
         {/* Right: Text Section */}
         <div className="mt-10 md:mt-0 md:ml-16 text-gray-800 max-w-md">
-          <h2 className="text-3xl md:text-4xl font-bold leading-snug">
+          <h2 className="text-3xl md:text-3xl font-bold leading-snug">
             <span className="text-green-600">Import</span> Clearance Process
           </h2>
 
           <div className="mt-8 space-y-6">
             {clearanceContent.map((item) => (
               <div key={item.id} className="flex items-start space-x-4">
-                <div className={`p-3 bg-green-300 rounded-full`}>
+                <div className={`p-3 bg-green-600 rounded-full`}>
                   {item.icon}
                 </div>
                 <div>
