@@ -99,13 +99,12 @@ export default function NESREAFeatures() {
     <div className=" bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-8">
       <div className=" mx-auto">
         {/* Section Title */}
-        <h2 className="text-2xl md:text-2xl font-bold text-center text-gray-900 mb-4">
-          About the{" "}
+        <h2 className="text-xl md:text-4xl font-bold text-center text-gray-900 mb-4">
+          About
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
             {" "}
             NICS
           </span>{" "}
-          system
         </h2>
 
         <div className="mx-auto px-28 leading-10">
