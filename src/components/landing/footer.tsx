@@ -18,7 +18,7 @@ export default function () {
           </div>
           <div>
             <p className="font-bold mb-4">Address</p>
-            <p>No. 56 Lome Crescent, Wuse Zone 7, Abuja</p>
+            <p>No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria</p>
           </div>
           <div>
             <p className="font-bold mb-4">Contact Address</p>

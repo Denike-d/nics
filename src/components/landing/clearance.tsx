@@ -66,7 +66,7 @@ export default function Clearance() {
           <div className="mt-8 space-y-6">
             {clearanceContent.map((item) => (
               <div key={item.id} className="flex items-start space-x-4">
-                <div className={`p-3 bg-green-600 rounded-full`}>
+                <div className={`p-3 bg-green-600 rounded-full text-white`}>
                   {item.icon}
                 </div>
                 <div>

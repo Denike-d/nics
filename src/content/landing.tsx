@@ -20,7 +20,7 @@ export const heroContent = [
     id: 1,
     number: "50k+",
     image: Certificate,
-    description: "Certificates Verified",
+    description: "Certificates Issued",
     position: "absolute top-12 left-16",
   },
   {

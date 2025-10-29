@@ -157,6 +157,7 @@ import Truck from "../../../../public/images/Truck.png";
 //   );
 // }
 import React, { useState } from "react";
+import i4logo from "../../../../public/images/i4logo.png";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function SignUpForm() {
@@ -176,17 +177,26 @@ export default function SignUpForm() {
   }
 
   return (
-    <section>
+    <section className="min-h-screen">
       <Header />
-      <div
-        className="relative min-h-screen flex items-center justify-center bg-cover bg-center p-6 z-0"
-        style={{ backgroundImage: "url(/images/ship.jpg)" }}
-      >
-        <div className="absolute inset-0 bg-black/70 z-10" />{" "}
+      <div className="flex items-center justify-center p-4">
+        <div
+          className="absolute inset-0 opacity-20 bg-cover"
+          style={{ backgroundImage: "url(/images/ship.jpg)" }}
+        />
+        <div className="absolute bottom-8 right-8 z-20">
+          <p className="text-[12px] ml-[-8px]">Powered by</p>
+          <Image
+            src={i4logo}
+            alt="Company Logo"
+            className="h-12 w-auto hover:opacity-90 transition-opacity"
+          />
+        </div>
+        {/* <div className="absolute inset-0 bg-black/70 z-10" />{" "} */}
         {/* overlay for opacity */}
         <form
           onSubmit={handleSubmit}
-          className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8"
+          className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-4"
           aria-label="Sign up form"
         >
           <h2 className="text-2xl font-semibold mb-4 text-center">

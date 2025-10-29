@@ -113,15 +113,15 @@ const HeroSection: React.FC = () => {
             <PrimaryButton
               title="Sign up"
               href="/signup"
-              className="bg-gradient-to-r from-green-600 to-green-800 text-white px-8 py-3.5 rounded-lg hover:from-green-800 hover:to-green-700 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/30"
+              className="bg-gradient-to-r from-green-600 to-green-800 w-[150px] text-white px-8 py-3.5 rounded-lg hover:from-green-800 hover:to-green-700 transition-all flex items-center gap-2 shadow-lg shadow-purple-500/30"
             />
             <PrimaryButton
               title="Log in"
               href="/login"
-              className="bg-transparent border-2 border-green-700 text-green-700 w-[130px]"
+              className="bg-transparent border-2 border-green-700 text-green-700 w-[150px] hover:bg-gradient-to-r from-green-600 to-green-800 hover:text-white transition"
             />
           </div>
-          <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="flex items-center justify-center gap-6 mt-8">
             {" "}
             {heroContent.map((item) => (
               <div className="mt-2">
