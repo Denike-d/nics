@@ -177,13 +177,14 @@ export default function SignUpForm() {
   }
 
   return (
-    <section className="min-h-screen">
+    <section>
       <Header />
       <div className="flex items-center justify-center p-4">
         <div
-          className="absolute inset-0 opacity-20 bg-cover"
+          className="absolute inset-1 opacity-20 bg-cover"
           style={{ backgroundImage: "url(/images/ship.jpg)" }}
         />
+
         <div className="absolute bottom-8 right-8 z-20">
           <p className="text-[12px] ml-[-8px]">Powered by</p>
           <Image

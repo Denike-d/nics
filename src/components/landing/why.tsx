@@ -99,16 +99,35 @@ export default function NESREAFeatures() {
     <div className=" bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-8">
       <div className=" mx-auto">
         {/* Section Title */}
-        <h2 className="text-xl md:text-2xl font-bold text-center text-gray-900 mb-8">
-          Why use{" "}
+        <h2 className="text-2xl md:text-2xl font-bold text-center text-gray-900 mb-4">
+          About the{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+            {" "}
             NICS
           </span>{" "}
           system
         </h2>
 
+        <div className="mx-auto px-28 leading-10">
+          {/* <h2>
+            About{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              NICS
+            </span>
+          </h2> */}
+          <p className="text-center">
+            The NESREA Import Clearance System (NICS) is a digital platform
+            designed to automate and simplify the import clearance process for
+            regulated goods in Nigeria. It enhances transparency, speeds up
+            approvals, and ensures full compliance with environmental standards.
+            With NICS, importers and agents can securely submit applications,
+            track progress, and obtain certificates in record time; promoting
+            efficiency, accountability, and a greener Nigeria.
+          </p>
+        </div>
+
         {/* Cards Grid */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-6 mt-8">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}

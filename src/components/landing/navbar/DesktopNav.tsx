@@ -23,7 +23,7 @@ export default function DesktopNavbar() {
           </li>
           <li>
             <Link href="/" className="hover:text-[#10793F] text-sm">
-              Services
+              About
             </Link>
           </li>
           <li>
