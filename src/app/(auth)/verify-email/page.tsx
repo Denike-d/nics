@@ -59,8 +59,8 @@ import Image from "next/image";
 
 // export default function OTPPage() {
 //   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
-//   const [isResending, setIsResending] = useState<boolean>(false);
-//   const [timer, setTimer] = useState<number>(60);
+// const [isResending, setIsResending] = useState<boolean>(false);
+// const [timer, setTimer] = useState<number>(60);
 //   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
 //   // Countdown timer
@@ -257,6 +257,8 @@ import i4logo from "../../../../public/images/i4logo.png";
 const OTPVerification: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  // const [isResending, setIsResending] = useState<boolean>(false);
+  // const [timer, setTimer] = useState<number>(60);
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
@@ -307,9 +309,8 @@ const OTPVerification: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen ">
-      <Header />
-      <div className="flex items-center justify-center p-4">
+    <section>
+      <div className="flex items-center justify-center p-4 -z-10">
         <div
           className="absolute inset-0 opacity-20 bg-cover"
           style={{ backgroundImage: "url(/images/ship.jpg)" }}
@@ -364,24 +365,24 @@ const OTPVerification: React.FC = () => {
             Verify OTP
           </button>
 
-          <div className="text-center">
-            <p className="text-gray-600 text-sm mb-2">
+          <div className="text-center flex items-center justify-between">
+            {/* <p className="text-gray-600 text-sm mb-2">
               Didn't receive the code?
-            </p>
-            <button
+            </p> */}
+            {/* <button
               onClick={handleResend}
               className="text-green-700 hover:text-green-800 font-semibold text-sm transition-colors"
             >
               Resend OTP
-            </button>
+            </button> */}
           </div>
 
           <div className="mt-6 text-center">
             <a
-              href="#"
-              className="text-gray-600 hover:text-gray-800 text-sm transition-colors"
+              href="/signup"
+              className="text-green-600 hover:text-gray-800 text-sm transition-colors"
             >
-              ← Back to Login
+              ← Back to signup
             </a>
           </div>
         </div>
