@@ -97,7 +97,7 @@ export default function DocumentsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-green-50 p-6 md:p-10 rounded-t-lg">
+    <main className="bg-green-50 p-6 md:p-10 rounded-t-lg">
       <h1 className="text-center text-3xl font-semibold text-gray-800 mb-10">
         Documents
       </h1>
