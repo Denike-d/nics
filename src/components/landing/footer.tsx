@@ -2,15 +2,23 @@ import Image from "next/image";
 import nesrea from "../../../public/images/nesrea.png";
 import Message from "../../../public/icons/Message.svg";
 import Call from "../../../public/icons/Call.svg";
-import i4logo from "../../../public/images/i4logo.png";
+import i4logogreen from "../../../public/images/i4logogreen.png";
 import GradientLayout from "./uikits/GradientLayout";
 import FooterBanner from "./footer-banner";
 export default function () {
   return (
     <div>
-      <div className="bg-green-50 py-8 px-18 flex justify-between">
-        <Image src={nesrea} className="w-[105px] h-[73px] mr-12" alt="logo" />
-        <div className="flex justify-between gap-24">
+      <div className="bg-green-50 py-8 px-18 flex justify-between items-center">
+        <div className="flex flex-col items-center text-center">
+          <a href="/">
+            <Image src={nesrea} className="w-[105px] h-[73px]" alt="logo" />
+          </a>
+          <p className="text-[13px] mt-4 text-left">
+            Be sure to take a look at our <br /> Terms of Use and Privacy Policy
+          </p>
+        </div>
+
+        <div className="flex justify-between gap-18">
           <div>
             <p className="font-bold mb-4">More Info</p>
             <p>FAQ</p>
@@ -40,9 +48,18 @@ export default function () {
             </div>
           </div>
         </div>
+        <div className="text-center font-bold">
+          <p className="text-black text-sm">Powered by:</p>
+          <a href="/">
+            <Image
+              src={i4logogreen}
+              alt="i4logo"
+              width={110}
+              className="mt-2"
+            />
+          </a>
+        </div>
       </div>
-
-      <FooterBanner />
     </div>
   );
 }
