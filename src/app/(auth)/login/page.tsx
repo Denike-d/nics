@@ -219,18 +219,25 @@ export default function SignUpForm() {
               NICS
             </h1> */}
             <h2 className="text-3xl items-centre font-semibold">
-              NESREA <span className="text-green-600">IMPORT CLEARANCE</span>{" "}
-              <br />
+              NESREA{" "}
+              <span className="text-green-600">
+                IMPORT <br />
+                CLEARANCE
+              </span>{" "}
               SYSTEM
             </h2>
-            <div className="mt-4">
-              <p className="font-bold">Address</p>
-              <p className="text-small">
-                No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria
+            <div className="mt-8 block gap-7 leading-8">
+              <p className="font-bold">Contact us:</p>
+              <p>dg@nesrea.gov.ng</p>
+              <p>info@nesrea.gov.ng</p>
+              <p>+2349153993191</p>
+              <p className="text-sm">
+                No. 56 Lome Crescent, <br />
+                Wuse Zone 7, Abuja, Nigeria
               </p>
             </div>
             <div className="flex items-center mt-4">
-              <p className="text-[15px]">Powered by</p>
+              <p className="text-[15px] font-semibold mr-2">Powered by</p>
               <Image
                 src={i4logogreen}
                 alt="Company Logo"
@@ -241,7 +248,7 @@ export default function SignUpForm() {
 
           <form
             onSubmit={handleSubmit}
-            className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-8"
+            className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg py-12 px-8 mt-8"
             aria-label="Sign up form"
           >
             <h2 className="text-2xl font-semibold mb-4 text-center">

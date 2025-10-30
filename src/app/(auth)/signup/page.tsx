@@ -5,6 +5,7 @@ import Header from "@/components/landing/header";
 import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 // import { useState } from "react";
 import Image from "next/image";
+import i4logogreen from "../../../../public/images/i4logogreen.png";
 import Link from "next/link";
 import Truck from "../../../../public/images/Truck.png";
 // import { Eye, EyeOff } from "lucide-react";
@@ -178,9 +179,9 @@ export default function SignUpForm() {
 
   return (
     <section>
-      <div className="flex items-center justify-center p-4">
+      <div className="px-38 items-center justify-center p-4">
         <div
-          className="absolute inset-0 opacity-20 bg-cover -z-10 pointer-events-none"
+          className="absolute inset-0 bg-cover -z-10 pointer-events-none"
           style={{ backgroundImage: "url(/images/ship.jpg)" }}
         />
 
@@ -192,94 +193,130 @@ export default function SignUpForm() {
             className="h-12 w-auto hover:opacity-90 transition-opacity"
           />
         </div>
-        {/* <div className="absolute inset-0 bg-black/70 z-10" />{" "} */}
+        <div className="absolute opacity-200 inset-0 bg-white/50 z-10 bg-gradient-to-r from-white" />
         {/* overlay for opacity */}
-        <form
-          onSubmit={handleSubmit}
-          className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-4"
-          aria-label="Sign up form"
-        >
-          <h2 className="text-2xl font-semibold mb-4 text-center">
-            Create an account
-          </h2>
-
-          <label className="block mb-3">
-            <span className="text-sm font-medium">Email</span>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
-              placeholder="you@example.com"
-            />
-          </label>
-
-          <label className="block mb-3 relative">
-            <span className="text-sm font-medium">Password</span>
-            <div className="relative flex items-center">
-              <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                placeholder="Enter password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((s) => !s)}
-                className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
+        <div className="flex justify-between items-center">
+          <div className="z-10">
+            {" "}
+            {/* <h1 className="items-centre text-center text-black text-4xl font-bold mb-2">
+                      NICS
+                    </h1> */}
+            <h2 className="text-3xl items-centre font-semibold">
+              NESREA{" "}
+              <span className="text-green-600">
+                IMPORT <br />
+                CLEARANCE
+              </span>{" "}
+              SYSTEM
+            </h2>
+            <div className="mt-8 block gap-7 leading-8">
+              <p className="font-bold">Contact us:</p>
+              <p>dg@nesrea.gov.ng</p>
+              <p>info@nesrea.gov.ng</p>
+              <p>+2349153993191</p>
+              <p className="text-sm">
+                No. 56 Lome Crescent, <br />
+                Wuse Zone 7, Abuja, Nigeria
+              </p>
             </div>
-          </label>
-
-          <label className="block mb-4 relative">
-            <span className="text-sm font-medium">Confirm password</span>
-            <div className="relative flex items-center">
-              <input
-                type={showConfirm ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                placeholder="Confirm password"
+            <div className="flex items-center mt-4">
+              <p className="text-[15px] font-semibold mr-2">Powered by</p>
+              <Image
+                src={i4logogreen}
+                alt="Company Logo"
+                className="w-[90px] hover:opacity-90 transition-opacity"
               />
-              <button
-                type="button"
-                onClick={() => setShowConfirm((s) => !s)}
-                className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                aria-label={
-                  showConfirm
-                    ? "Hide confirm password"
-                    : "Show confirm password"
-                }
-              >
-                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
             </div>
-          </label>
-
-          {!passwordsMatch && confirmPassword.length > 0 && (
-            <p className="text-sm text-red-600 mb-3">Passwords do not match.</p>
-          )}
-
-          <button
-            type="submit"
-            className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-4"
+            aria-label="Sign up form"
           >
-            <a href="/verify-email"> Create an Account</a>
-          </button>
-          <p className="text-sm text-center text-gray-700 mt-4">
-            Already have an account?{" "}
-            <a href="/login" className="text-green-800 font-medium">
-              Sign in
-            </a>
-          </p>
-        </form>
+            <h2 className="text-2xl font-semibold mb-4 text-center">
+              Create an account
+            </h2>
+
+            <label className="block mb-3">
+              <span className="text-sm font-medium">Email</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label className="block mb-3 relative">
+              <span className="text-sm font-medium">Password</span>
+              <div className="relative flex items-center">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+                  placeholder="Enter password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((s) => !s)}
+                  className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </label>
+
+            <label className="block mb-4 relative">
+              <span className="text-sm font-medium">Confirm password</span>
+              <div className="relative flex items-center">
+                <input
+                  type={showConfirm ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+                  placeholder="Confirm password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm((s) => !s)}
+                  className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+                  aria-label={
+                    showConfirm
+                      ? "Hide confirm password"
+                      : "Show confirm password"
+                  }
+                >
+                  {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </label>
+
+            {!passwordsMatch && confirmPassword.length > 0 && (
+              <p className="text-sm text-red-600 mb-3">
+                Passwords do not match.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+            >
+              <a href="/verify-email"> Create an Account</a>
+            </button>
+            <p className="text-sm text-center text-gray-700 mt-4">
+              Already have an account?{" "}
+              <a href="/login" className="text-green-800 font-medium">
+                Sign in
+              </a>
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );

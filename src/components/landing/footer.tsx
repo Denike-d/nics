@@ -9,7 +9,7 @@ export default function () {
   return (
     <div>
       <div className="bg-green-50 py-8 px-18 flex justify-between">
-        <Image src={nesrea} className="w-[95px] h-[63px] mr-12" alt="logo" />
+        <Image src={nesrea} className="w-[105px] h-[73px] mr-12" alt="logo" />
         <div className="flex justify-between gap-24">
           <div>
             <p className="font-bold mb-4">More Info</p>
@@ -18,7 +18,11 @@ export default function () {
           </div>
           <div>
             <p className="font-bold mb-4">Address</p>
-            <p>No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria</p>
+            <p>
+              No. 56 Lome Crescent, <br />
+              Wuse Zone 7, Abuja, <br />
+              Nigeria
+            </p>
           </div>
           <div>
             <p className="font-bold mb-4">Contact Address</p>
