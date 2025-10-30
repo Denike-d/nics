@@ -6,7 +6,7 @@ import PrimaryButton from "../uikits/PrimaryButton";
 
 export default function DesktopNavbar() {
   return (
-    <div className="flex justify-center mx-auto max-h-screen py-2">
+    <div className="flex justify-center mx-auto max-h-screen py-4">
       <nav className="hidden md:flex space-x-8 items-center text-black relative z-50">
         <Link href="/">
           <Image

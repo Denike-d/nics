@@ -61,7 +61,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
         {/* Content */}
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
+          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
             {title}
           </h3>
           <p className="text-gray-600 text-sm leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
@@ -126,7 +126,7 @@ export default function NESREAFeatures() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-3 gap-6 mt-8 px-24">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}

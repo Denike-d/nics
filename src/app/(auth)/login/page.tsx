@@ -184,7 +184,7 @@ import Link from "next/link";
 
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import i4logo from "../../../../public/images/i4logo.png";
+import i4logogreen from "../../../../public/images/i4logogreen.png";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -204,65 +204,85 @@ export default function SignUpForm() {
 
   return (
     <section>
-      <div className="flex items-center justify-center p-4">
+      <div className="items-center justify-center p-4 px-38">
         <div
-          className="absolute inset-0 opacity-20 bg-cover -z-10 pointer-events-none"
+          className="absolute inset-0 bg-cover -z-10 pointer-events-none bg-gradient-to-b from-green/50"
           style={{ backgroundImage: "url(/images/ship.jpg)" }}
         />
-        <div className="absolute bottom-8 right-8 z-20">
-          <p className="text-[12px] ml-[-8px]">Powered by</p>
-          <Image
-            src={i4logo}
-            alt="Company Logo"
-            className="h-12 w-auto hover:opacity-90 transition-opacity"
-          />
-        </div>
-        {/* <div className="absolute inset-0 bg-black/70 z-10" />{" "} */}
+
+        <div className="absolute opacity-200 inset-0 bg-white/50 z-10 bg-gradient-to-r from-white" />
         {/* overlay for opacity */}
-        <form
-          onSubmit={handleSubmit}
-          className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-8"
-          aria-label="Sign up form"
-        >
-          <h2 className="text-2xl font-semibold mb-4 text-center">
-            Log into your account
-          </h2>
-
-          <label className="block mb-3">
-            <span className="text-sm font-medium">Email</span>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
-              placeholder="you@example.com"
-            />
-          </label>
-
-          <label className="block mb-3 relative">
-            <span className="text-sm font-medium">Password</span>
-            <div className="relative flex items-center">
-              <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                placeholder="Enter password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((s) => !s)}
-                className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
+        <div className="flex justify-between items-center">
+          <div className="z-10">
+            {" "}
+            {/* <h1 className="items-centre text-center text-black text-4xl font-bold mb-2">
+              NICS
+            </h1> */}
+            <h2 className="text-3xl items-centre font-semibold">
+              NESREA <span className="text-green-600">IMPORT CLEARANCE</span>{" "}
+              <br />
+              SYSTEM
+            </h2>
+            <div className="mt-4">
+              <p className="font-bold">Address</p>
+              <p className="text-small">
+                No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria
+              </p>
             </div>
-          </label>
+            <div className="flex items-center mt-4">
+              <p className="text-[15px]">Powered by</p>
+              <Image
+                src={i4logogreen}
+                alt="Company Logo"
+                className="w-[90px] hover:opacity-90 transition-opacity"
+              />
+            </div>
+          </div>
 
-          {/* <label className="block mb-4 relative">
+          <form
+            onSubmit={handleSubmit}
+            className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg p-8 mt-8"
+            aria-label="Sign up form"
+          >
+            <h2 className="text-2xl font-semibold mb-4 text-center">
+              Log into your account
+            </h2>
+
+            <label className="block mb-3">
+              <span className="text-sm font-medium">Email</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label className="block mb-3 relative">
+              <span className="text-sm font-medium">Password</span>
+              <div className="relative flex items-center">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+                  placeholder="Enter password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((s) => !s)}
+                  className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </label>
+
+            {/* <label className="block mb-4 relative">
             <span className="text-sm font-medium">Confirm password</span>
             <div className="relative flex items-center">
               <input
@@ -288,23 +308,26 @@ export default function SignUpForm() {
             </div>
           </label> */}
 
-          {!passwordsMatch && confirmPassword.length > 0 && (
-            <p className="text-sm text-red-600 mb-3">Passwords do not match.</p>
-          )}
+            {!passwordsMatch && confirmPassword.length > 0 && (
+              <p className="text-sm text-red-600 mb-3">
+                Passwords do not match.
+              </p>
+            )}
 
-          <button
-            type="submit"
-            className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
-          >
-            <a href="/verify-email">Login</a>
-          </button>
-          <p className="text-sm text-center text-gray-700 mt-4">
-            Don't have an account?{" "}
-            <a href="/signup" className="text-green-800 font-medium">
-              Signup
-            </a>
-          </p>
-        </form>
+            <button
+              type="submit"
+              className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+            >
+              <a href="/verify-email">Login</a>
+            </button>
+            <p className="text-sm text-center text-gray-700 mt-4">
+              Don't have an account?{" "}
+              <a href="/signup" className="text-green-800 font-medium">
+                Signup
+              </a>
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );

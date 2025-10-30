@@ -97,12 +97,12 @@ export default function DocumentsPage() {
   ];
 
   return (
-    <main className="bg-green-50 p-6 md:p-10 rounded-t-lg">
+    <main className="bg-green-50 py-6 px-32 md:p-10 rounded-t-lg">
       <h1 className="text-center text-3xl font-semibold text-gray-800 mb-10">
         Documents
       </h1>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4  mx-auto justify-center">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 mx-auto justify-center px-24">
         {documentsData.map((item, index) => (
           <div
             key={index}

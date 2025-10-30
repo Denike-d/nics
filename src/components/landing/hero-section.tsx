@@ -97,11 +97,14 @@ const HeroSection: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
               Import
             </span>{" "}
-            <br />{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
               Clearance
             </span>{" "}
-            in Record Time
+            <br /> in Record Time with
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              {" "}
+              NICS
+            </span>
           </h1>
 
           <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-10">
