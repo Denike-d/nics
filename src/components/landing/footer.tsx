@@ -13,8 +13,9 @@ export default function () {
           <a href="/">
             <Image src={nesrea} className="w-[105px] h-[73px]" alt="logo" />
           </a>
-          <p className="text-[13px] mt-4 text-left">
-            Be sure to take a look at our <br /> Terms of Use and Privacy Policy
+          <p className="text-[10px] mt-2 text-center">
+            Be sure to take a look <br /> at our Terms of Use <br /> and Privacy
+            Policy
           </p>
         </div>
 
