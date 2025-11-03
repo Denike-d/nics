@@ -182,11 +182,171 @@ import Link from "next/link";
 //   );
 // }
 
+// import React, { useState } from "react";
+// import { Eye, EyeOff } from "lucide-react";
+// import i4logogreen from "../../../../public/images/i4logogreen.png";
+// import Footer from "@/components/landing/footer";
+
+// export default function SignUpForm() {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [confirmPassword, setConfirmPassword] = useState("");
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [showConfirm, setShowConfirm] = useState(false);
+
+//   const passwordsMatch = password === confirmPassword && password.length > 0;
+//   const canSubmit = email.trim() !== "" && passwordsMatch;
+
+//   function handleSubmit(e: React.FormEvent) {
+//     e.preventDefault();
+//     if (!canSubmit) return;
+//     console.log({ email, password });
+//   }
+
+//   return (
+//     <section>
+//       <div className="flex items-center justify-center p-4 px-38">
+//         <div
+//           className="absolute inset-0 bg-cover -z-10 pointer-events-none bg-gradient-to-b from-green/50"
+//           style={{ backgroundImage: "url(/images/ship.jpg)" }}
+//         />
+
+//         <div className="absolute opacity-200 inset-0 bg-white/50 z-10 " />
+//         {/* overlay for opacity */}
+//         <div>
+//           {/* <div className="z-10">
+//             {" "}
+
+//             <h2 className="text-3xl items-centre font-semibold">
+//               NESREA{" "}
+//               <span className="text-green-600">
+//                 IMPORT <br />
+//                 CLEARANCE
+//               </span>{" "}
+//               SYSTEM
+//             </h2>
+//             <div className="mt-8 block gap-7 leading-8">
+//               <p className="font-bold">Contact us:</p>
+//               <p>dg@nesrea.gov.ng</p>
+//               <p>info@nesrea.gov.ng</p>
+//               <p>+2349153993191</p>
+//               <p className="text-sm">
+//                 No. 56 Lome Crescent, <br />
+//                 Wuse Zone 7, Abuja, Nigeria
+//               </p>
+//             </div>
+//             <div className="flex items-center mt-4">
+//               <p className="text-[15px] font-semibold mr-2">Powered by</p>
+//               <Image
+//                 src={i4logogreen}
+//                 alt="Company Logo"
+//                 className="w-[90px] hover:opacity-90 transition-opacity"
+//               />
+//             </div>
+//           </div> */}
+
+//           <form
+//             onSubmit={handleSubmit}
+//             className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg py-12 px-8"
+//             aria-label="Sign up form"
+//           >
+//             <h2 className="text-2xl font-semibold mb-4 text-center">
+//               Log into your account
+//             </h2>
+
+//             <label className="block mb-3">
+//               <span className="text-sm font-medium">Email</span>
+//               <input
+//                 type="email"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 required
+//                 className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
+//                 placeholder="you@example.com"
+//               />
+//             </label>
+
+//             <label className="block mb-3 relative">
+//               <span className="text-sm font-medium">Password</span>
+//               <div className="relative flex items-center">
+//                 <input
+//                   type={showPassword ? "text" : "password"}
+//                   value={password}
+//                   onChange={(e) => setPassword(e.target.value)}
+//                   required
+//                   className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+//                   placeholder="Enter password"
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={() => setShowPassword((s) => !s)}
+//                   className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+//                   aria-label={showPassword ? "Hide password" : "Show password"}
+//                 >
+//                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+//                 </button>
+//               </div>
+//             </label>
+
+//             {/* <label className="block mb-4 relative">
+//             <span className="text-sm font-medium">Confirm password</span>
+//             <div className="relative flex items-center">
+//               <input
+//                 type={showConfirm ? "text" : "password"}
+//                 value={confirmPassword}
+//                 onChange={(e) => setConfirmPassword(e.target.value)}
+//                 required
+//                 className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+//                 placeholder="Confirm password"
+//               />
+//               <button
+//                 type="button"
+//                 onClick={() => setShowConfirm((s) => !s)}
+//                 className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+//                 aria-label={
+//                   showConfirm
+//                     ? "Hide confirm password"
+//                     : "Show confirm password"
+//                 }
+//               >
+//                 {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+//               </button>
+//             </div>
+//           </label> */}
+
+//             {!passwordsMatch && confirmPassword.length > 0 && (
+//               <p className="text-sm text-red-600 mb-3">
+//                 Passwords do not match.
+//               </p>
+//             )}
+
+//             <button
+//               type="submit"
+//               className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+//             >
+//               <a href="/verify-email">Login</a>
+//             </button>
+//             <p className="text-sm text-center text-gray-700 mt-4">
+//               Don't have an account?{" "}
+//               <a href="/signup" className="text-green-800 font-medium">
+//                 Signup
+//               </a>
+//             </p>
+//           </form>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+import ship from "../../../../public/images/ship.jpg";
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import i4logogreen from "../../../../public/images/i4logogreen.png";
+import pattern from "../../../../public/images/pattern.png";
 
-export default function SignUpForm() {
+export default function Home() {
+  const [remember, setRemember] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -203,139 +363,121 @@ export default function SignUpForm() {
   }
 
   return (
-    <section>
-      <div className="items-center justify-center p-4 px-38">
-        <div
-          className="absolute inset-0 bg-cover -z-10 pointer-events-none bg-gradient-to-b from-green/50"
-          style={{ backgroundImage: "url(/images/ship.jpg)" }}
-        />
+    <main className="relative flex h-full items-center justify-center py-10 px-24">
+      <div
+        className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
+        style={{ backgroundImage: "url(/images/pattern.png)" }}
+      />
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2">
+        {/* LEFT */}
+        <div className="flex flex-col justify-center">
+          {/* <p className="text- tracking-widest text-gray-600 uppercase">
+            NICS
+          </p> */}
 
-        <div className="absolute opacity-200 inset-0 bg-white/50 z-10 bg-gradient-to-r from-white" />
-        {/* overlay for opacity */}
-        <div className="flex justify-between items-center">
-          <div className="z-10">
-            {" "}
-            {/* <h1 className="items-centre text-center text-black text-4xl font-bold mb-2">
-              NICS
-            </h1> */}
-            <h2 className="text-3xl items-centre font-semibold">
-              NESREA{" "}
-              <span className="text-green-600">
-                IMPORT <br />
-                CLEARANCE
-              </span>{" "}
-              SYSTEM
-            </h2>
-            <div className="mt-8 block gap-7 leading-8">
-              <p className="font-bold">Contact us:</p>
-              <p>dg@nesrea.gov.ng</p>
-              <p>info@nesrea.gov.ng</p>
-              <p>+2349153993191</p>
-              <p className="text-sm">
-                No. 56 Lome Crescent, <br />
-                Wuse Zone 7, Abuja, Nigeria
-              </p>
-            </div>
-            <div className="flex items-center mt-4">
-              <p className="text-[15px] font-semibold mr-2">Powered by</p>
-              <Image
-                src={i4logogreen}
-                alt="Company Logo"
-                className="w-[90px] hover:opacity-90 transition-opacity"
-              />
+          <h1 className="text-3xl font-bold leading-tight">
+            NESREA <span className="text-green-600">IMPORT</span>
+            <br />
+            <span className="relative">
+              <span className="text-green-600">CLEARANCE</span> SYSTEM
+              <span className="absolute inset-x-0 bottom-1 h-3 w-full opacity-70 -z-10"></span>
+            </span>
+            <br />
+          </h1>
+          <div className="mt-6 block gap-7 leading-8">
+            <p className="font-bold">Contact us:</p>
+            <p>dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.</p>
+            <p>
+              No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria.
+              <br />
+            </p>
+          </div>
+          <div className="flex items-center mt-4">
+            <p className="text-[15px] font-semibold mr-2">Powered by</p>{" "}
+            <Image
+              src={i4logogreen}
+              alt="Company Logo"
+              className="w-[90px] hover:opacity-90 transition-opacity"
+            />
+          </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="relative">
+          {/* Background Image */}
+          <div className="rounded-2xl overflow-hidden shadow-lg">
+            <Image
+              src={ship}
+              alt="Lotus GT"
+              className="object-cover w-full h-[520px] rounded-3xl"
+            />
+          </div>
+          <div className="absolute opacity-200 inset-0 bg-white/30 " />
+          {/* Float Login Card */}
+          <div className="absolute inset-0 flex items-center justify-center px-4">
+            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl py-12 px-8 space-y-4 border border-gray-200">
+              <h2 className="text-center font-bold text-2xl">
+                Login to your account
+              </h2>
+
+              <form
+                onSubmit={handleSubmit}
+                aria-label="Sign up form"
+                className="mt-12"
+              >
+                <label className="block mb-3">
+                  <span className="text-sm font-medium">Email</span>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
+                    placeholder="you@example.com"
+                  />
+                </label>
+
+                <label className="block mb-3 relative">
+                  <span className="text-sm font-medium">Password</span>
+                  <div className="relative flex items-center">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+                      placeholder="Enter password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((s) => !s)}
+                      className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </label>
+
+                <button
+                  type="submit"
+                  className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+                >
+                  <a href="/verify-email">Login</a>
+                </button>
+                <p className="text-sm text-center text-gray-700 mt-4">
+                  Don't have an account?{" "}
+                  <a href="/signup" className="text-green-800 font-medium">
+                    Signup
+                  </a>
+                </p>
+              </form>
             </div>
           </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md rounded-md shadow-lg py-12 px-8 mt-8"
-            aria-label="Sign up form"
-          >
-            <h2 className="text-2xl font-semibold mb-4 text-center">
-              Log into your account
-            </h2>
-
-            <label className="block mb-3">
-              <span className="text-sm font-medium">Email</span>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
-                placeholder="you@example.com"
-              />
-            </label>
-
-            <label className="block mb-3 relative">
-              <span className="text-sm font-medium">Password</span>
-              <div className="relative flex items-center">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                  placeholder="Enter password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((s) => !s)}
-                  className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </label>
-
-            {/* <label className="block mb-4 relative">
-            <span className="text-sm font-medium">Confirm password</span>
-            <div className="relative flex items-center">
-              <input
-                type={showConfirm ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                placeholder="Confirm password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirm((s) => !s)}
-                className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                aria-label={
-                  showConfirm
-                    ? "Hide confirm password"
-                    : "Show confirm password"
-                }
-              >
-                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
-          </label> */}
-
-            {!passwordsMatch && confirmPassword.length > 0 && (
-              <p className="text-sm text-red-600 mb-3">
-                Passwords do not match.
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
-            >
-              <a href="/verify-email">Login</a>
-            </button>
-            <p className="text-sm text-center text-gray-700 mt-4">
-              Don't have an account?{" "}
-              <a href="/signup" className="text-green-800 font-medium">
-                Signup
-              </a>
-            </p>
-          </form>
         </div>
       </div>
-    </section>
+    </main>
   );
 }
