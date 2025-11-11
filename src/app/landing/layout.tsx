@@ -20,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Header />
       <body className={`${poppins.className} antialiased`}>
         <main>{children}</main>
       </body>

@@ -99,24 +99,17 @@ export const documentContent = [
 export const clearanceContent = [
   {
     id: 1,
-    icon: <Banknote />,
-    text: "Make payment",
-    description:
-      "With lots of unique blocks, you can easily build a page without coding.",
-  },
-  {
-    id: 2,
     icon: <Send />,
     text: "Submit Application",
     description:
       "Provide the necessary details about your consignment and submit required documents",
   },
   {
-    id: 3,
-    icon: <FileText />,
-    text: "Receive Clearance",
+    id: 2,
+    icon: <Banknote />,
+    text: "Make payment",
     description:
-      "Upon approval, download your Environmental Import Clearance Certificate within 48 hours",
+      "With lots of unique blocks, you can easily build a page without coding.",
   },
   {
     id: 4,
@@ -124,5 +117,12 @@ export const clearanceContent = [
     text: "Verification",
     description:
       "NESREA verifies your documents and checks compliance with regulations",
+  },
+  {
+    id: 3,
+    icon: <FileText />,
+    text: "Receive Clearance",
+    description:
+      "Upon approval, download your Environmental Import Clearance Certificate within 48 hours",
   },
 ];

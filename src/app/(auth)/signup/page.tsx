@@ -180,6 +180,7 @@ export default function SignUpForm() {
 
   return (
     <section>
+      <Header />
       <div className="relative flex h-full items-center justify-center py-10 px-24">
         <div
           className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
@@ -205,7 +206,9 @@ export default function SignUpForm() {
               </h2>
               <div className="mt-6 block gap-7 leading-8">
                 <p className="font-bold">Contact us:</p>
-                <p>dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.</p>
+                <p className="">
+                  dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.
+                </p>
                 <p>
                   No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria.
                   <br />
@@ -216,7 +219,7 @@ export default function SignUpForm() {
                 <Image
                   src={i4logogreen}
                   alt="Company Logo"
-                  className="w-[90px] hover:opacity-90 transition-opacity"
+                  className="w-[130px] hover:opacity-90 transition-opacity"
                 />
               </div>
             </div>
@@ -225,7 +228,7 @@ export default function SignUpForm() {
             <div className="rounded-2xl overflow-hidden shadow-lg">
               <Image
                 src={ship}
-                alt="Lotus GT"
+                alt="ship"
                 className="object-cover w-full h-[520px] rounded-3xl"
               />
             </div>

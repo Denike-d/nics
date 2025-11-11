@@ -1,11 +1,13 @@
 // File: components/RegistrationForm.tsx
 
 "use client";
-import { useState } from "react";
-import { ProfileType } from "./page";
+import { useState, useEffect } from "react";
+import { ProfileType } from "@/components/utils/types";
 import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { userType } from "@/content/user-type";
 
 interface RegistrationFormProps {
   profileType: ProfileType;
@@ -20,6 +22,8 @@ interface FormData {
   address: string;
   additionalInfo: string;
   nin: string;
+  contactname: string;
+  governmentid: string;
   document: File | null;
 }
 
@@ -43,9 +47,17 @@ export default function RegistrationForm({
     resiaddress: "",
     address: "",
     nin: "",
+    contactname: "",
     additionalInfo: "",
+    governmentid: "",
     document: null,
   });
+  // const [type, setType] = useState<string | null>(null);
+  const router = useRouter();
+
+  // if (profileType) {
+  //   return <div className="p-6">No user type selected. Redirecting...</div>;
+  // }
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,16 +77,25 @@ export default function RegistrationForm({
     }
   };
 
+  useEffect(() => {
+    const t = localStorage.getItem("userType");
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted for:", profileType, formData);
-    alert(`${profileType} registration submitted successfully!`);
+    localStorage.setItem(
+      "formData",
+      JSON.stringify({ userType: profileType, ...formData })
+    );
+    console.log("This is the user type", userType);
+    router.push("/payment");
     //send the data to the backend API
   };
 
   const getFormFields = () => {
     switch (profileType) {
-      case "Agent":
+      case "agent":
         return (
           <>
             <div>
@@ -191,7 +212,7 @@ export default function RegistrationForm({
             </div>
           </>
         );
-      case "Government":
+      case "government":
         return (
           <>
             <div>
@@ -218,8 +239,8 @@ export default function RegistrationForm({
 
               <input
                 type="text"
-                name="additionalInfo"
-                value={formData.additionalInfo}
+                name="governmentid"
+                value={formData.governmentid}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter government ID"
@@ -238,8 +259,8 @@ export default function RegistrationForm({
 
                   <input
                     type="text"
-                    name="name"
-                    value={formData.name}
+                    name="contactname"
+                    value={formData.contactname}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                     placeholder=""
@@ -269,7 +290,7 @@ export default function RegistrationForm({
                   <input
                     type="text"
                     name="address"
-                    value={formData.additionalInfo}
+                    value={formData.address}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                     placeholder=""
@@ -280,7 +301,7 @@ export default function RegistrationForm({
             </div>
           </>
         );
-      case "Individual":
+      case "individual":
         return (
           <>
             <div>
@@ -386,7 +407,7 @@ export default function RegistrationForm({
             </div>
           </>
         );
-      case "Company":
+      case "company":
         return (
           <>
             {/*Section One */}
@@ -526,7 +547,9 @@ export default function RegistrationForm({
 
           <div className="bg-white rounded-lg shadow-md p-8">
             <h1 className="text-3xl font-bold mb-2 text-black">
-              {profileType} Registration
+              {profileType &&
+                profileType.charAt(0).toUpperCase() + profileType.slice(1)}{" "}
+              Registration
             </h1>
             <p className="text-black mb-6">
               Please fill out the form below to register as a{" "}

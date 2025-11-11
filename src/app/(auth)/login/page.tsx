@@ -342,6 +342,7 @@ import Link from "next/link";
 import ship from "../../../../public/images/ship.jpg";
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import i4logogreen from "../../../../public/images/i4logogreen.png";
 import pattern from "../../../../public/images/pattern.png";
 
@@ -362,118 +363,132 @@ export default function Home() {
     console.log({ email, password });
   }
 
+  const router = useRouter();
+  function handleLogin() {
+    // simulate registered & authenticated user
+    localStorage.setItem("authenticated", "true");
+    router.push("/user-type");
+  }
   return (
-    <main className="relative flex h-full items-center justify-center py-10 px-24">
-      <div
-        className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
-        style={{ backgroundImage: "url(/images/pattern.png)" }}
-      />
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2">
-        {/* LEFT */}
-        <div className="flex flex-col justify-center">
-          {/* <p className="text- tracking-widest text-gray-600 uppercase">
+    <main>
+      <Header />
+      <div className="relative flex h-full items-center justify-center py-10 px-24">
+        <div
+          className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
+          style={{ backgroundImage: "url(/images/pattern.png)" }}
+        />
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2">
+          {/* LEFT */}
+          <div className="flex flex-col justify-center">
+            {/* <p className="text- tracking-widest text-gray-600 uppercase">
             NICS
           </p> */}
 
-          <h1 className="text-3xl font-bold leading-tight">
-            NESREA <span className="text-green-600">IMPORT</span>
-            <br />
-            <span className="relative">
-              <span className="text-green-600">CLEARANCE</span> SYSTEM
-              <span className="absolute inset-x-0 bottom-1 h-3 w-full opacity-70 -z-10"></span>
-            </span>
-            <br />
-          </h1>
-          <div className="mt-6 block gap-7 leading-8">
-            <p className="font-bold">Contact us:</p>
-            <p>dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.</p>
-            <p>
-              No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria.
+            <h1 className="text-3xl font-bold leading-tight">
+              NESREA <span className="text-green-600">IMPORT</span>
               <br />
-            </p>
+              <span className="relative">
+                <span className="text-green-600">CLEARANCE</span> SYSTEM
+                <span className="absolute inset-x-0 bottom-1 h-3 w-full opacity-70 -z-10"></span>
+              </span>
+              <br />
+            </h1>
+            <div className="mt-6 block gap-7 leading-8">
+              <p className="font-bold">Contact us:</p>
+              <p>dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.</p>
+              <p>
+                No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria.
+                <br />
+              </p>
+            </div>
+            <div className="flex items-center mt-4">
+              <p className="text-[15px] font-semibold mr-2">Powered by</p>{" "}
+              <Image
+                src={i4logogreen}
+                alt="Company Logo"
+                className="w-[130px] hover:opacity-90 transition-opacity"
+              />
+            </div>
           </div>
-          <div className="flex items-center mt-4">
-            <p className="text-[15px] font-semibold mr-2">Powered by</p>{" "}
-            <Image
-              src={i4logogreen}
-              alt="Company Logo"
-              className="w-[90px] hover:opacity-90 transition-opacity"
-            />
-          </div>
-        </div>
 
-        {/* RIGHT */}
-        <div className="relative">
-          {/* Background Image */}
-          <div className="rounded-2xl overflow-hidden shadow-lg">
-            <Image
-              src={ship}
-              alt="Lotus GT"
-              className="object-cover w-full h-[520px] rounded-3xl"
-            />
-          </div>
-          <div className="absolute opacity-200 inset-0 bg-white/30 " />
-          {/* Float Login Card */}
-          <div className="absolute inset-0 flex items-center justify-center px-4">
-            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl py-12 px-8 space-y-4 border border-gray-200">
-              <h2 className="text-center font-bold text-2xl">
-                Login to your account
-              </h2>
+          {/* RIGHT */}
+          <div className="relative">
+            {/* Background Image */}
+            <div className="rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src={ship}
+                alt="Lotus GT"
+                className="object-cover w-full h-[520px] rounded-3xl"
+              />
+            </div>
+            <div className="absolute opacity-200 inset-0 bg-white/30 " />
+            {/* Float Login Card */}
+            <div className="absolute inset-0 flex items-center justify-center px-4">
+              <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl py-12 px-8 space-y-4 border border-gray-200">
+                <h2 className="text-center font-bold text-2xl">
+                  Login to your account
+                </h2>
 
-              <form
-                onSubmit={handleSubmit}
-                aria-label="Sign up form"
-                className="mt-12"
-              >
-                <label className="block mb-3">
-                  <span className="text-sm font-medium">Email</span>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
-                    placeholder="you@example.com"
-                  />
-                </label>
-
-                <label className="block mb-3 relative">
-                  <span className="text-sm font-medium">Password</span>
-                  <div className="relative flex items-center">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
-                      placeholder="Enter password"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((s) => !s)}
-                      className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                  </div>
-                </label>
-
-                <button
-                  type="submit"
-                  className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+                <form
+                  onSubmit={handleSubmit}
+                  aria-label="Sign up form"
+                  className="mt-12"
                 >
-                  <a href="/verify-email">Login</a>
-                </button>
-                <p className="text-sm text-center text-gray-700 mt-4">
-                  Don't have an account?{" "}
-                  <a href="/signup" className="text-green-800 font-medium">
-                    Signup
-                  </a>
-                </p>
-              </form>
+                  <label className="block mb-3">
+                    <span className="text-sm font-medium">Email</span>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3"
+                      placeholder="you@example.com"
+                    />
+                  </label>
+
+                  <label className="block mb-3 relative">
+                    <span className="text-sm font-medium">Password</span>
+                    <div className="relative flex items-center">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="mt-1 block w-full rounded-lg border-gray-200 shadow-sm focus:ring-2 focus:ring-indigo-300 p-3 pr-12"
+                        placeholder="Enter password"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((s) => !s)}
+                        className="absolute right-3 flex items-center justify-center h-full p-1 rounded-md focus:outline-none"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
+                      </button>
+                    </div>
+                  </label>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </button>
+                  <p className="text-sm text-center text-gray-700 mt-4">
+                    Don't have an account?{" "}
+                    <a href="/signup" className="text-green-800 font-medium">
+                      Signup
+                    </a>
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
         </div>

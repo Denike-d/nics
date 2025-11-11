@@ -1,20 +1,17 @@
 "use client";
+
 import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import { userType } from "@/content/user-type";
 import { useState } from "react";
 import RegistrationForm from "./forms";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
+import type { ProfileType } from "@/components/utils/types";
+
 import Image from "next/image";
 import rectangle from "../../../public/images/rectangle.png";
 import curve from "../../../public/images/curve.png";
 import HeaderBanner from "@/components/header-banner";
-
-export type ProfileType =
-  | "Agent"
-  | "Government"
-  | "Individual"
-  | "Company"
-  | null;
 
 export default function ProfileType() {
   const [selectedProfile, setSelectedProfile] = useState<ProfileType>(null);
@@ -98,7 +95,11 @@ export default function ProfileType() {
                   <PrimaryButton
                     href=""
                     title="Choose Profile"
-                    onClick={() => handleCardClick(profile.id as ProfileType)}
+                    onClick={() =>
+                      handleCardClick(
+                        profile.id.toLocaleLowerCase() as ProfileType
+                      )
+                    }
                     className="text-white bottom w-full"
                   />
                 </div>
