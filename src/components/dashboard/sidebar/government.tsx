@@ -9,8 +9,8 @@ import {
   FileText,
   HelpCircle,
   Settings,
-  LogOut,
   CircleUserRound,
+  LogOut,
 } from "lucide-react";
 import Image from "next/image";
 import nesrea from "../../../../public/images/nesrea.png";
@@ -26,31 +26,31 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     name: "Dashboard",
-    href: "/agent",
+    href: "/government",
     icon: <LayoutDashboard size={18} />,
   },
-  {
-    name: "Client Management",
-    href: "/agent/client-management",
-    icon: <Users size={18} />,
-  },
+  //   {
+  //     name: "Client Management",
+  //     href: "/agent/client-management",
+  //     icon: <Users size={18} />,
+  //   },
   {
     name: "Clearance",
-    href: "/agent/clearance",
+    href: "/government/clearance",
     icon: <CheckCircle size={18} />,
   },
   {
     name: "Certificates",
-    href: "/agent/certificates",
+    href: "/government/certificates",
     icon: <FileBadge2 size={18} />,
   },
-  { name: "Payments", href: "/agent/payment", icon: <Wallet size={18} /> },
+  { name: "Payments", href: "/government/payment", icon: <Wallet size={18} /> },
   // { name: "Invoices", href: "/agent/invoices", icon: <FileText size={18} /> },
   { name: "Support", href: "/support", icon: <HelpCircle size={18} /> },
   { name: "Profile", href: "/profile", icon: <CircleUserRound size={18} /> },
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/settings",
     icon: <Settings size={18} />,
   },
 ];

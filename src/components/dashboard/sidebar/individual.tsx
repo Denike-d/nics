@@ -10,6 +10,7 @@ import {
   HelpCircle,
   Settings,
   LogOut,
+  CircleUserRound,
 } from "lucide-react";
 import Image from "next/image";
 import nesrea from "../../../../public/images/nesrea.png";
@@ -46,6 +47,8 @@ const navItems: NavItem[] = [
   { name: "Payments", href: "/dashboard/payment", icon: <Wallet size={18} /> },
   // { name: "Invoices", href: "/invoices", icon: <FileText size={18} /> },
   { name: "Support", href: "/support", icon: <HelpCircle size={18} /> },
+  { name: "Profile", href: "/profile", icon: <CircleUserRound size={18} /> },
+
   {
     name: "Settings",
     href: "/dashboard/settings",

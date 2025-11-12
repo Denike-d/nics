@@ -9,8 +9,8 @@ export default function OverviewCards() {
   const cards = [
     { title: "Company Payments", value: 0, icon: <Users /> },
     { title: "Individual Payments", value: 0, icon: <CircleDotDashed /> },
-    { title: "Pending Payments", value: 0, icon: <Banknote /> },
-    { title: "Payments Made", value: 0, icon: <Files /> },
+    { title: "Pending Payment", value: 0, icon: <Banknote /> },
+    { title: "Payment Made", value: 0, icon: <Files /> },
   ];
 
   interface Activity {
@@ -18,7 +18,6 @@ export default function OverviewCards() {
     referenceId: string;
     date: string;
     description: string;
-    amount: string;
     status: "Rejected" | "Approved" | "Pending";
     action: "Pay";
   }
@@ -29,7 +28,6 @@ export default function OverviewCards() {
       referenceId: "N112247488444444444",
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
-      amount: "35,000",
       status: "Rejected",
       action: "Pay",
     },
@@ -39,14 +37,12 @@ export default function OverviewCards() {
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
       status: "Rejected",
-      amount: "35,000",
       action: "Pay",
     },
     {
       id: 3,
       referenceId: "N112247488444444444",
       description: "Clearance",
-      amount: "35,000",
       date: "21st Oct, 2025 - 8:30pm",
       status: "Rejected",
       action: "Pay",
@@ -56,7 +52,6 @@ export default function OverviewCards() {
       referenceId: "N112247488444444444",
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
-      amount: "35,000",
       status: "Rejected",
       action: "Pay",
     },
@@ -65,7 +60,6 @@ export default function OverviewCards() {
       referenceId: "N112247488444444444",
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
-      amount: "35,000",
       status: "Rejected",
       action: "Pay",
     },
@@ -88,7 +82,7 @@ export default function OverviewCards() {
   return (
     <div>
       <Header />
-      <p className="mt-4 font-semibold">Payment History</p>
+      <p className="mt-4 font-semibold">Payment Overview</p>
       <div className="grid grid-cols-4 gap-4 mt-4">
         {cards.map((c) => (
           <div key={c.title} className="bg-white p-4 rounded-lg shadow">
@@ -107,7 +101,7 @@ export default function OverviewCards() {
         ))}
       </div>
 
-      <div className="w-full max-w-6xl mx-auto bg-white">
+      <div className="max-w-5xl bg-white">
         {/* Header */}
         <div className="flex items-center justify-between py-8">
           <h2 className="text-xl font-semibold text-gray-800">
@@ -128,6 +122,17 @@ export default function OverviewCards() {
             </div>
 
             {/* Filter Dropdown */}
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option>All Activities</option>
+              <option>Profile Registration</option>
+              <option>Clearance</option>
+              <option>Payment</option>
+              <option>Certificate</option>
+            </select>
 
             {/* Filter Button */}
             <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
@@ -142,25 +147,22 @@ export default function OverviewCards() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
-                  S/N
-                </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Reference ID
                 </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Decription
                 </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Amount
                 </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Date
                 </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Status
                 </th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                   Action
                 </th>
               </tr>
@@ -171,22 +173,19 @@ export default function OverviewCards() {
                   key={activity.id}
                   className="hover:bg-gray-50 transition-colors"
                 >
-                  <td className="px-6 py-4 text-sm text-gray-800">
+                  <td className="px-2 py-4 text-sm text-gray-800">
                     {activity.id}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800">
+                  <td className="px-2 py-4 text-sm text-gray-800">
                     {activity.referenceId}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
+                  <td className="px-2 py-4 text-sm text-gray-600">
                     {activity.description}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {activity.amount}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
+                  <td className="px-2 py-4 text-sm text-gray-600">
                     {activity.date}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-2 py-4">
                     <span
                       className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(
                         activity.status

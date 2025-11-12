@@ -1,9 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import AddImportItemModal from "@/components/dashboard/additemform";
+import React from "react";
+import { FileText, Download } from "lucide-react";
 
 interface ImportItem {
   id: number;
@@ -16,8 +12,8 @@ interface ImportItem {
   portOfLoading: string;
 }
 
-export default function ImportDetailsPage() {
-  const [items, setItems] = useState<ImportItem[]>([
+export default function ImporterDetailsView() {
+  const importItems: ImportItem[] = [
     {
       id: 1,
       item: "Salt",
@@ -78,141 +74,86 @@ export default function ImportDetailsPage() {
       countryOfOrigin: "China",
       portOfLoading: "Ghana",
     },
-    {
-      id: 7,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 8,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 9,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 10,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 11,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 12,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 13,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 14,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 15,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-    {
-      id: 16,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    },
-  ]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleAddItem = () => {
-    const newItem: ImportItem = {
-      id: items.length + 1,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: "22222",
-      cargoNo: "122",
-      countryOfOrigin: "China",
-      portOfLoading: "Ghana",
-    };
-    setItems([...items, newItem]);
-  };
-  const router = useRouter();
+  ];
+
   return (
     <div className="w-full min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Progress Steps */}
-
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Import Details</h1>
-
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-green-700 hover:bg-green-800 text-white font-medium px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors"
-          >
-            <span className="text-lg">+</span>
-            Add Item
-          </button>
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-2">
+            <span className="text-green-700 font-semibold">
+              Apply for clearance
+            </span>
+          </div>
+          <div className="h-px flex-1 bg-gray-300"></div>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600 font-medium">Upload Documents</span>
+          </div>
         </div>
 
-        {/* Table */}
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-6">
+        {/* Importer Details Section */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">
+            Importer Details:
+          </h2>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-3 border-b border-gray-200">
+              <span className="text-gray-900 font-semibold">Name</span>
+              <span className="text-gray-700">I4 Global Services</span>
+            </div>
+
+            <div className="flex items-center justify-between py-3 border-b border-gray-200">
+              <span className="text-gray-900 font-semibold">Email</span>
+              <span className="text-gray-700">email@1234.com</span>
+            </div>
+
+            <div className="flex items-center justify-between py-3 border-b border-gray-200">
+              <span className="text-gray-900 font-semibold">NESREA ID</span>
+              <span className="text-gray-700">1234567890</span>
+            </div>
+
+            <div className="flex items-center justify-between py-3">
+              <span className="text-gray-900 font-semibold">
+                Importer Category
+              </span>
+              <span className="text-gray-700">Company</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Documents Uploaded Section */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">
+            Documents Uploaded:
+          </h2>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <FileText className="w-5 h-5 text-gray-600" />
+              <span className="text-gray-900 font-medium">
+                000221334-test doc.pdf
+              </span>
+            </div>
+
+            <button className="px-5 py-2 border-2 border-green-700 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors flex items-center gap-2">
+              <Download className="w-4 h-4" />
+              Download
+            </button>
+          </div>
+        </div>
+
+        {/* Import Details Section */}
+        <div className="bg-white border border-gray-200 rounded-lg mb-6">
+          <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-gray-900">Import Details</h2>
+            <button className="bg-green-700 hover:bg-green-800 text-white font-medium px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors">
+              <span className="text-lg">+</span>
+              Add Item
+            </button>
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
@@ -244,7 +185,7 @@ export default function ImportDetailsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {items.map((item) => (
+                {importItems.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50">
                     <td className="py-3 px-4 text-sm text-gray-900">
                       {item.id}
@@ -280,22 +221,13 @@ export default function ImportDetailsPage() {
         {/* Action Buttons */}
         <div className="flex items-center justify-end gap-4">
           <button className="px-6 py-2.5 border-2 border-green-700 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors">
-            Save for later
+            View Invoice
           </button>
           <button className="px-8 py-2.5 bg-green-700 hover:bg-green-800 text-white font-medium rounded-lg transition-colors">
-            Next
+            View Certificate
           </button>
         </div>
       </div>
-      <AddImportItemModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSuccess={() => {
-          // console.log("Item added successfully!");
-          setIsModalOpen(false);
-          // Refresh your items list here
-        }}
-      />
     </div>
   );
 }

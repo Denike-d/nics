@@ -106,20 +106,21 @@ export const clearanceContent = [
   },
   {
     id: 2,
-    icon: <Banknote />,
-    text: "Make payment",
-    description:
-      "With lots of unique blocks, you can easily build a page without coding.",
-  },
-  {
-    id: 4,
     icon: <ShieldCheck />,
-    text: "Verification",
+    text: "Application Review",
     description:
       "NESREA verifies your documents and checks compliance with regulations",
   },
   {
     id: 3,
+    icon: <Banknote />,
+    text: "Make payment",
+    description:
+      "With lots of unique blocks, you can easily build a page without coding.",
+  },
+
+  {
+    id: 4,
     icon: <FileText />,
     text: "Receive Clearance",
     description:

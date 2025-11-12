@@ -15,40 +15,46 @@ export default function OverviewCards() {
 
   interface Activity {
     id: number;
-    activity: string;
-    referenceId: string;
-    date: string;
+    name: string;
+    clientType: string;
+    totalClearance: string;
+    appointmentDate: string;
     status: "Rejected" | "Approved" | "Pending";
   }
 
   const [activities] = useState<Activity[]>([
     {
       id: 1,
-      activity: "Profile Registration",
-      referenceId: "CL - 1023",
-      date: "21st Oct, 2025 - 8:30pm",
-      status: "Rejected",
+      name: "Esther Hownard",
+      clientType: "individual",
+      totalClearance: "1",
+      appointmentDate: "11th Oct, 2025 - 7:55pm",
+      status: "Pending",
     },
     {
       id: 2,
-      activity: "Clearance",
-      referenceId: "PR - 1050",
-      date: "11th Oct, 2025 - 7:55pm",
+      name: "Esther Hownard",
+      clientType: "individual",
+      totalClearance: "19",
+      appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Approved",
     },
     {
       id: 3,
-      activity: "Payment",
-      referenceId: "PY - 9012",
-      date: "3rd Oct, 2025 - 5:00pm",
-      status: "Approved",
+      name: "Esther Hownard",
+      clientType: "individual",
+      totalClearance: "5",
+      appointmentDate: "11th Oct, 2025 - 7:55pm",
+      status: "Pending",
     },
+
     {
       id: 4,
-      activity: "Certificate",
-      referenceId: "CF - 808",
-      date: "24th Sep, 2025 - 1:45pm",
-      status: "Pending",
+      name: "Esther Hownard",
+      clientType: "individual",
+      totalClearance: "10",
+      appointmentDate: "11th Oct, 2025 - 7:55pm",
+      status: "Rejected",
     },
   ]);
 
@@ -76,31 +82,53 @@ export default function OverviewCards() {
           <p className="font-semibold">Appointment Overview</p>
         </div>
 
-        <div className="grid grid-cols-4 gap-4 mt-4">
-          {cards.map((c) => (
-            <div key={c.title} className="bg-white p-4 rounded-lg shadow">
-              <div className="flex items-center gap-2">
-                <div className="text-white bg-green-700 p-1.5 rounded-full items-center">
-                  {c.icon}
-                </div>
-                <div>
-                  <div className="text-xs text-slate-500 text-semibold">
-                    {c.title}
-                  </div>
-                  <div className="text-2xl font-bold mt-2">{c.value}</div>
-                </div>
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-gray-600">Pending</span>
+              <div className="bg-yellow-100 p-2 rounded-full">
+                <div className="w-5 h-5 bg-yellow-500 rounded-full"></div>
               </div>
             </div>
-          ))}
+            <p className="text-3xl font-bold text-gray-900">0</p>
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-gray-600">Approved</span>
+              <div className="bg-green-100 p-2 rounded-full">
+                <div className="w-5 h-5 bg-green-500 rounded-full"></div>
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">0</p>
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-gray-600">Rejected</span>
+              <div className="bg-red-100 p-2 rounded-full">
+                <div className="w-5 h-5 bg-red-500 rounded-full"></div>
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">0</p>
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-gray-600">Revoked</span>
+              <div className="bg-orange-100 p-2 rounded-full">
+                <div className="w-5 h-5 bg-orange-500 rounded-full"></div>
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">0</p>
+          </div>
         </div>
       </div>
 
       <div className="w-full max-w-6xl mx-auto bg-white">
         {/* Header */}
         <div className="flex items-center justify-between py-8">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Recent Activities
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-800">Client List</h2>
 
           <div className="flex items-center gap-3">
             {/* Search Input */}
@@ -114,19 +142,6 @@ export default function OverviewCards() {
                 className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
-            {/* Filter Dropdown */}
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option>All Activities</option>
-              <option>Profile Registration</option>
-              <option>Clearance</option>
-              <option>Payment</option>
-              <option>Certificate</option>
-            </select>
 
             {/* Filter Button */}
             <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
@@ -142,13 +157,19 @@ export default function OverviewCards() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
-                  Activity
+                  S/N
                 </th>
                 <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
-                  Reference ID
+                  Name
                 </th>
                 <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
-                  Date
+                  Client Type
+                </th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                  Total Clearance
+                </th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
+                  Appointment Date
                 </th>
                 <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">
                   Status
@@ -165,13 +186,19 @@ export default function OverviewCards() {
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="px-6 py-4 text-sm text-gray-800">
-                    {activity.activity}
+                    {activity.id}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800">
+                    {activity.name}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600">
-                    {activity.referenceId}
+                    {activity.clientType}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600">
-                    {activity.date}
+                    {activity.totalClearance}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {activity.appointmentDate}
                   </td>
                   <td className="px-6 py-4">
                     <span
@@ -183,8 +210,8 @@ export default function OverviewCards() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <button className="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline">
-                      View More
+                    <button className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">
+                      View
                     </button>
                   </td>
                 </tr>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import AddImportItemModal from "@/components/dashboard/additemform";
+import AddImportItemForm from "../../form";
 
 interface ImportItem {
   id: number;
@@ -287,15 +287,7 @@ export default function ImportDetailsPage() {
           </button>
         </div>
       </div>
-      <AddImportItemModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSuccess={() => {
-          // console.log("Item added successfully!");
-          setIsModalOpen(false);
-          // Refresh your items list here
-        }}
-      />
+      {/* <AddImportItemForm /> */}
     </div>
   );
 }
