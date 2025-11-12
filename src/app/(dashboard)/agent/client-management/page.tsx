@@ -3,6 +3,7 @@
 import { Users, CircleDotDashed, Banknote, Files } from "lucide-react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Header from "@/components/dashboard/header";
+import Pagination from "@/components/pagination";
 import { useState } from "react";
 
 export default function OverviewCards() {
@@ -60,6 +61,12 @@ export default function OverviewCards() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const totalPages = Math.ceil(activities.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = activities.slice(startIndex, startIndex + itemsPerPage);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -219,6 +226,11 @@ export default function OverviewCards() {
             </tbody>
           </table>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

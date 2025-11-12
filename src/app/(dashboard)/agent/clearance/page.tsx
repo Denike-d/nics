@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import Pagination from "@/components/pagination";
 import {
   Search,
   SlidersHorizontal,
@@ -16,6 +16,8 @@ export default function ImportClearanceCertificate() {
   const [showForm, setShowForm] = useState(false);
   const [selectedClient, setSelectedClient] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   // const handleNext = () => {
   //   if (selectedClient) {
@@ -76,7 +78,12 @@ export default function ImportClearanceCertificate() {
       status: "Rejected",
     },
   ];
-
+  const totalPages = Math.ceil(clearanceData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = clearanceData.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Pending":
@@ -304,7 +311,7 @@ export default function ImportClearanceCertificate() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {clearanceData.map((item) => (
+              {currentItems.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="py-3 px-4 text-sm text-gray-900">{item.id}</td>
                   <td className="py-3 px-4 text-sm text-gray-900">
@@ -343,6 +350,11 @@ export default function ImportClearanceCertificate() {
             </tbody>
           </table>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

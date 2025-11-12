@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
+import Pagination from "@/components/pagination";
 import Header from "@/components/dashboard/header";
 
 interface Activity {
@@ -51,6 +52,12 @@ const RecentActivities: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const totalPages = Math.ceil(activities.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = activities.slice(startIndex, startIndex + itemsPerPage);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -137,7 +144,7 @@ const RecentActivities: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {activities.map((activity) => (
+              {currentItems.map((activity) => (
                 <tr
                   key={activity.id}
                   className="hover:bg-gray-50 transition-colors"
@@ -175,6 +182,11 @@ const RecentActivities: React.FC = () => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </main>
   );

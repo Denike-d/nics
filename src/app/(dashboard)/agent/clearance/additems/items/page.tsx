@@ -192,7 +192,7 @@ export default function ImportDetailsPage() {
     };
     setItems([...items, newItem]);
   };
-  const router = useRouter();
+
   return (
     <div className="w-full min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">

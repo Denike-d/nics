@@ -5,6 +5,7 @@ import { Download, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { clearanceData } from "@/components/dashboard/content";
+import Pagination from "@/components/pagination";
 
 interface ImportItem {
   sn: number;
@@ -41,6 +42,58 @@ type ClearanceType = {
   status: string;
   expiryDate?: string;
 };
+const importItems: ImportItem[] = [
+  {
+    sn: 1,
+    item: "Salt",
+    hsCode: "12345",
+    unit: "Kg",
+    quantity: 22222,
+    cargoNo: 122,
+    countryOfOrigin: "China",
+    pol: "Shanghai",
+  },
+  {
+    sn: 2,
+    item: "Salt",
+    hsCode: "12345",
+    unit: "Kg",
+    quantity: 22222,
+    cargoNo: 122,
+    countryOfOrigin: "China",
+    pol: "Shanghai",
+  },
+  {
+    sn: 3,
+    item: "Salt",
+    hsCode: "12345",
+    unit: "Kg",
+    quantity: 22222,
+    cargoNo: 122,
+    countryOfOrigin: "China",
+    pol: "Shanghai",
+  },
+  {
+    sn: 4,
+    item: "Salt",
+    hsCode: "12345",
+    unit: "Kg",
+    quantity: 22222,
+    cargoNo: 122,
+    countryOfOrigin: "China",
+    pol: "Shanghai",
+  },
+  {
+    sn: 5,
+    item: "Salt",
+    hsCode: "12345",
+    unit: "Kg",
+    quantity: 22222,
+    cargoNo: 122,
+    countryOfOrigin: "China",
+    pol: "Shanghai",
+  },
+];
 
 const clearanceDetails = ({ params }: { params: { id: string } }) => {
   console.log("params:", params);
@@ -48,65 +101,18 @@ const clearanceDetails = ({ params }: { params: { id: string } }) => {
   // const clearance = clearanceData.find((c) => c.id === params.id);
 
   const [clearance, setClearance] = useState<ClearanceType | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  const totalPages = Math.ceil(importItems.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = importItems.slice(startIndex, startIndex + itemsPerPage);
 
   useEffect(() => {
     const found = clearanceData.find((c) => c.id === params.id) ?? null;
     setClearance(found);
     console.log("params in browser:", params);
   }, [params.id]);
-
-  const importItems: ImportItem[] = [
-    {
-      sn: 1,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: 22222,
-      cargoNo: 122,
-      countryOfOrigin: "China",
-      pol: "Shanghai",
-    },
-    {
-      sn: 2,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: 22222,
-      cargoNo: 122,
-      countryOfOrigin: "China",
-      pol: "Shanghai",
-    },
-    {
-      sn: 3,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: 22222,
-      cargoNo: 122,
-      countryOfOrigin: "China",
-      pol: "Shanghai",
-    },
-    {
-      sn: 4,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: 22222,
-      cargoNo: 122,
-      countryOfOrigin: "China",
-      pol: "Shanghai",
-    },
-    {
-      sn: 5,
-      item: "Salt",
-      hsCode: "12345",
-      unit: "Kg",
-      quantity: 22222,
-      cargoNo: 122,
-      countryOfOrigin: "China",
-      pol: "Shanghai",
-    },
-  ];
 
   if (!clearance) {
     return <p>Not found</p>;
@@ -233,7 +239,7 @@ const clearanceDetails = ({ params }: { params: { id: string } }) => {
                 </tr>
               </thead>
               <tbody>
-                {importItems.map((item) => (
+                {currentItems.map((item) => (
                   <tr
                     key={item.sn}
                     className="border-b border-gray-100 hover:bg-gray-50"
@@ -257,10 +263,15 @@ const clearanceDetails = ({ params }: { params: { id: string } }) => {
               </tbody>
             </table>
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
 
         {/* Action Buttons */}
-        {clearance.status === "approved" && (
+        {clearance.status === "Approved" && (
           <div className="flex justify-end gap-4">
             <button className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
               View Invoice

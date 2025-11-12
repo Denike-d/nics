@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
+import Pagination from "../pagination";
 
 interface Activity {
   id: number;
@@ -43,6 +44,12 @@ const RecentActivities: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  const totalPages = Math.ceil(activities.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = activities.slice(startIndex, startIndex + itemsPerPage);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -79,7 +86,7 @@ const RecentActivities: React.FC = () => {
           </div>
 
           {/* Filter Dropdown */}
-          <select
+          {/* <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -89,7 +96,7 @@ const RecentActivities: React.FC = () => {
             <option>Clearance</option>
             <option>Payment</option>
             <option>Certificate</option>
-          </select>
+          </select> */}
 
           {/* Filter Button */}
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
@@ -122,7 +129,7 @@ const RecentActivities: React.FC = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {activities.map((activity) => (
+            {currentItems.map((activity) => (
               <tr
                 key={activity.id}
                 className="hover:bg-gray-50 transition-colors"
@@ -155,6 +162,11 @@ const RecentActivities: React.FC = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

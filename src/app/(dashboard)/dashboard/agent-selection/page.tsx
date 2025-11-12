@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/dashboard/header";
 import Modal from "@/components/modal";
+import Pagination from "@/components/pagination";
 
 interface Agent {
   id: number;
@@ -56,6 +57,12 @@ const MeetOurAgents: React.FC = () => {
     },
     // Add more agents here
   ];
+
+  const itemsPerPage = 3;
+
+  const totalPages = Math.ceil(agents.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentagents = agents.slice(startIndex, startIndex + itemsPerPage);
 
   const handleAppointClick = (agent: Agent) => {
     setSelectedAgent(agent);
@@ -215,7 +222,7 @@ const MeetOurAgents: React.FC = () => {
 
           {/* Agents Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            {agents.map((agent) => (
+            {currentagents.map((agent) => (
               <div
                 key={agent.id}
                 className="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
@@ -259,27 +266,11 @@ const MeetOurAgents: React.FC = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-center gap-2">
-            <button className="p-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
-              <ChevronLeft className="w-4 h-4 text-gray-600" />
-            </button>
-            <button className="px-3 py-1 bg-gray-900 text-white text-sm rounded">
-              1
-            </button>
-            <button className="px-3 py-1 text-gray-600 text-sm hover:bg-gray-100 rounded transition-colors">
-              2
-            </button>
-            <button className="px-3 py-1 text-gray-600 text-sm hover:bg-gray-100 rounded transition-colors">
-              3
-            </button>
-            <span className="px-2 text-gray-400">...</span>
-            <button className="px-3 py-1 text-gray-600 text-sm hover:bg-gray-100 rounded transition-colors">
-              15
-            </button>
-            <button className="p-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
-              <ChevronRight className="w-4 h-4 text-gray-600" />
-            </button>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </>
       )}
 
