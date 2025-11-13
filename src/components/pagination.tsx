@@ -60,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={() => onPageChange(page)}
             className={`px-3 py-1.5 rounded-md border ${
               page === currentPage
-                ? "bg-blue-600 text-white border-blue-600"
+                ? "bg-green-600 text-white border-green-600"
                 : "border-gray-300 text-gray-700 hover:bg-gray-100"
             }`}
           >

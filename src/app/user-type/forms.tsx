@@ -534,8 +534,7 @@ export default function RegistrationForm({
   };
 
   return (
-    <div className="bg-[url('/images/rectangle.png')] bg-cover ">
-      <HeaderBanner />
+    <div>
       <div className="p-8 flex justify-center">
         <div className="w-full max-w-2xl">
           <button

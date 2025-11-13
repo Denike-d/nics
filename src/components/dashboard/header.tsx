@@ -8,9 +8,9 @@ export default function Header() {
       <div className="w-full border-b border-gray-200 px-6 py-4">
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
-            <div>
+            {/* <div>
               <h1 className="text-lg font-semibold">Dashboard</h1>
-            </div>
+            </div> */}
           </div>
           <div className="flex items-center gap-3">
             {/* <input

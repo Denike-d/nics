@@ -474,6 +474,10 @@ export default function Home() {
                     </div>
                   </label>
 
+                  <Link href="/forgot-password">
+                    <p>Forgot password</p>
+                  </Link>
+
                   <button
                     type="submit"
                     className="w-full bg-green-800 text-white py-3 rounded-lg hover:bg-green-700 transition"
