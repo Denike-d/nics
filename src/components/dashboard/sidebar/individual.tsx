@@ -46,8 +46,16 @@ const navItems: NavItem[] = [
   },
   { name: "Payments", href: "/dashboard/payment", icon: <Wallet size={18} /> },
   // { name: "Invoices", href: "/invoices", icon: <FileText size={18} /> },
-  { name: "Support", href: "/support", icon: <HelpCircle size={18} /> },
-  { name: "Profile", href: "/profile", icon: <CircleUserRound size={18} /> },
+  {
+    name: "Support",
+    href: "/dashboard/support",
+    icon: <HelpCircle size={18} />,
+  },
+  {
+    name: "Profile",
+    href: "/dashboard/profile",
+    icon: <CircleUserRound size={18} />,
+  },
 
   {
     name: "Settings",

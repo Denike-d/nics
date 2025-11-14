@@ -6,14 +6,18 @@ import Header from "@/components/dashboard/header";
 
 export default function () {
   const [profileData, setProfileData] = useState({
-    fullName: "",
-    preferredCity: "",
-    emailAddress: "",
-    nationalIdentification: "",
-    phoneNumber: "",
-    residentialAddress: "",
+    fullName: "John Doe",
+    emailAddress: "johdoe@gmail.com",
+    gender: "male",
+    nationalIdentification: "339999999999999",
+    state: "Abia",
+    lga: "Aba North",
+    phoneNumber: "080***",
+    residentialAddress: "n01 ******",
     nationalIdCard: null as File | null,
   });
+  const [isEditable, setIsEditable] = useState(false);
+  const [preview, setPreview] = useState("/api/placeholder/80/80");
 
   const handleInputChange = (field: string, value: string) => {
     setProfileData((prev) => ({ ...prev, [field]: value }));
@@ -27,7 +31,13 @@ export default function () {
       }));
     }
   };
-
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPreview(imageUrl); // update preview
+    }
+  };
   const handleSubmit = () => {
     console.log("Profile data submitted:", profileData);
     // Add your submit logic here
@@ -43,7 +53,7 @@ export default function () {
           </h2>
         </div>
         <button
-          onClick={handleSubmit}
+          onClick={() => setIsEditable(true)}
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md text-sm font-medium flex items-center space-x-2 transition-colors"
         >
           <span>✓</span>
@@ -65,16 +75,34 @@ export default function () {
                 className="w-full h-full object-cover"
               />
             </div>
-            <button className="absolute bottom-0 right-0 bg-white border border-gray-300 rounded-full p-1.5 shadow-sm hover:bg-gray-50 transition-colors">
+            <button
+              onClick={() =>
+                document.getElementById("profilePicInput")?.click()
+              }
+              className="absolute bottom-0 right-0 bg-white border border-gray-300 rounded-full p-1.5 shadow-sm hover:bg-gray-50 transition-colors"
+            >
               <Camera className="w-3.5 h-3.5 text-gray-600" />
             </button>
           </div>
           <div>
-            <p className="text-sm text-gray-600 mb-1">Preferred City</p>
-            <button className="text-sm text-green-600 hover:text-green-700 font-medium px-3 py-1 border border-green-600 rounded-md transition-colors">
+            <p className="text-sm text-gray-600 mb-1">Name</p>
+            <button
+              onClick={() =>
+                document.getElementById("profilePicInput")?.click()
+              }
+              className="text-sm text-green-600 hover:text-green-700 font-medium px-3 py-1 border border-green-600 rounded-md transition-colors"
+            >
               Upload new picture
             </button>
           </div>
+          <input
+            id="profilePicInput"
+            type="file"
+            accept="image/*"
+            disabled={!isEditable}
+            className="hidden"
+            onChange={handleImageChange}
+          />
         </div>
       </div>
 
@@ -93,8 +121,11 @@ export default function () {
               type="text"
               value={profileData.fullName}
               onChange={(e) => handleInputChange("fullName", e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Enter your full name"
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your full name"
             />
           </div>
 
@@ -108,8 +139,24 @@ export default function () {
               onChange={(e) =>
                 handleInputChange("emailAddress", e.target.value)
               }
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Enter your email address"
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your email address"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-600 mb-2">Gender</label>
+            <input
+              type="text"
+              value={profileData.gender}
+              onChange={(e) => handleInputChange("gender", e.target.value)}
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your email address"
             />
           </div>
 
@@ -123,8 +170,11 @@ export default function () {
               onChange={(e) =>
                 handleInputChange("nationalIdentification", e.target.value)
               }
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Enter your NIN"
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your NIN"
             />
           </div>
 
@@ -136,23 +186,43 @@ export default function () {
               type="tel"
               value={profileData.phoneNumber}
               onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Enter your phone number"
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your phone number"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-gray-600 mb-2">
-              Residential Address
-            </label>
+            <label className="block text-sm text-gray-600 mb-2">State</label>
             <input
               type="text"
-              value={profileData.residentialAddress}
+              value={profileData.state}
               onChange={(e) =>
                 handleInputChange("residentialAddress", e.target.value)
               }
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
               placeholder="Enter your residential address"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-600 mb-2">State</label>
+            <input
+              type="text"
+              value={profileData.lga}
+              onChange={(e) =>
+                handleInputChange("residentialAddress", e.target.value)
+              }
+              disabled={!isEditable}
+              className={`w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                !isEditable && "bg-gray-100 cursor-not-allowed"
+              }`}
+              // placeholder="Enter your residential address"
             />
           </div>
 
@@ -163,10 +233,14 @@ export default function () {
             <div className="flex items-center space-x-3">
               <label className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md cursor-pointer transition-colors">
                 <Upload className="w-4 h-4" />
-                <span className="text-sm">Upload new document</span>
+
+                <p className="text-gray-600 text-sm">
+                  Current file: <span className="font-medium">invoice.pdf</span>
+                </p>
                 <input
                   type="file"
                   onChange={handleFileUpload}
+                  disabled={!isEditable}
                   className="hidden"
                   accept=".pdf,.jpg,.jpeg,.png"
                 />
@@ -176,10 +250,28 @@ export default function () {
                   {profileData.nationalIdCard.name}
                 </span>
               )}
+
               {/* <button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md text-sm transition-colors">
                     Remove
                   </button> */}
             </div>
+            {isEditable && (
+              <div className="flex gap-12 mt-8">
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-green-600 text-white rounded w-[200px]"
+                >
+                  Submit
+                </button>
+
+                {/* <button
+                  onClick={() => setIsEditable(false)}
+                  className="px-4 py-2 bg-gray-400 text-white rounded"
+                >
+                  Cancel
+                </button> */}
+              </div>
+            )}
           </div>
         </div>
       </form>
