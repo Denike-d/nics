@@ -7,7 +7,10 @@ import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getNigeriaStates, getLGAs, getLgaSubAreas } from "geo-ng";
+import Image from "next/image";
 import { userType } from "@/content/user-type";
+import nesrea from "../../../public/images/nesrea.png";
 
 interface RegistrationFormProps {
   profileType: ProfileType;
@@ -18,9 +21,11 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  gender: string;
   resiaddress: string;
   address: string;
   additionalInfo: string;
+  association: string;
   nin: string;
   contactname: string;
   governmentid: string;
@@ -44,16 +49,32 @@ export default function RegistrationForm({
     name: "",
     email: "",
     phone: "",
+    gender: "",
     resiaddress: "",
     address: "",
     nin: "",
     contactname: "",
     additionalInfo: "",
     governmentid: "",
+    association: "",
     document: null,
   });
+  const [profilePic, setProfilePic] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   // const [type, setType] = useState<string | null>(null);
   const router = useRouter();
+
+  const states = getNigeriaStates(); // [{ name: "Lagos", code: "LA" }, ...]
+  const [selectedState, setSelectedState] = useState("");
+  const [lgas, setLgas] = useState<string[]>([]);
+
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stateCode = e.target.value;
+    setSelectedState(stateCode);
+
+    const stateLgas = getLGAs(stateCode as any);
+    setLgas(stateLgas); // returns LGA list for that state
+  };
 
   // if (profileType) {
   //   return <div className="p-6">No user type selected. Redirecting...</div>;
@@ -74,6 +95,18 @@ export default function RegistrationForm({
         ...formData,
         document: e.target.files[0],
       });
+    }
+  };
+
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setProfilePic(file);
+
+      // Generate image preview
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result as string);
+      reader.readAsDataURL(file);
     }
   };
 
@@ -132,6 +165,22 @@ export default function RegistrationForm({
             </div>
             <div>
               <LabelWithRequired
+                label="Gender"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              />
+
+              <input
+                type="text"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                placeholder="e.g female"
+                required
+              />
+            </div>
+            <div>
+              <LabelWithRequired
                 label=" National Identification Number(NIN)"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
@@ -148,7 +197,7 @@ export default function RegistrationForm({
             </div>
             <div>
               <LabelWithRequired
-                label=" Phone Number"
+                label="Phone Number"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
 
@@ -168,8 +217,8 @@ export default function RegistrationForm({
               </label>
               <input
                 type="text"
-                name="phone"
-                value={formData.phone}
+                name="association"
+                value={formData.association}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="08011223344"
@@ -178,29 +227,50 @@ export default function RegistrationForm({
             </div>
             <div>
               <LabelWithRequired
-                label=" Residential Address"
                 className="block text-sm font-medium text-gray-700 mb-2"
+                label="State"
               />
+              <select
+                value={selectedState}
+                onChange={handleStateChange}
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state.code} value={state.code}>
+                    {state.name.toLowerCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              <textarea
-                typeof="text"
-                name="additionalInfo"
-                value={formData.additionalInfo}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="Number 1, ABC Close, Abuja"
-                required
-              />
+            {/* LGA Dropdown */}
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Local Government
+              </label>
+              <select
+                disabled={!selectedState}
+                className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select LGA</option>
+                {lgas.map((lga) => (
+                  <option key={lga} value={lga}>
+                    {lga.toLowerCase()}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Upload Document (NIN, CAC, TIN, or Government ID — if
-                applicable)
-              </label>
+              <LabelWithRequired
+                className="block text-sm font-medium text-gray-700 mb-2"
+                label="Upload Document (NIN and TIN)"
+              />
+
               <input
                 type="file"
                 onChange={handleFileChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-green-700 hover:file:bg-blue-100"
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 required
               />
@@ -226,8 +296,24 @@ export default function RegistrationForm({
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Ministry of Housing"
+                required
+              />
+            </div>
+            <div>
+              <LabelWithRequired
+                label="Gender"
+                className="block text-sm font-medium text-gray-700"
+              />
+
+              <input
+                type="text"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                placeholder="e.g female"
                 required
               />
             </div>
@@ -242,7 +328,7 @@ export default function RegistrationForm({
                 name="governmentid"
                 value={formData.governmentid}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter government ID"
                 required
               />
@@ -262,7 +348,7 @@ export default function RegistrationForm({
                     name="contactname"
                     value={formData.contactname}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                     placeholder=""
                     required
                   />
@@ -278,24 +364,46 @@ export default function RegistrationForm({
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                     placeholder=""
                     required
                   />
                 </div>
-                <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Residential Address
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder=""
-                    required
+                <div>
+                  <LabelWithRequired
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                    label="State"
                   />
+                  <select
+                    value={selectedState}
+                    onChange={handleStateChange}
+                    className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select State</option>
+                    {states.map((state) => (
+                      <option key={state.code} value={state.code}>
+                        {state.name.toLowerCase()}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* LGA Dropdown */}
+                <div>
+                  <label className="block font-medium mb-1">
+                    Local Government
+                  </label>
+                  <select
+                    disabled={!selectedState}
+                    className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select LGA</option>
+                    {lgas.map((lga) => (
+                      <option key={lga} value={lga}>
+                        {lga.toLowerCase()}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -315,7 +423,7 @@ export default function RegistrationForm({
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter your full name"
                 required
               />
@@ -331,12 +439,27 @@ export default function RegistrationForm({
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter you email"
                 required
               />
             </div>
-            <div></div>
+            <div>
+              <LabelWithRequired
+                label="Gender"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              />
+
+              <input
+                type="text"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                placeholder="e.g female"
+                required
+              />
+            </div>
             <div>
               <LabelWithRequired
                 label="National Identity Number (NIN)"
@@ -348,7 +471,7 @@ export default function RegistrationForm({
                 name="nin"
                 value={formData.nin}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter ID number"
                 required
               />
@@ -365,26 +488,48 @@ export default function RegistrationForm({
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter your contact address"
                 required
               />
             </div>
             <div>
               <LabelWithRequired
-                label="Residential Address"
                 className="block text-sm font-medium text-gray-700 mb-2"
+                label="State"
               />
 
-              <textarea
-                typeof="text"
-                name="additionalInfo"
-                value={formData.additionalInfo}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="Enter your address"
+              <select
+                value={selectedState}
+                onChange={handleStateChange}
                 required
-              />
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state.code} value={state.code}>
+                    {state.name.toLowerCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* LGA Dropdown */}
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Local Government
+              </label>
+              <select
+                disabled={!selectedState}
+                className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select LGA</option>
+                {lgas.map((lga) => (
+                  <option key={lga} value={lga} className="text-sm">
+                    {lga.toLowerCase()}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <LabelWithRequired
@@ -395,7 +540,7 @@ export default function RegistrationForm({
               <input
                 type="file"
                 onChange={handleFileChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-green-700 hover:file:bg-blue-100"
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 required
               />
@@ -421,10 +566,38 @@ export default function RegistrationForm({
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="Enter company name"
                 required
               />
+            </div>
+            <div>
+              <label className="block font-medium mb-1">State</label>
+              <select
+                value={selectedState}
+                onChange={handleStateChange}
+                className="border p-2 rounded w-full"
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state.code} value={state.name}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* LGA Dropdown */}
+            <div>
+              <label className="block font-medium mb-1">Local Government</label>
+              <select className="border p-2 rounded w-full">
+                <option value="">Select LGA</option>
+                {lgas.map((lga) => (
+                  <option key={lga} value={lga}>
+                    {lga}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -435,24 +608,47 @@ export default function RegistrationForm({
                 name="additionalInfo"
                 value={formData.additionalInfo}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                 placeholder="1234567890"
                 required
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Organizational Address
+                State
               </label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="Enter registration number"
+              <select
+                value={selectedState}
+                onChange={handleStateChange}
                 required
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state.code} value={state.code}>
+                    {state.name.toLowerCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* LGA Dropdown */}
+            <div>
+              <LabelWithRequired
+                className="block text-sm font-medium text-gray-700 mb-2"
+                label="State"
               />
+              <select
+                disabled={!selectedState}
+                className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select LGA</option>
+                {lgas.map((lga) => (
+                  <option key={lga} value={lga}>
+                    {lga.toLowerCase()}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <LabelWithRequired
@@ -463,7 +659,7 @@ export default function RegistrationForm({
               <input
                 type="file"
                 onChange={handleFileChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 required
               />
@@ -488,8 +684,24 @@ export default function RegistrationForm({
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                   placeholder="Enter company name"
+                  required
+                />
+              </div>
+              <div>
+                <LabelWithRequired
+                  label="Gender"
+                  className="block text-sm font-medium text-gray-700"
+                />
+
+                <input
+                  type="text"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  placeholder="E.g Male"
                   required
                 />
               </div>
@@ -504,7 +716,7 @@ export default function RegistrationForm({
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                   placeholder="Enter registration number"
                   required
                 />
@@ -520,7 +732,7 @@ export default function RegistrationForm({
                   name="resiaddress"
                   value={formData.resiaddress}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-blue-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                   placeholder="Enter your address"
                   required
                 />
@@ -534,12 +746,29 @@ export default function RegistrationForm({
   };
 
   return (
-    <div>
+    <div className="bg-gray-50">
+      <div className="flex justify-center gap-2 items-center py-4 bg-white">
+        <Image src={nesrea} alt="nesrea logo" width={80} />
+        <p className="text-md md:text-lg font-bold text-gray-900 mt-6 leading-tight">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+            IMPORT
+          </span>{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+            {" "}
+            CLEARANCE
+          </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+            {" "}
+            SYSTEM
+          </span>
+        </p>
+      </div>
+      <div className="bg-gradient-to-br from-emerald-600 to-green-700"></div>
       <div className="p-8 flex justify-center">
         <div className="w-full max-w-2xl">
           <button
             onClick={onBack}
-            className="mb-6 text-green-700 font-medium flex items-center gap-2"
+            className="mb-6 text-green-600 font-medium flex items-center gap-2"
           >
             ← Back to profiles
           </button>
@@ -557,6 +786,24 @@ export default function RegistrationForm({
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {getFormFields()}
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Profile Picture
+                </label>
+
+                <input
+                  type="file"
+                  onChange={handleProfileChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-green-700 hover:file:bg-green-100"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                />
+                {formData.document && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Selected: {formData.document.name}
+                  </p>
+                )}
+              </div>
 
               <div className="flex justify-between">
                 <PrimaryButton

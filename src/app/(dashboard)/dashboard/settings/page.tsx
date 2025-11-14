@@ -43,7 +43,7 @@ export default function ProfileSettings() {
         {/* Tabs */}
         <div className="border-b border-gray-200">
           <div className="flex space-x-8 px-6">
-            <button
+            {/* <button
               onClick={() => setActiveTab("profile")}
               className={`py-4 px-2 font-medium text-sm border-b-2 transition-colors ${
                 activeTab === "profile"
@@ -52,7 +52,7 @@ export default function ProfileSettings() {
               }`}
             >
               Profile Settings
-            </button>
+            </button> */}
             <button
               onClick={() => setActiveTab("security")}
               className={`py-4 px-2 font-medium text-sm border-b-2 transition-colors ${
@@ -95,7 +95,7 @@ export default function ProfileSettings() {
             </div>
 
             {/* Profile Picture */}
-            <div className="mb-8">
+            {/* <div className="mb-8">
               <h3 className="text-sm font-medium text-gray-700 mb-3">
                 Profile Picture
               </h3>
@@ -119,7 +119,7 @@ export default function ProfileSettings() {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Profile Information Form */}
             <div className="space-y-6">

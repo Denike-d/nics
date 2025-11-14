@@ -5,6 +5,7 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import Header from "@/components/dashboard/header";
 import Pagination from "@/components/pagination";
 import { useState } from "react";
+import SideModal from "@/components/dashboard/sidemodal";
 
 export default function OverviewCards() {
   const cards = [
@@ -67,6 +68,10 @@ export default function OverviewCards() {
   const totalPages = Math.ceil(activities.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = activities.slice(startIndex, startIndex + itemsPerPage);
+
+  const [selectedRow, setSelectedRow] = useState<Activity | undefined>(
+    undefined
+  );
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -217,7 +222,16 @@ export default function OverviewCards() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <button className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">
+                    {/* <SideModal
+                      isOpen={!!selectedItem}
+                      onClose={() => setSelectedItem(null)}
+                      title={selectedItem?.title || ""}
+                      content={selectedItem?.details || ""}
+                    /> */}
+                    <button
+                      className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline"
+                      onClick={() => setSelectedRow(activity)}
+                    >
                       View
                     </button>
                   </td>
@@ -225,6 +239,12 @@ export default function OverviewCards() {
               ))}
             </tbody>
           </table>
+          {/* <SideModal
+            isOpen={!!selectedRow}
+            onClose={() => setSelectedRow(undefined)}
+            title={selectedRow?.name}
+            content={selectedRow}
+          /> */}
         </div>
         <Pagination
           currentPage={currentPage}

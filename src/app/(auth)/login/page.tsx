@@ -473,10 +473,11 @@ export default function Home() {
                       </button>
                     </div>
                   </label>
-
-                  <Link href="/forgot-password">
-                    <p>Forgot password</p>
-                  </Link>
+                  <div className="mb-4 text-green-700 text-left text-sm flex justify-end">
+                    <Link href="/forgot-password">
+                      <p>Forgot password</p>
+                    </Link>
+                  </div>
 
                   <button
                     type="submit"

@@ -26,6 +26,7 @@ const MeetOurAgents: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [appointedAgent, setAppointedAgent] = useState<Agent | null>(null);
+  const [showRevokeModal, setShowRevokeModal] = useState(false);
 
   const agents: Agent[] = [
     {
@@ -58,7 +59,7 @@ const MeetOurAgents: React.FC = () => {
     // Add more agents here
   ];
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 20;
 
   const totalPages = Math.ceil(agents.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -70,13 +71,15 @@ const MeetOurAgents: React.FC = () => {
   };
 
   const handleRevoke = () => {
-    alert("Appointment revoked");
+    // alert("Appointment revoked");
+    setAppointedAgent(null);
+    setShowRevokeModal(false);
   };
 
   const handleConfirmAppointment = () => {
     if (selectedAgent) {
       setAppointedAgent(selectedAgent); // This agent is now appointed
-      localStorage.setItem("appointedAgent", JSON.stringify(selectedAgent));
+      // localStorage.setItem("appointedAgent", JSON.stringify(selectedAgent));
       setShowModal(false);
     }
   };
@@ -86,17 +89,21 @@ const MeetOurAgents: React.FC = () => {
     setSelectedAgent(null);
   };
 
+  const handleCancelRevoke = () => {
+    setShowRevokeModal(false);
+  };
+
   const handleBackToList = () => {
     setAppointedAgent(null); // Go back to the list view
     setSelectedAgent(null);
   };
 
-  useEffect(() => {
-    const storedAgent = localStorage.getItem("appointedAgent");
-    if (storedAgent) {
-      setAppointedAgent(JSON.parse(storedAgent));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedAgent = localStorage.getItem("appointedAgent");
+  //   if (storedAgent) {
+  //     setAppointedAgent(JSON.parse(storedAgent));
+  //   }
+  // }, []);
 
   return (
     <div className="w-full max-w-7xl mx-auto p-6 bg-white">
@@ -188,13 +195,37 @@ const MeetOurAgents: React.FC = () => {
             {/* Revoke Button */}
             <div className="flex justify-center">
               <button
-                onClick={handleRevoke}
+                onClick={() => setShowRevokeModal(true)}
                 className="bg-red-700 hover:bg-red-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors shadow-md"
               >
                 Revoke Appointment
               </button>
             </div>
           </div>
+          {showRevokeModal && (
+            <Modal isOpen={showRevokeModal} onClose={handleCancelRevoke}>
+              <div className="text-center mb-6">
+                <h3 className="text-md font-medium text-gray-900">
+                  Are you sure you want to revoke {appointedAgent.name} as your
+                  agent.
+                </h3>
+              </div>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={handleRevoke}
+                  className="px-6 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+                >
+                  Yes, I want to
+                </button>
+                <button
+                  onClick={handleCancelRevoke}
+                  className="px-6 py-2.5 border-2 border-red-600 text-red-600 text-sm font-medium rounded-lg hover:bg-red-50 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </Modal>
+          )}
         </div>
       ) : (
         <>

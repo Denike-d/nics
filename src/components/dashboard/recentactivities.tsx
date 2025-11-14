@@ -45,7 +45,7 @@ const RecentActivities: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 20;
 
   const totalPages = Math.ceil(activities.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -153,7 +153,7 @@ const RecentActivities: React.FC = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <button className="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline">
+                  <button className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">
                     View More
                   </button>
                 </td>

@@ -377,14 +377,14 @@ const OTPVerification: React.FC = () => {
             </button> */}
           </div>
 
-          <div className="mt-6 text-center">
+          {/* <div className="mt-6 text-center">
             <a
               href="/signup"
               className="text-green-600 hover:text-gray-800 text-sm transition-colors"
             >
               ← Back to signup
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

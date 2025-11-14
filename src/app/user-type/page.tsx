@@ -6,9 +6,9 @@ import { useState } from "react";
 import RegistrationForm from "./forms";
 import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
-import type { ProfileType } from "@/components/utils/types";
-
 import Image from "next/image";
+import nesrea from "../../../public/images/nesrea.png";
+import type { ProfileType } from "@/components/utils/types";
 import rectangle from "../../../public/images/rectangle.png";
 import curve from "../../../public/images/curve.png";
 import HeaderBanner from "@/components/header-banner";
@@ -32,53 +32,82 @@ export default function ProfileType() {
 
   return (
     <>
-      <div className="bg-[url('/images/rectangle.png')] bg-cover">
-        <HeaderBanner />
-        <h3 className="font-bold text-xl text-black text-center mt-2">
-          Choose your user type
-        </h3>
-        <div className="">
-          <div className="gap-6 w-full max-w-7xl p-8 grid md:grid-cols-2 lg:grid-cols-4 justify-center">
-            {userType.map((profile) => (
-              <div
-                key={profile.id}
-                className={`bg-[#E7F2EC] shadow-md rounded-2xl flex-1 min-w-0 h-[420px] flex flex-col transform transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg cursor-pointer`}
-              >
-                <div className="bg-[url('/images/curve.png')] bg-cover p-4 w-full bg-no-repeat bg-top rounded-b-lg">
-                  {/* <Image src={rectangle} className="w-full" alt="rectangle" /> */}
-                  <h2 className="text-xl font-bold mb-2 text-black">
-                    {profile.title}
-                  </h2>
-                  <p className="text-black mb-6 text-sm">
-                    {profile.description}
-                  </p>
-                  <div className="text-sm text-black mb-4">
-                    <p className="text-sm">
-                      Registration Fee: <br />
-                      <span className="text-[20px] font-bold">
-                        {profile.fee}
-                      </span>
+      <div>
+        <div className="flex justify-center gap-2 items-center pb-4">
+          <Image src={nesrea} alt="nesrea logo" width={80} className="mt-4" />
+          <p className="text-md md:text-lg font-bold text-gray-900 mt-8 leading-tight">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              IMPORT
+            </span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              {" "}
+              CLEARANCE
+            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
+              {" "}
+              SYSTEM
+            </span>
+          </p>
+        </div>
+
+        {/* <h3 className="font-bold text-xl text-black text-center mt-2">
+          User Type Selection
+        </h3> */}
+        <div className="bg-gradient-to-br from-gray-50 to-emerald-50/30">
+          <div className="">
+            {" "}
+            <p className="text-xl text-white py-4 font-semibold text-center bg-gradient-to-br from-emerald-600 to-green-700 ">
+              Please select a user type to proceed
+            </p>
+          </div>
+
+          <div className="">
+            <div className="gap-6 w-full max-w-6xl p-8 mx-auto grid md:grid-cols-2 lg:grid-cols-4 justify-center">
+              {userType.map((profile) => (
+                <div
+                  key={profile.id}
+                  className={`bg-white shadow-md rounded-2xl flex-1 min-w-0 h-[420px] flex flex-col transform ease-out hover:scale-105 hover:shadow-lg cursor-pointer transition-all duration-300 overflow-hidden border border-gray-100 hover:border-emerald-200`}
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  <div className="p-4 w-full">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <div className="text-emerald-600">{profile.icon}</div>
+                      </div>
+                      <h2 className="text-md font-bold text-gray-800">
+                        {profile.title}
+                      </h2>
+                    </div>
+                    <p className="text-gray-800 mb-6  mt-4 text-sm">
+                      {profile.description}
                     </p>
-                  </div>
-                </div>
-
-                <div className="p-4">
-                  <h3 className="text-sm font-bold text-gray-900 mb-2">
-                    Eligibility:
-                  </h3>
-                  <ul className="space-y-2">
-                    {profile.eligibility.map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <Check className="w-4 h-4 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-xs text-gray-700 leading-relaxed">
-                          {item}
+                    <div className="text-sm text-black mb-4">
+                      <p className="text-sm">
+                        Registration Fee: <br />
+                        <span className="text-md font-bold text-green-600">
+                          {profile.fee}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      </p>
+                    </div>
+                  </div>
 
-                {/* <div className="mb-4">
+                  <div className="p-4 -mt-4">
+                    <h3 className="text-sm font-bold text-gray-900 mb-2">
+                      Eligibility:
+                    </h3>
+                    <ul className="space-y-2">
+                      {profile.eligibility.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <Check className="w-4 h-4 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-xs text-gray-700 leading-relaxed">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* <div className="mb-4">
               <h3 className="text-sm font-bold text-gray-900 mt-4">
                 Required Document:
               </h3>
@@ -91,20 +120,22 @@ export default function ProfileType() {
                 ))}
               </ul>
             </div> */}
-                <div className="mt-auto mx-4 mb-4">
-                  <PrimaryButton
-                    href=""
-                    title="Choose Profile"
-                    onClick={() =>
-                      handleCardClick(
-                        profile.id.toLocaleLowerCase() as ProfileType
-                      )
-                    }
-                    className="text-white bottom w-full"
-                  />
+                  <div className="mt-auto mx-4 mb-4">
+                    <button
+                      title="Choose Profile"
+                      onClick={() =>
+                        handleCardClick(
+                          profile.id.toLocaleLowerCase() as ProfileType
+                        )
+                      }
+                      className="w-full py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-600 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
+                    >
+                      Select
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
