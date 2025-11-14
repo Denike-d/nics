@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
 import { Send, Paperclip, X, MinusCircle, Smile } from "lucide-react";
 
