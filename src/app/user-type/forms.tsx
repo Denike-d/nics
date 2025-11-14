@@ -8,12 +8,11 @@ import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getNigeriaStates, getLGAs } from "geo-ng";
+import type { StateCodes, NigeriaState } from "geo-ng";
 
 import Image from "next/image";
 import { userType } from "@/content/user-type";
 import nesrea from "../../../public/images/nesrea.png";
-
-export type { getNigeriaStates, getLGAs };
 
 interface RegistrationFormProps {
   profileType: ProfileType;
@@ -62,21 +61,24 @@ export default function RegistrationForm({
     association: "",
     document: null,
   });
+
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   // const [type, setType] = useState<string | null>(null);
   const router = useRouter();
 
-  const states = getNigeriaStates(); // [{ name: "Lagos", code: "LA" }, ...]
-  const [selectedState, setSelectedState] = useState("");
+  const states: Omit<NigeriaState, "subs">[] = getNigeriaStates(); // [{ name: "Lagos", code: "LA" }, ...]
+  const [selectedState, setSelectedState] = useState<StateCodes | "">("");
   const [lgas, setLgas] = useState<string[]>([]);
 
   const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const stateCode = e.target.value;
+    const stateCode = e.target.value as StateCodes;
     setSelectedState(stateCode);
 
-    const stateLgas = getLGAs(stateCode as any);
-    setLgas(stateLgas); // returns LGA list for that state
+    const stateLgas = getLGAs(stateCode);
+    setLgas(stateLgas);
+
+    // returns LGA list for that state
   };
 
   // if (profileType) {
