@@ -7,8 +7,8 @@ import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getNigeriaStates, getLGAs } from "geo-ng";
-import type { StateCodes, NigeriaState } from "geo-ng";
+import { getNigeriaStates, getLGAs } from "../../components/myGeoNgWrapper";
+import type { StateCodes, NigeriaState } from "../../components/myGeoNgWrapper";
 
 import Image from "next/image";
 import { userType } from "@/content/user-type";
