@@ -7,10 +7,13 @@ import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getNigeriaStates, getLGAs, getLgaSubAreas } from "geo-ng";
+import { getNigeriaStates, getLGAs } from "geo-ng";
+
 import Image from "next/image";
 import { userType } from "@/content/user-type";
 import nesrea from "../../../public/images/nesrea.png";
+
+export { getNigeriaStates, getLGAs };
 
 interface RegistrationFormProps {
   profileType: ProfileType;
