@@ -13,7 +13,7 @@ import Image from "next/image";
 import { userType } from "@/content/user-type";
 import nesrea from "../../../public/images/nesrea.png";
 
-export { getNigeriaStates, getLGAs };
+export type { getNigeriaStates, getLGAs };
 
 interface RegistrationFormProps {
   profileType: ProfileType;
