@@ -15,14 +15,7 @@ interface SideModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  content?: {
-    id: number;
-    name: string;
-    clientType: string;
-    totalClearance: string;
-    appointmentDate: string;
-    status: string;
-  };
+  content: any;
 }
 
 export default function SideModal({

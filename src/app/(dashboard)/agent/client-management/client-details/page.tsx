@@ -3,12 +3,19 @@
 import { useState } from "react";
 import SideModal from "@/components/dashboard/sidemodal";
 
-interface Item {
+type ItemDetails = {
+  description: string;
+  features?: string[];
+  foundedYear?: number;
+  headquarters?: string;
+  [key: string]: any;
+};
+
+type Item = {
   id: number;
   title: string;
-  details: string;
-}
-
+  details: ItemDetails;
+};
 export default function HomePage() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
@@ -16,17 +23,27 @@ export default function HomePage() {
     {
       id: 1,
       title: "Cowrywise",
-      details: "Cowrywise helps users save and invest automatically.",
+      details: {
+        description: "Cowrywise helps users save and invest automatically.",
+        features: ["Automated savings", "Mutual funds"],
+        headquarters: "Lagos",
+      },
     },
     {
       id: 2,
       title: "PiggyVest",
-      details: "PiggyVest offers flexible saving and investment options.",
+      details: {
+        description: "PiggyVest offers flexible saving and investment options.",
+        features: ["Flex", "Investify", "Target savings"],
+      },
     },
     {
       id: 3,
       title: "Kuda Bank",
-      details: "Kuda is a digital bank offering zero fees on transfers.",
+      details: {
+        description: "Kuda is a digital bank offering zero-fee transfers.",
+        features: ["Free transfers", "Budgeting"],
+      },
     },
   ];
 
@@ -52,7 +69,7 @@ export default function HomePage() {
         isOpen={!!selectedItem}
         onClose={() => setSelectedItem(null)}
         title={selectedItem?.title || ""}
-        content={selectedItem?.details || ""}
+        content={selectedItem?.details || null}
       />
     </main>
   );
