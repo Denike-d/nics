@@ -7,8 +7,7 @@ import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getNigeriaStates, getLGAs } from "../../components/myGeoNgWrapper";
-import type { StateCodes, NigeriaState } from "../../components/myGeoNgWrapper";
+import { nigeriaStates } from "@/lib/ngstates";
 
 import Image from "next/image";
 import { userType } from "@/content/user-type";
@@ -64,22 +63,12 @@ export default function RegistrationForm({
 
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  // const [type, setType] = useState<string | null>(null);
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedLga, setSelectedLga] = useState("");
+
+  const lgas = selectedState ? nigeriaStates[selectedState] : [];
+
   const router = useRouter();
-
-  const states: Omit<NigeriaState, "subs">[] = getNigeriaStates(); // [{ name: "Lagos", code: "LA" }, ...]
-  const [selectedState, setSelectedState] = useState<StateCodes | "">("");
-  const [lgas, setLgas] = useState<string[]>([]);
-
-  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const stateCode = e.target.value as StateCodes;
-    setSelectedState(stateCode);
-
-    const stateLgas = getLGAs(stateCode);
-    setLgas(stateLgas);
-
-    // returns LGA list for that state
-  };
 
   // if (profileType) {
   //   return <div className="p-6">No user type selected. Redirecting...</div>;
@@ -237,13 +226,16 @@ export default function RegistrationForm({
               />
               <select
                 value={selectedState}
-                onChange={handleStateChange}
+                onChange={(e) => {
+                  setSelectedState(e.target.value);
+                  setSelectedLga(""); // reset LGA when state changes
+                }}
                 className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
               >
                 <option value="">Select State</option>
-                {states.map((state) => (
-                  <option key={state.code} value={state.code}>
-                    {state.name.toLowerCase()}
+                {Object.keys(nigeriaStates).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
                   </option>
                 ))}
               </select>
@@ -255,13 +247,15 @@ export default function RegistrationForm({
                 Local Government
               </label>
               <select
+                value={selectedLga}
+                onChange={(e) => setSelectedLga(e.target.value)}
                 disabled={!selectedState}
                 className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
               >
                 <option value="">Select LGA</option>
                 {lgas.map((lga) => (
                   <option key={lga} value={lga}>
-                    {lga.toLowerCase()}
+                    {lga}
                   </option>
                 ))}
               </select>
@@ -381,13 +375,16 @@ export default function RegistrationForm({
                   />
                   <select
                     value={selectedState}
-                    onChange={handleStateChange}
+                    onChange={(e) => {
+                      setSelectedState(e.target.value);
+                      setSelectedLga(""); // reset LGA when state changes
+                    }}
                     className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
                   >
                     <option value="">Select State</option>
-                    {states.map((state) => (
-                      <option key={state.code} value={state.code}>
-                        {state.name.toLowerCase()}
+                    {Object.keys(nigeriaStates).map((state) => (
+                      <option key={state} value={state}>
+                        {state}
                       </option>
                     ))}
                   </select>
@@ -506,14 +503,17 @@ export default function RegistrationForm({
 
               <select
                 value={selectedState}
-                onChange={handleStateChange}
+                onChange={(e) => {
+                  setSelectedState(e.target.value);
+                  setSelectedLga(""); // reset LGA when state changes
+                }}
                 required
                 className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
               >
                 <option value="">Select State</option>
-                {states.map((state) => (
-                  <option key={state.code} value={state.code}>
-                    {state.name.toLowerCase()}
+                {Object.keys(nigeriaStates).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
                   </option>
                 ))}
               </select>
@@ -525,13 +525,15 @@ export default function RegistrationForm({
                 Local Government
               </label>
               <select
+                value={selectedLga}
+                onChange={(e) => setSelectedLga(e.target.value)}
                 disabled={!selectedState}
                 className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
               >
                 <option value="">Select LGA</option>
                 {lgas.map((lga) => (
-                  <option key={lga} value={lga} className="text-sm">
-                    {lga.toLowerCase()}
+                  <option key={lga} value={lga}>
+                    {lga}
                   </option>
                 ))}
               </select>
@@ -577,16 +579,24 @@ export default function RegistrationForm({
               />
             </div>
             <div>
-              <label className="block font-medium mb-1">State</label>
+              <LabelWithRequired
+                className="block text-sm font-medium text-gray-700 mb-2"
+                label="State"
+              />
+
               <select
                 value={selectedState}
-                onChange={handleStateChange}
-                className="border p-2 rounded w-full"
+                onChange={(e) => {
+                  setSelectedState(e.target.value);
+                  setSelectedLga(""); // reset LGA when state changes
+                }}
+                required
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
               >
                 <option value="">Select State</option>
-                {states.map((state) => (
-                  <option key={state.code} value={state.name}>
-                    {state.name}
+                {Object.keys(nigeriaStates).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
                   </option>
                 ))}
               </select>
@@ -594,8 +604,15 @@ export default function RegistrationForm({
 
             {/* LGA Dropdown */}
             <div>
-              <label className="block font-medium mb-1">Local Government</label>
-              <select className="border p-2 rounded w-full">
+              <label className="block text-sm font-medium mb-1">
+                Local Government
+              </label>
+              <select
+                value={selectedLga}
+                onChange={(e) => setSelectedLga(e.target.value)}
+                disabled={!selectedState}
+                className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
                 <option value="">Select LGA</option>
                 {lgas.map((lga) => (
                   <option key={lga} value={lga}>
@@ -604,6 +621,7 @@ export default function RegistrationForm({
                 ))}
               </select>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 CAC / TIN No.
@@ -618,7 +636,7 @@ export default function RegistrationForm({
                 required
               />
             </div>
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 State
               </label>
@@ -635,10 +653,10 @@ export default function RegistrationForm({
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
             {/* LGA Dropdown */}
-            <div>
+            {/* <div>
               <LabelWithRequired
                 className="block text-sm font-medium text-gray-700 mb-2"
                 label="State"
@@ -654,7 +672,7 @@ export default function RegistrationForm({
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
             <div>
               <LabelWithRequired
                 label="Upload CAC/TIN document"

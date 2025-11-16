@@ -1,14 +1,27 @@
 "use client";
+import {
+  X,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Clock,
+  User,
+  Building2,
+  FileText,
+} from "lucide-react";
 
 interface SideModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   content?: {
+    id: number;
     name: string;
     clientType: string;
     totalClearance: string;
-    appointDate: string;
+    appointmentDate: string;
+    status: string;
   };
 }
 
@@ -62,7 +75,7 @@ export default function SideModal({
             </div>
             <div className="flex justify-between">
               <span className="font-medium">Appointment Date</span>
-              <span>{content.appointDate}</span>
+              <span>{content.appointmentDate}</span>
             </div>
           </div>
         )}

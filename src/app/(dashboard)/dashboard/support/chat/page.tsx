@@ -1,28 +1,30 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Send, Paperclip, X, MinusCircle, Smile } from "lucide-react";
-
-interface Message {
-  id: string;
-  text: string;
-  sender: "user" | "support";
-  timestamp: Date;
-  attachment?: {
-    name: string;
-    size: string;
-  };
-}
+import {
+  getChatMessages,
+  saveChatMessages,
+  getComplaintById,
+  type ChatMessage,
+} from "@/utils/support-storage";
 
 export default function SupportChat() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      text: "Hi! Welcome to our support chat. How can we help you today?",
-      sender: "support",
-      timestamp: new Date(Date.now() - 60000),
-    },
-  ]);
+  const searchParams = useSearchParams();
+  const topic = searchParams.get("topic") || "Support";
+  const complaintId = searchParams.get("complaintId");
+
+  // Initial welcome message
+  const welcomeMessage: ChatMessage = {
+    id: "welcome-1",
+    text: "Hi! Welcome to our support chat. How can we help you today?",
+    sender: "support",
+    senderName: "Support Agent",
+    timestamp: new Date(Date.now() - 60000),
+  };
+
+  const [messages, setMessages] = useState<ChatMessage[]>([welcomeMessage]);
   const [inputValue, setInputValue] = useState("");
   const [attachment, setAttachment] = useState<File | null>(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -37,10 +39,35 @@ export default function SupportChat() {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  // Load messages when complaintId changes or on mount
+  useEffect(() => {
+    if (complaintId) {
+      const savedMessages = getChatMessages(complaintId);
+      if (savedMessages.length > 0) {
+        setMessages(savedMessages);
+      } else {
+        setMessages([welcomeMessage]);
+      }
+    } else {
+      // If no complaintId, use welcome message
+      setMessages([welcomeMessage]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [complaintId]);
+
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
+    });
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -53,10 +80,11 @@ export default function SupportChat() {
   const handleSend = () => {
     if (!inputValue.trim() && !attachment) return;
 
-    const newMessage: Message = {
+    const newMessage: ChatMessage = {
       id: Date.now().toString(),
       text: inputValue,
       sender: "user",
+      senderName: "You",
       timestamp: new Date(),
       attachment: attachment
         ? {
@@ -66,21 +94,34 @@ export default function SupportChat() {
         : undefined,
     };
 
-    setMessages([...messages, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
     setInputValue("");
     setAttachment(null);
+
+    // Save messages immediately
+    if (complaintId) {
+      saveChatMessages(complaintId, updatedMessages);
+    }
 
     // Simulate support response
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const supportMessage: Message = {
+      const supportMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         text: "Thanks for reaching out! Our team is reviewing your message and will respond shortly.",
         sender: "support",
+        senderName: "Support Agent",
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, supportMessage]);
+      const finalMessages = [...updatedMessages, supportMessage];
+      setMessages(finalMessages);
+
+      // Save with support response
+      if (complaintId) {
+        saveChatMessages(complaintId, finalMessages);
+      }
     }, 2000);
   };
 
@@ -99,14 +140,17 @@ export default function SupportChat() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
+      <div className="border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">
               Support Chat
             </h1>
+            <p className="text-lg font-medium text-green-600 mt-2 mb-2">
+              {decodeURIComponent(topic)}
+            </p>
             <p className="text-sm text-gray-500 mt-1">
               We typically reply within a few minutes
             </p>
@@ -122,23 +166,40 @@ export default function SupportChat() {
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
+        {/* Date Display */}
+        <div className="flex justify-center mb-4">
+          <div className="px-4 py-2 bg-gray-100 rounded-full">
+            <p className="text-sm font-medium text-gray-600">
+              {formatDate(new Date())}
+            </p>
+          </div>
+        </div>
+
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${
-              message.sender === "user" ? "justify-end" : "justify-start"
+            className={`flex flex-col ${
+              message.sender === "user" ? "items-end" : "items-start"
             }`}
           >
             <div
               className={`max-w-xl ${
-                message.sender === "user" ? "order-2" : "order-1"
+                message.sender === "user" ? "text-right" : "text-left"
               }`}
             >
+              {/* Sender Name */}
+              <p
+                className={`text-xs font-medium mb-1 ${
+                  message.sender === "user" ? "text-gray-600" : "text-gray-600"
+                }`}
+              >
+                {message.senderName}
+              </p>
               <div
                 className={`rounded-2xl px-4 py-3 ${
                   message.sender === "user"
                     ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-900 border border-gray-200"
+                    : "bg-gray-100 text-gray-900"
                 }`}
               >
                 {message.attachment && (
@@ -181,7 +242,7 @@ export default function SupportChat() {
 
         {isTyping && (
           <div className="flex justify-start">
-            <div className="bg-white text-gray-900 border border-gray-200 rounded-2xl px-4 py-3">
+            <div className="bg-gray-100 text-gray-900 rounded-2xl px-4 py-3">
               <div className="flex gap-1">
                 <div
                   className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
@@ -204,7 +265,7 @@ export default function SupportChat() {
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-200 px-6 py-4">
+      <div className="border-t border-gray-200 px-6 py-4">
         {attachment && (
           <div className="mb-3 flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg">
             <Paperclip className="w-4 h-4 text-gray-600" />

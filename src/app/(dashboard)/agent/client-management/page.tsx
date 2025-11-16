@@ -239,12 +239,12 @@ export default function OverviewCards() {
               ))}
             </tbody>
           </table>
-          {/* <SideModal
+          <SideModal
             isOpen={!!selectedRow}
             onClose={() => setSelectedRow(undefined)}
             title={selectedRow?.name}
             content={selectedRow}
-          /> */}
+          />
         </div>
         <Pagination
           currentPage={currentPage}
