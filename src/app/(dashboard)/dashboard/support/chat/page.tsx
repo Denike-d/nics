@@ -10,6 +10,8 @@ import {
   type ChatMessage,
 } from "@/utils/support-storage";
 
+export const dynamic = "force-dynamic";
+
 export default function SupportChat() {
   const searchParams = useSearchParams();
   const topic = searchParams.get("topic") || "Support";

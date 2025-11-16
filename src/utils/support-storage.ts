@@ -37,7 +37,6 @@ export function saveComplaint(complaint: SupportComplaint): void {
 // Get all complaints
 export function getAllComplaints(): SupportComplaint[] {
   if (typeof window === "undefined") return [];
-  
   const stored = localStorage.getItem(STORAGE_KEY_COMPLAINTS);
   if (!stored) return [];
   
