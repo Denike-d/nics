@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+
+// import { useSearchParams } from "next/navigation";
 import { Send, Paperclip, X, MinusCircle, Smile } from "lucide-react";
 import {
   getChatMessages,
@@ -13,9 +14,17 @@ import {
 export const dynamic = "force-dynamic";
 
 export default function SupportChat() {
-  const searchParams = useSearchParams();
-  const topic = searchParams.get("topic") || "Support";
-  const complaintId = searchParams.get("complaintId");
+  // const searchParams = useSearchParams();
+  // const topic = searchParams.get("topic") || "Support";
+  // const complaintId = searchParams.get("complaintId");
+  const [topic, setTopic] = useState("Support");
+  const [complaintId, setComplaintId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setTopic(params.get("topic") || "Support");
+    setComplaintId(params.get("complaintId"));
+  }, []);
 
   // Initial welcome message
   const welcomeMessage: ChatMessage = {
