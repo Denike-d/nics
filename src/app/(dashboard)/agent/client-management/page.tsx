@@ -6,6 +6,7 @@ import Header from "@/components/dashboard/header";
 import Pagination from "@/components/pagination";
 import { useState } from "react";
 import SideModal from "@/components/dashboard/sidemodal";
+import ClientSideModal from "@/components/dashboard/sidemodal";
 
 export default function OverviewCards() {
   const cards = [
@@ -21,6 +22,7 @@ export default function OverviewCards() {
     clientType: string;
     totalClearance: string;
     appointmentDate: string;
+    nesreaID: string;
     status: "Rejected" | "Approved" | "Pending";
   }
 
@@ -32,31 +34,35 @@ export default function OverviewCards() {
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Pending",
+      nesreaID: "NES-23494-hhr",
     },
     {
       id: 2,
-      name: "Esther Hownard",
-      clientType: "individual",
-      totalClearance: "19",
+      name: "John Paul",
+      clientType: "agent",
+      totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
-      status: "Approved",
+      status: "Pending",
+      nesreaID: "NES-23494-hhr",
     },
     {
       id: 3,
-      name: "Esther Hownard",
-      clientType: "individual",
-      totalClearance: "5",
+      name: "M$N Enterprise",
+      clientType: "company",
+      totalClearance: "3",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
-      status: "Pending",
+      status: "Approved",
+      nesreaID: "NES-23494-hhr",
     },
 
     {
       id: 4,
       name: "Esther Hownard",
       clientType: "individual",
-      totalClearance: "10",
+      totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
-      status: "Rejected",
+      status: "Pending",
+      nesreaID: "NES-23494-hhr",
     },
   ]);
 
@@ -239,7 +245,7 @@ export default function OverviewCards() {
               ))}
             </tbody>
           </table>
-          <SideModal
+          <ClientSideModal
             isOpen={!!selectedRow}
             onClose={() => setSelectedRow(undefined)}
             title={selectedRow?.name}

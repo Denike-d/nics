@@ -65,7 +65,7 @@ const RecentActivities: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto bg-white">
+    <div className="w-full max-w-6xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between py-8">
         <h2 className="text-xl font-semibold text-gray-800">

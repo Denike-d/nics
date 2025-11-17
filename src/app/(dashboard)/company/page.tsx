@@ -46,7 +46,6 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-
           {/* Recent activities (table matching image) */}
           <div className="mt-6">
             <RecentActivities />
