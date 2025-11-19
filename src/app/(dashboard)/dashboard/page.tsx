@@ -24,6 +24,11 @@ export default function DashboardPage() {
       <div className="flex-1 mr-4">
         <Header />
         <div className="p-4">
+          <h2 className="font-bold text-2xl mb-2">Dashboard</h2>
+          <p>
+            Welcome back Emmanuel Ojo👋! Here's what's happening with your
+            system today.
+          </p>
           <div className="mt-4">
             <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-2 rounded">
               Your registration is being reviewed — check status in Recent

@@ -35,7 +35,6 @@ export default function ProfileType() {
     <>
       <div>
         <Header />
-
         {/* <h3 className="font-bold text-xl text-black text-center mt-2">
           User Type Selection
         </h3> */}

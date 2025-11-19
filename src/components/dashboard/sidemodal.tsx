@@ -42,9 +42,9 @@ const ClientSideModal = ({
           <div className="fixed right-0 top-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto">
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-800">
+              {/* <h2 className="text-xl font-semibold text-gray-800">
                 Client Profile
-              </h2>
+              </h2> */}
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"

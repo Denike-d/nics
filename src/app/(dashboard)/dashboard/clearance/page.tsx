@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { clearanceData } from "@/components/dashboard/content";
+import Header from "@/components/dashboard/header";
 
 import {
   Search,
@@ -105,7 +106,7 @@ export default function ImportClearanceCertificate() {
   // Dashboard View
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
-      {/* Header */}
+      {/* <Header /> */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">

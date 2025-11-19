@@ -357,6 +357,7 @@ import Pagination from "@/components/pagination";
 import { useState } from "react";
 import SideModal from "@/components/dashboard/sidemodal";
 import ClientSideModal from "@/components/dashboard/sidemodal";
+import Link from "next/link";
 
 export default function OverviewCards() {
   const cards = [
@@ -445,16 +446,17 @@ export default function OverviewCards() {
   return (
     <div>
       <Header />
-      <div className="px-12">
+      <div className="px-4">
         <div className="mt-4">
           <div className="flex justify-between items-center">
             <p className="font-semibold mb-4">Appointment Overview</p>
-            <button
+            <Link
+              href="./agent-management/agentlist"
               // onClick={() => handleAppointClick(agent)}
               className="px-3 py-2 bg-green-600 text-white text-xs font-medium rounded hover:bg-emerald-700 transition-colors whitespace-nowrap flex-shrink-0"
             >
               Appoint Agent
-            </button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-4 gap-4 mb-6 mt-4">
