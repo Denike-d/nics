@@ -30,8 +30,8 @@ const navItems: NavItem[] = [
     icon: <LayoutDashboard size={18} />,
   },
   {
-    name: "Agent Selection",
-    href: "/dashboard/agent-selection",
+    name: "Agent Management",
+    href: "/dashboard/agent-management",
     icon: <Users size={18} />,
   },
   {

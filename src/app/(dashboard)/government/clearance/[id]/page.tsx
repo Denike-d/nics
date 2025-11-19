@@ -176,7 +176,7 @@ const clearanceDetails = ({ params }: { params: { id: string } }) => {
                 <span className="text-gray-600 font-medium">
                   Application date and time
                 </span>
-                <span className="text-gray-800">2 jul Oct, 2025</span>
+                <span className="text-gray-800">2 Oct, 2025</span>
               </div>
               <div className="flex items-center justify-between border-b border-gray-200 pb-3">
                 <span className="text-gray-600 font-medium">Admin Comment</span>

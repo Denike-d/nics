@@ -44,7 +44,7 @@ export default function AddImportItemForm() {
           {/* Item Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Item Name <span className="text-red-500">*</span>
+              Item Description <span className="text-red-500">*</span>
             </label>
             <input
               type="text"

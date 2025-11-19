@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Pagination from "@/components/pagination";
+import { clearanceData } from "@/components/dashboard/content";
+
 import {
   Search,
   SlidersHorizontal,
@@ -16,8 +17,6 @@ export default function ImportClearanceCertificate() {
   const [showForm, setShowForm] = useState(false);
   const [selectedClient, setSelectedClient] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
 
   // const handleNext = () => {
   //   if (selectedClient) {
@@ -27,63 +26,6 @@ export default function ImportClearanceCertificate() {
   //   }
   // };
 
-  const clearanceData = [
-    {
-      id: 1,
-      applicationId: "CLAA00022025",
-      clientName: "John Tamar",
-      category: "Individual",
-      applicationDate: "Mar 18, 2025",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      applicationId: "CLAA00012025",
-      clientName: "Alapan Ato",
-      category: "Individual",
-      applicationDate: "Mar 12, 2025",
-      status: "Approved",
-    },
-    {
-      id: 3,
-      applicationId: "CLAA00032025",
-      clientName: "James Officer",
-      category: "Individual",
-      applicationDate: "Mar 08, 2025",
-      status: "Rejected",
-    },
-    {
-      id: 4,
-      applicationId: "CLAA00042025",
-      clientName: "Alims Smart",
-      category: "Individual",
-      applicationDate: "Feb 19, 2025",
-      status: "Pending",
-      expiryDate: "Feb 19, 2026",
-    },
-    {
-      id: 5,
-      applicationId: "CLAA00052025",
-      clientName: "Alims Smart",
-      category: "Individual",
-      applicationDate: "Feb 10, 2025",
-      status: "Approved",
-    },
-    {
-      id: 6,
-      applicationId: "CLAA00062025",
-      clientName: "John Tamar",
-      category: "Individual",
-      applicationDate: "Jan 04, 2025",
-      status: "Rejected",
-    },
-  ];
-  const totalPages = Math.ceil(clearanceData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = clearanceData.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Pending":
@@ -115,7 +57,7 @@ export default function ImportClearanceCertificate() {
             </div>
 
             {/* Form Content */}
-            <div className="p-6">
+            {/* <div className="p-6">
               <div className="mb-6">
                 <label className="block text-gray-700 text-sm font-medium mb-2">
                   Client <span className="text-red-500">*</span>
@@ -148,12 +90,12 @@ export default function ImportClearanceCertificate() {
                   </div>
                 </div>
               </div>
-              <Link href="/agent/clearance/additems/items">
+              <Link href="/agent/clearance/additems">
                 <button className="bg-green-700 hover:bg-green-800 text-white font-medium px-8 py-3 rounded-lg transition-colors">
                   Next
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -173,13 +115,12 @@ export default function ImportClearanceCertificate() {
             Begin your application process
           </p>
         </div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-2.5 rounded-lg flex items-center gap-2 transition-colors"
-        >
-          <span className="text-xl">+</span>
-          Apply
-        </button>
+        <Link href="/dashboard/clearance/additems/items">
+          <button className="bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-2.5 rounded-lg flex items-center gap-2 transition-colors">
+            <span className="text-xl">+</span>
+            Apply
+          </button>
+        </Link>
       </div>
 
       {/* Tabs */}
@@ -278,6 +219,9 @@ export default function ImportClearanceCertificate() {
                 <Filter className="w-4 h-4" />
                 Filter
               </button>
+              {/* <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <MoreHorizontal className="w-4 h-4" />
+              </button> */}
             </div>
           </div>
         </div>
@@ -311,7 +255,7 @@ export default function ImportClearanceCertificate() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {currentItems.map((item) => (
+              {clearanceData.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="py-3 px-4 text-sm text-gray-900">{item.id}</td>
                   <td className="py-3 px-4 text-sm text-gray-900">
@@ -341,20 +285,18 @@ export default function ImportClearanceCertificate() {
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <Link
+                      href={`./clearance/${item.id}`}
+                      className="text-green-600 hover:text-green-800 text-sm font-medium"
+                    >
                       View
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
       </div>
     </div>
   );

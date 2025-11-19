@@ -7,7 +7,9 @@ import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
 import { Asterisk } from "lucide-react";
 import { useRouter } from "next/navigation";
+import i4logogreen from "../../../public/images/i4logogreen.png";
 import { nigeriaStates } from "@/lib/ngstates";
+import Header from "@/components/landing/header";
 
 import Image from "next/image";
 import { userType } from "@/content/user-type";
@@ -65,7 +67,7 @@ export default function RegistrationForm({
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedState, setSelectedState] = useState("");
   const [selectedLga, setSelectedLga] = useState("");
-
+  const [gender, setGender] = useState("");
   const lgas = selectedState ? nigeriaStates[selectedState] : [];
 
   const router = useRouter();
@@ -90,6 +92,11 @@ export default function RegistrationForm({
         document: e.target.files[0],
       });
     }
+  };
+
+  const handleLogout = async () => {
+    // await logout();
+    router.push("/login");
   };
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,16 +169,17 @@ export default function RegistrationForm({
                 label="Gender"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
-
-              <input
-                type="text"
-                name="gender"
+              <select
                 value={formData.gender}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="e.g female"
-                required
-              />
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
             <div>
               <LabelWithRequired
@@ -263,7 +271,7 @@ export default function RegistrationForm({
             <div>
               <LabelWithRequired
                 className="block text-sm font-medium text-gray-700 mb-2"
-                label="Upload Document (NIN and TIN)"
+                label="Upload any valid document(NIN, CAC, TIN, drivers license etc)"
               />
 
               <input
@@ -303,18 +311,19 @@ export default function RegistrationForm({
             <div>
               <LabelWithRequired
                 label="Gender"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-2"
               />
-
-              <input
-                type="text"
-                name="gender"
+              <select
                 value={formData.gender}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="e.g female"
-                required
-              />
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
             <div>
               <LabelWithRequired
@@ -451,20 +460,21 @@ export default function RegistrationForm({
                 label="Gender"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
-
-              <input
-                type="text"
-                name="gender"
+              <select
                 value={formData.gender}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                placeholder="e.g female"
-                required
-              />
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
+                className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+              >
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
             <div>
               <LabelWithRequired
-                label="National Identity Number (NIN)"
+                label="Upload any valid document(NIN, CAC, TIN, drivers license etc)"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
 
@@ -540,7 +550,7 @@ export default function RegistrationForm({
             </div>
             <div>
               <LabelWithRequired
-                label="Uplaod NIN"
+                label="Upload any valid document(NIN, CAC, TIN, drivers license etc)"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
 
@@ -675,7 +685,7 @@ export default function RegistrationForm({
             </div> */}
             <div>
               <LabelWithRequired
-                label="Upload CAC/TIN document"
+                label="Upload any valid document(NIN, CAC, TIN, drivers license etc)"
                 className="block text-sm font-medium text-gray-700 mb-2"
               />
 
@@ -718,15 +728,18 @@ export default function RegistrationForm({
                   className="block text-sm font-medium text-gray-700"
                 />
 
-                <input
-                  type="text"
-                  name="gender"
+                <select
                   value={formData.gender}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="E.g Male"
-                  required
-                />
+                  onChange={(e) =>
+                    setFormData({ ...formData, gender: e.target.value })
+                  }
+                  className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div className="mt-4">
                 <LabelWithRequired
@@ -769,34 +782,56 @@ export default function RegistrationForm({
   };
 
   return (
-    <div className="bg-gray-50">
-      <div className="flex justify-center gap-2 items-center py-4 bg-white">
-        <Image src={nesrea} alt="nesrea logo" width={80} />
-        <p className="text-md md:text-lg font-bold text-gray-900 mt-6 leading-tight">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-            IMPORT
-          </span>{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-            {" "}
-            CLEARANCE
-          </span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-            {" "}
-            SYSTEM
-          </span>
-        </p>
-      </div>
-      <div className="bg-gradient-to-br from-emerald-600 to-green-700"></div>
-      <div className="p-8 flex justify-center">
-        <div className="w-full max-w-2xl">
-          <button
-            onClick={onBack}
-            className="mb-6 text-green-600 font-medium flex items-center gap-2"
-          >
-            ← Back to profiles
-          </button>
+    <div>
+      <Header />
+      <div className="bg-green-100 flex justify-between items-center w-full px-24 py-4">
+        <button onClick={onBack} className=" text-green-600 font-medium flex">
+          ← Back to profiles
+        </button>
 
-          <div className="bg-white rounded-lg shadow-md p-8">
+        <button className="text-red-500" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+      <div className="relative flex h-full items-center justify-center py-10 px-24">
+        <div
+          className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
+          style={{ backgroundImage: "url(/images/pattern.png)" }}
+        />
+
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2">
+          <div className="flex flex-col mt-18">
+            {/* <p className="text- tracking-widest text-gray-600 uppercase">
+                      NICS
+                    </p> */}
+
+            <h1 className="text-3xl font-bold leading-tight">
+              NESREA <span className="text-green-600">IMPORT</span>
+              <br />
+              <span className="relative">
+                <span className="text-green-600">CLEARANCE</span> SYSTEM
+                <span className="absolute inset-x-0 bottom-1 h-3 w-full opacity-70 -z-10"></span>
+              </span>
+              <br />
+            </h1>
+            <div className="mt-6 block gap-7 leading-8">
+              <p className="font-bold">Contact us:</p>
+              <p>dg@nesrea.gov.ng | info@nesrea.gov.ng | +2349153993191.</p>
+              <p>
+                No. 56 Lome Crescent, Wuse Zone 7, Abuja, Nigeria.
+                <br />
+              </p>
+            </div>
+            <div className="flex items-center mt-4">
+              <p className="text-[15px] font-semibold mr-2">Powered by</p>{" "}
+              <Image
+                src={i4logogreen}
+                alt="Company Logo"
+                className="w-[130px] hover:opacity-90 transition-opacity"
+              />
+            </div>
+          </div>
+          <div className="bg-white rounded-lg shadow-md p-8 h-[70vh] overflow-y-auto">
             <h1 className="text-3xl font-bold mb-2 text-black">
               {profileType &&
                 profileType.charAt(0).toUpperCase() + profileType.slice(1)}{" "}
@@ -828,15 +863,13 @@ export default function RegistrationForm({
                 )}
               </div>
 
-              <div className="flex justify-between">
-                <PrimaryButton
-                  title="Save and Continue Later"
-                  className=" text-[#10793F] border-[#10793F] border-2 bg-transparent text-sm"
-                />
-                <PrimaryButton
-                  title="Proceed to Pay"
-                  className=" text-white text-sm w-[250px]"
-                />
+              <div className="flex justify-between gap-2">
+                <button className=" text-[#10793F] border-[#10793F] rounded-lg px-2 py-4 border-2 bg-transparent text-sm">
+                  Save and Continue Later
+                </button>
+                <button className=" text-white bg-green-700 rounded-lg py-4 px-4 text-sm  border-green-600">
+                  Proceed to payment
+                </button>
               </div>
             </form>
           </div>

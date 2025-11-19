@@ -20,7 +20,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       />
 
       {/* Modal content */}
-      <div className="relative bg-white rounded-lg shadow-lg p-6 z-50 w-[400px]">
+      <div className="relative bg-white rounded-lg shadow-lg p-6 z-50 w-[600px]">
         {children}
       </div>
     </div>

@@ -11,6 +11,7 @@ import nesrea from "../../../public/images/nesrea.png";
 import type { ProfileType } from "@/components/utils/types";
 import rectangle from "../../../public/images/rectangle.png";
 import curve from "../../../public/images/curve.png";
+import Header from "@/components/landing/header";
 import HeaderBanner from "@/components/header-banner";
 
 export default function ProfileType() {
@@ -33,22 +34,7 @@ export default function ProfileType() {
   return (
     <>
       <div>
-        <div className="flex justify-center gap-2 items-center pb-4">
-          <Image src={nesrea} alt="nesrea logo" width={80} className="mt-4" />
-          <p className="text-md md:text-lg font-bold text-gray-900 mt-8 leading-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-              IMPORT
-            </span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-              {" "}
-              CLEARANCE
-            </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">
-              {" "}
-              SYSTEM
-            </span>
-          </p>
-        </div>
+        <Header />
 
         {/* <h3 className="font-bold text-xl text-black text-center mt-2">
           User Type Selection

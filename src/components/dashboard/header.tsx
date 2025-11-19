@@ -25,7 +25,6 @@ export default function Header() {
               <Image src={profil} alt="profile" className="w-9" />
               <div className="text-sm text-white">
                 <p className="font-bold">Emmanuel Ojo</p>
-                <p>Agent</p>
               </div>
             </div>
           </div>

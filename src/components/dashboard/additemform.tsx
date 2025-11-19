@@ -19,6 +19,7 @@ export default function AddImportItemModal({
     unit: "",
     quantity: "",
     cargoNo: "",
+    performaInvoice: "",
     countryOfOrigin: "",
     portOfEntry: "",
     purposeOfImportation: "",
@@ -90,7 +91,7 @@ export default function AddImportItemModal({
               {/* Item Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Item Name <span className="text-red-500">*</span>
+                  Item Description <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -164,11 +165,23 @@ export default function AddImportItemModal({
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Performa Invoice <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="performaInvoice"
+                  value={formData.performaInvoice}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                />
+              </div>
 
               {/* Cargo/Freight No */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Cargo/Freight No <span className="text-red-500">*</span>
+                  Cargo/Freight No
                 </label>
                 <input
                   type="text"

@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Pagination from "@/components/pagination";
 import Link from "next/link";
-import AddImportItemForm from "../../form";
+import AddImportItemModal from "@/components/dashboard/additemform";
+import FileUpload from "@/components/dashboard/upload";
 
 interface ImportItem {
   id: number;
@@ -193,9 +195,15 @@ export default function ImportDetailsPage() {
     };
     setItems([...items, newItem]);
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
   const router = useRouter();
   return (
-    <div className="w-full min-h-screen bg-gray-50 p-6">
+    <div className="w-full min-h-screen bg-gray-50 p-6 pb-8">
       <div className="max-w-7xl mx-auto">
         {/* Progress Steps */}
 
@@ -212,7 +220,7 @@ export default function ImportDetailsPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-6">
+        <div className="bg-white border border-gray-200 pb-6 rounded-lg overflow-hidden mb-6">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
@@ -244,7 +252,7 @@ export default function ImportDetailsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {items.map((item) => (
+                {currentItems.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50">
                     <td className="py-3 px-4 text-sm text-gray-900">
                       {item.id}
@@ -275,19 +283,33 @@ export default function ImportDetailsPage() {
               </tbody>
             </table>
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
-
+        <FileUpload />
         {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-4">
-          <button className="px-6 py-2.5 border-2 border-green-700 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors">
+        <div className="flex items-center justify-center mt-12 gap-4">
+          <button className="px-6 py-2.5 w-[200px] border-2 border-green-700 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors">
             Save for later
           </button>
-          <button className="px-8 py-2.5 bg-green-700 hover:bg-green-800 text-white font-medium rounded-lg transition-colors">
+          <button className="px-8 py-2.5 bg-green-700 w-[200px] hover:bg-green-800 text-white font-medium rounded-lg transition-colors">
             Next
           </button>
         </div>
       </div>
-      {/* <AddImportItemForm /> */}
+
+      <AddImportItemModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={() => {
+          // console.log("Item added successfully!");
+          setIsModalOpen(false);
+          // Refresh your items list here
+        }}
+      />
     </div>
   );
 }

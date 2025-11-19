@@ -9,7 +9,7 @@ const data = [
   {
     id: 2,
     icon: <File />,
-    text: "View invoices",
+    text: "View Payments",
   },
   {
     id: 3,
