@@ -47,11 +47,6 @@ const sidebarItems: SidebarItem[] = [
     icon: <Wallet size={24} />,
   },
   {
-    name: "Support",
-    href: "/dashboard/support",
-    icon: <HelpCircle size={24} />,
-  },
-  {
     name: "Profile",
     href: "/dashboard/profile",
     icon: <CircleUserRound size={24} />,

@@ -73,7 +73,7 @@ const PrimaryButton = ({
       : btnType === "SECONDARY"
       ? "bg-[#1E1E1E]"
       : "bg-transparent"
-  } flex items-center gap-[10px] md:gap-[5px] justify-center font-semibold text-sm px-6 py-3 rounded-[15px] focus:outline-none cursor-pointer ${className}`;
+  } flex items-center gap-[10px] justify-center font-semibold text-sm px-6 py-2 rounded-[15px] focus:outline-none cursor-pointer ${className}`;
 
   const content = (
     <>

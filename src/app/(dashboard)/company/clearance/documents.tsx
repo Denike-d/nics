@@ -80,7 +80,7 @@ export default function ImporterDetailsView() {
     <div className="w-full min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Progress Steps */}
-        <div className="flex items-center gap-4 mb-6">
+        {/* <div className="flex items-center gap-4 mb-6">
           <div className="flex items-center gap-2">
             <span className="text-green-700 font-semibold">
               Apply for clearance
@@ -90,7 +90,7 @@ export default function ImporterDetailsView() {
           <div className="flex items-center gap-2">
             <span className="text-gray-600 font-medium">Upload Documents</span>
           </div>
-        </div>
+        </div> */}
 
         {/* Importer Details Section */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">

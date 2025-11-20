@@ -27,6 +27,10 @@ const ClientSideModal = ({
 }: SideModalProps) => {
   // const [isOpen, setIsOpen] = useState(true);
 
+  function handleApprove() {
+    onClose();
+  }
+
   return (
     <div>
       {/* Side Modal - Takes 1/3 of screen */}
@@ -149,7 +153,7 @@ const ClientSideModal = ({
                 </div>
                 <div className="bg-amber-50 rounded-lg p-4">
                   <p className="text-sm text-gray-500 mb-1">Status</p>
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-amber-100">
                     {content.status}
                   </span>
                 </div>
@@ -162,14 +166,14 @@ const ClientSideModal = ({
                 </h3>
 
                 <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                  <div className="flex justify-between items-center">
+                  {/* <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">
                       Appointment Status
                     </span>
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                       Pending
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="flex items-start gap-2">
                     <Calendar className="w-4 h-4 text-gray-400 mt-0.5" />
@@ -183,7 +187,7 @@ const ClientSideModal = ({
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-2">
+                  {/* <div className="flex items-start gap-2">
                     <Clock className="w-4 h-4 text-gray-400 mt-0.5" />
                     <div className="flex-1">
                       <p className="text-sm text-gray-600">Duration</p>
@@ -191,7 +195,7 @@ const ClientSideModal = ({
                         45 minutes
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -211,23 +215,38 @@ const ClientSideModal = ({
               </div>
 
               {/* Last Modified */}
-              <div className="pt-2 border-t border-gray-200">
+              {/* <div className="pt-2 border-t border-gray-200">
                 <p className="text-xs text-gray-500">
                   Last Modified:{" "}
                   <span className="font-medium">
                     November 10, 2025, 3:45 PM
                   </span>
                 </p>
-              </div>
+              </div> */}
 
               {/* Action Buttons */}
               <div className="flex gap-3 pt-4">
-                <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                  Contact Client
+                <button
+                  onClick={handleApprove}
+                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-400 transition-colors font-medium"
+                >
+                  Accept
                 </button>
-                <button className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium">
+                <button
+                  onClick={handleApprove}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition-colors font-medium"
+                >
+                  Reject
+                </button>
+                <button
+                  onClick={handleApprove}
+                  className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-400 transition-colors font-medium"
+                >
+                  Revoke
+                </button>
+                {/* <button className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium">
                   View Documents
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

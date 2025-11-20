@@ -6,16 +6,16 @@ import PrimaryButton from "../uikits/PrimaryButton";
 
 export default function DesktopNavbar() {
   return (
-    <div className="flex justify-center mx-auto max-h-screen py-4">
-      <nav className="hidden md:flex space-x-8 items-center text-black relative z-50">
-        <Link href="/">
-          <Image
-            src={nesrea}
-            className="w-[60px] h-[43px] mr-12 mt-2"
-            alt="logo"
-          />
-        </Link>
-        <ul className="flex gap-6">
+    <div className="flex justify-between mx-26 max-h-screen py-4 relative z-50">
+      <Link href="/">
+        <Image
+          src={nesrea}
+          className="w-[63px] h-[43px] mr-14 mt-2"
+          alt="logo"
+        />
+      </Link>
+      <nav className="hidden md:flex space-x-8 items-center text-black">
+        <ul className="flex gap-6 mx-28">
           <li>
             <Link href="/landing/home" className="">
               Home
@@ -42,12 +42,13 @@ export default function DesktopNavbar() {
             </Link>
           </li>
         </ul>
-        <PrimaryButton
-          title="Verify Certificate"
-          href="/verify-certificate"
-          className="text-white"
-        />
       </nav>
+
+      <PrimaryButton
+        title="Verify Certificate"
+        href="/verify-certificate"
+        className="text-white"
+      />
     </div>
   );
 }

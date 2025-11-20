@@ -355,9 +355,10 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import Header from "@/components/dashboard/header";
 import Pagination from "@/components/pagination";
 import { useState } from "react";
-import SideModal from "@/components/dashboard/sidemodal";
-import ClientSideModal from "@/components/dashboard/sidemodal";
+import SideModal from "@/components/dashboard/clientsidemodal";
+
 import Link from "next/link";
+import AgentSideModal from "@/components/dashboard/agentsidemodal";
 
 export default function OverviewCards() {
   const cards = [
@@ -604,7 +605,7 @@ export default function OverviewCards() {
                 ))}
               </tbody>
             </table>
-            <ClientSideModal
+            <AgentSideModal
               isOpen={!!selectedRow}
               onClose={() => setSelectedRow(undefined)}
               title={selectedRow?.name}

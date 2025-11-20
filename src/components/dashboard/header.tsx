@@ -23,23 +23,19 @@ export default function Header() {
               className="px-3 py-2 border rounded border-green-400"
             /> */}
 
-            <div className="bg-green-100 p-2 rounded-full">
+            {/* <div className="bg-green-100 p-2 rounded-full">
               <button
                 ref={iconRef}
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 <Bell />
               </button>
-              {/* <NotificationDropdown
-                isOpen={isDropdownOpen}
-                onClose={() => setIsDropdownOpen(false)}
-                triggerRef={iconRef}
-              /> */}
-            </div>
+            </div> */}
+            <NotificationDropdown />
             <div className="flex items-center gap-2">
               <Image src={profil} alt="profile" className="w-9" />
               <div className="text-sm text-black">
-                <p className="font-bold">Emmanuel Ojo</p>
+                <p>Emmanuel Ojo</p>
               </div>
             </div>
           </div>

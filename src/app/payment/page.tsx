@@ -1,10 +1,18 @@
 "use client";
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { dashboardRoutes } from "@/components/utils/dashboardRoutes";
-import { useEffect, useState } from "react";
 import { ProfileType } from "@/components/utils/types";
+import { dashboardRoutes } from "@/components/utils/dashboardRoutes";
 
 export default function PaymentPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    amount: "",
+  });
+
   const router = useRouter();
 
   const [userType, setUserType] = useState<ProfileType>(null);
@@ -22,28 +30,98 @@ export default function PaymentPage() {
     const dashboardUrl = dashboardRoutes[userType];
     router.push(dashboardUrl);
   }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePay = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Payment data:", formData);
+    alert("Redirecting to E-Tranzact payment gateway...");
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="bg-white p-6 rounded shadow w-full max-w-md">
-        <h3 className="text-lg font-semibold">Mock Payment</h3>
-        <p className="text-sm text-slate-600 mt-2">
-          This simulates payment — integrate Paystack/Flutterwave later.
-        </p>
-        <div className="mt-4 flex gap-2">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
+        <h1 className="text-2xl font-bold text-center mb-6">
+          E-Tranzact Payment
+        </h1>
+
+        <form onSubmit={handlePay} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="John Doe"
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="johndoe@email.com"
+            />
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="08012345678"
+            />
+          </div>
+
+          {/* Amount */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Amount (₦)
+            </label>
+            <input
+              type="number"
+              name="amount"
+              required
+              value={formData.amount}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="5000"
+              min={100}
+            />
+          </div>
+
+          {/* Pay Button */}
           <button
+            type="submit"
             onClick={confirmPayment}
-            className="px-4 py-2 bg-emerald-600 text-white rounded"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition"
           >
-            Pay Now
+            Pay with E-Tranzact
           </button>
-          <button
-            onClick={() => router.back()}
-            className="px-4 py-2 border rounded"
-          >
-            Back
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );

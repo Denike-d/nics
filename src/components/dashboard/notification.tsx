@@ -96,7 +96,7 @@ export default function NotificationDropdown() {
       {/* Notification Bell Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+        className="relative p-2 bg-green-100 text-gray-600 hover:text-gray-900 hover:bg-green-100 focus:bg-green-300 rounded-lg transition-colors"
         aria-label="Notifications"
       >
         <Bell className="w-6 h-6" />
@@ -118,7 +118,7 @@ export default function NotificationDropdown() {
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                className="text-sm text-green-600 hover:text-green-700 font-medium"
               >
                 Mark all read
               </button>
@@ -143,7 +143,7 @@ export default function NotificationDropdown() {
                   <div className="flex items-start gap-3">
                     <div
                       className={`flex-shrink-0 w-2 h-2 mt-2 rounded-full ${
-                        !notif.read ? "bg-blue-600" : "bg-gray-300"
+                        !notif.read ? "bg-green-600" : "bg-gray-300"
                       }`}
                     />
                     <div className="flex-1 min-w-0">
@@ -163,7 +163,7 @@ export default function NotificationDropdown() {
                           {!notif.read && (
                             <button
                               onClick={() => markAsRead(notif.id)}
-                              className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+                              className="p-1 text-gray-400 hover:text-green-600 transition-colors"
                               title="Mark as read"
                             >
                               <Check className="w-4 h-4" />

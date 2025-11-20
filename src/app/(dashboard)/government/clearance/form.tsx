@@ -68,6 +68,18 @@ export default function AddImportItemForm() {
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              HS Description <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="hsCode"
+              value={formData.hsCode}
+              onChange={handleChange}
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            />
+          </div>
 
           {/* Unit */}
           <div>

@@ -5,8 +5,8 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import Header from "@/components/dashboard/header";
 import Pagination from "@/components/pagination";
 import { useState } from "react";
-import SideModal from "@/components/dashboard/sidemodal";
-import ClientSideModal from "@/components/dashboard/sidemodal";
+import SideModal from "@/components/dashboard/clientsidemodal";
+import ClientSideModal from "@/components/dashboard/clientsidemodal";
 
 export default function OverviewCards() {
   const cards = [

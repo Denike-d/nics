@@ -61,7 +61,7 @@ export default function AgentsPage() {
     if (selectedAgent) {
       setAppointedAgent(selectedAgent); // This agent is now appointed
       // localStorage.setItem("appointedAgent", JSON.stringify(selectedAgent));
-      router.push("/dashboard/agentmanagemt");
+      router.push("/dashboard/agent-management");
     }
   };
 

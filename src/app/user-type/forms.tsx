@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { ProfileType } from "@/components/utils/types";
 import PrimaryButton from "@/components/landing/uikits/PrimaryButton";
 import HeaderBanner from "@/components/header-banner";
-import { Asterisk } from "lucide-react";
+import { Asterisk, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import i4logogreen from "../../../public/images/i4logogreen.png";
 import { nigeriaStates } from "@/lib/ngstates";
@@ -30,6 +30,7 @@ interface FormData {
   additionalInfo: string;
   association: string;
   nin: string;
+  ministryname: string;
   contactname: string;
   governmentid: string;
   document: File | null;
@@ -55,6 +56,7 @@ export default function RegistrationForm({
     gender: "",
     resiaddress: "",
     address: "",
+    ministryname: "",
     nin: "",
     contactname: "",
     additionalInfo: "",
@@ -207,37 +209,39 @@ export default function RegistrationForm({
         else
           return (
             <>
-              <div>
-                <LabelWithRequired
-                  label="Any Valid Government ID No."
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                />
+              <div className="flex items-center gap-4">
+                <div>
+                  <LabelWithRequired
+                    label="Any Valid Government ID No."
+                    className="block text-sm font-medium text-gray-700"
+                  />
 
-                <input
-                  type="text"
-                  name="nin"
-                  value={formData.nin}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="1234567890"
-                  required
-                />
+                  <input
+                    type="text"
+                    name="nin"
+                    value={formData.nin}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="1234567890"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Association
+                  </label>
+                  <input
+                    type="text"
+                    name="association"
+                    value={formData.association}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="08011223344"
+                    required
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Association
-                </label>
-                <input
-                  type="text"
-                  name="association"
-                  value={formData.association}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="08011223344"
-                  required
-                />
-              </div>
               <div className="flex items-center gap-4 mt-2">
                 <div className="">
                   <LabelWithRequired
@@ -282,6 +286,22 @@ export default function RegistrationForm({
                   </select>
                 </div>
               </div>
+              <div className="mt-4">
+                <LabelWithRequired
+                  label="Residential Address"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                />
+
+                <textarea
+                  typeof="text"
+                  name="resiaddress"
+                  value={formData.resiaddress}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  placeholder="Enter your address"
+                  required
+                />
+              </div>
               <div>
                 <LabelWithRequired
                   className="block text-sm font-medium text-gray-700 mb-2"
@@ -308,54 +328,137 @@ export default function RegistrationForm({
         if (step === 1)
           return (
             <>
+              <div className="flex gap-4 items-center">
+                <div>
+                  <LabelWithRequired
+                    label="Institution/Agency Name"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  />
+
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border mt-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Ministry of Housing"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <LabelWithRequired
+                    label="Official Government ID No."
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  />
+
+                  <input
+                    type="text"
+                    name="governmentid"
+                    value={formData.governmentid}
+                    onChange={handleInputChange}
+                    className="w-full px-4 mt-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter government ID"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {" "}
+                    Ministry Name
+                  </label>
+
+                  <input
+                    type="text"
+                    name="ministryname"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border mt-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Ministry of Housing"
+                    required
+                  />
+                </div>
+                <div className="">
+                  <LabelWithRequired
+                    className="block text-sm font-medium text-gray-700"
+                    label="State"
+                  />
+
+                  <select
+                    value={selectedState}
+                    onChange={(e) => {
+                      setSelectedState(e.target.value);
+                      setSelectedLga(""); // reset LGA when state changes
+                    }}
+                    required
+                    className="border py-3 p-2 w-[240px] mt-1 text-sm capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select State</option>
+                    {Object.keys(nigeriaStates).map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="">
+                  <label className="block text-sm font-medium">
+                    Local Government
+                  </label>
+                  <select
+                    value={selectedLga}
+                    onChange={(e) => setSelectedLga(e.target.value)}
+                    disabled={!selectedState}
+                    className="border p-2 w-[240px] py-3 mt-1 text-sm capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select LGA</option>
+                    {lgas.map((lga) => (
+                      <option key={lga} value={lga}>
+                        {lga}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="">
+                  <LabelWithRequired
+                    label="Address"
+                    className="block text-sm font-medium text-gray-700"
+                  />
+
+                  <input
+                    typeof="text"
+                    name="resiaddress"
+                    value={formData.resiaddress}
+                    onChange={handleInputChange}
+                    className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter your address"
+                    required
+                  />
+                </div>
+              </div>
+
               <div>
                 <LabelWithRequired
-                  label="Institution/Agency Name"
+                  label="Upload any valid Government ID Document"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 />
 
                 <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border mt-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="Ministry of Housing"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-green-700 hover:file:bg-blue-100"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                   required
                 />
-              </div>
-              <div>
-                <LabelWithRequired
-                  label="Gender"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                />
-                <select
-                  value={formData.gender}
-                  onChange={(e) =>
-                    setFormData({ ...formData, gender: e.target.value })
-                  }
-                  className="border p-2 w-full text-md mt-2 capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <div>
-                <LabelWithRequired
-                  label="Official Government ID"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                />
-
-                <input
-                  type="text"
-                  name="governmentid"
-                  value={formData.governmentid}
-                  onChange={handleInputChange}
-                  className="w-full px-4 mt-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="Enter government ID"
-                  required
-                />
+                {formData.document && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Selected: {formData.document.name}
+                  </p>
+                )}
               </div>
             </>
           );
@@ -364,77 +467,115 @@ export default function RegistrationForm({
             <>
               <div>
                 <h3 className="font-semibold">Contact Person's Information</h3>
-                <div className="mt-4">
-                  <div>
-                    <LabelWithRequired
-                      label="Contact Person's Name"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    />
+                <div className="mt-2">
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <LabelWithRequired
+                        label="Contact Person's Name"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      />
 
-                    <input
-                      type="text"
-                      name="contactname"
-                      value={formData.contactname}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                      placeholder=""
-                      required
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <LabelWithRequired
-                      label="Phone Number"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    />
+                      <input
+                        type="text"
+                        name="contactname"
+                        value={formData.contactname}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                        placeholder=""
+                        required
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <LabelWithRequired
+                        label="Phone Number"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      />
 
-                    <input
-                      type="number"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                      placeholder=""
-                      required
-                    />
+                      <input
+                        type="number"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                        placeholder=""
+                        required
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <LabelWithRequired
-                      className="block text-sm font-medium text-gray-700 mb-2 mt-2"
-                      label="State"
-                    />
-                    <select
-                      value={selectedState}
-                      onChange={(e) => {
-                        setSelectedState(e.target.value);
-                        setSelectedLga(""); // reset LGA when state changes
-                      }}
-                      className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                    >
-                      <option value="">Select State</option>
-                      {Object.keys(nigeriaStates).map((state) => (
-                        <option key={state} value={state}>
-                          {state}
-                        </option>
-                      ))}
-                    </select>
+                  <div className="flex gap-4 items-center">
+                    <div>
+                      <LabelWithRequired
+                        label="Gender"
+                        className="block text-sm font-medium text-gray-700 m"
+                      />
+                      <select
+                        value={formData.gender}
+                        onChange={(e) =>
+                          setFormData({ ...formData, gender: e.target.value })
+                        }
+                        className="border w-[240px] p-2 text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                      >
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                    </div>
+                    <div>
+                      <LabelWithRequired
+                        className="block text-sm font-medium text-gray-700 mb-2 mt-2"
+                        label="State of Residence"
+                      />
+                      <select
+                        value={selectedState}
+                        onChange={(e) => {
+                          setSelectedState(e.target.value);
+                          setSelectedLga(""); // reset LGA when state changes
+                        }}
+                        className="border p-2 w-[240px] text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                      >
+                        <option value="">Select State</option>
+                        {Object.keys(nigeriaStates).map((state) => (
+                          <option key={state} value={state}>
+                            {state}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  {/* LGA Dropdown */}
-                  <div>
-                    <label className="block mt-4 font-medium text-gray-700 text-sm">
-                      Local Government
-                    </label>
-                    <select
-                      disabled={!selectedState}
-                      className="border mt-1 text-sm p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                    >
-                      <option value="">Select LGA</option>
-                      {lgas.map((lga) => (
-                        <option key={lga} value={lga}>
-                          {lga.toLowerCase()}
-                        </option>
-                      ))}
-                    </select>
+                  <div className="flex items-center gap-4 mt-4">
+                    <div>
+                      <label className="block font-medium text-gray-700 text-sm">
+                        Local Government
+                      </label>
+                      <select
+                        disabled={!selectedState}
+                        className="border mt-1 text-sm p-2 w-[240px] capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                      >
+                        <option value="">Select LGA</option>
+                        {lgas.map((lga) => (
+                          <option key={lga} value={lga}>
+                            {lga.toLowerCase()}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="">
+                      <LabelWithRequired
+                        label="Residential Address"
+                        className="block text-sm font-medium text-gray-700"
+                      />
+
+                      <input
+                        typeof="text"
+                        name="resiaddress"
+                        value={formData.resiaddress}
+                        onChange={handleInputChange}
+                        className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                        placeholder="Enter your address"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -531,52 +672,69 @@ export default function RegistrationForm({
                   required
                 />
               </div>
-              <div>
+              <div className="flex items-center gap-4 mt-2">
+                <div className="">
+                  <LabelWithRequired
+                    className="block text-sm font-medium text-gray-700"
+                    label="State"
+                  />
+
+                  <select
+                    value={selectedState}
+                    onChange={(e) => {
+                      setSelectedState(e.target.value);
+                      setSelectedLga(""); // reset LGA when state changes
+                    }}
+                    required
+                    className="border p-2 w-[240px] mt-2 text-sm capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select State</option>
+                    {Object.keys(nigeriaStates).map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="">
+                  <label className="block text-sm font-medium">
+                    Local Government
+                  </label>
+                  <select
+                    value={selectedLga}
+                    onChange={(e) => setSelectedLga(e.target.value)}
+                    disabled={!selectedState}
+                    className="border py-2 p-2 w-[240px] mt-2 text-sm capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                  >
+                    <option value="">Select LGA</option>
+                    {lgas.map((lga) => (
+                      <option key={lga} value={lga}>
+                        {lga}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="mt-4">
                 <LabelWithRequired
+                  label="Residential Address"
                   className="block text-sm font-medium text-gray-700 mb-2"
-                  label="State"
                 />
 
-                <select
-                  value={selectedState}
-                  onChange={(e) => {
-                    setSelectedState(e.target.value);
-                    setSelectedLga(""); // reset LGA when state changes
-                  }}
+                <textarea
+                  typeof="text"
+                  name="resiaddress"
+                  value={formData.resiaddress}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  placeholder="Enter your address"
                   required
-                  className="border p-2 w-full text-md capitalize text-gray-700 border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                >
-                  <option value="">Select State</option>
-                  {Object.keys(nigeriaStates).map((state) => (
-                    <option key={state} value={state}>
-                      {state}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* LGA Dropdown */}
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Local Government
-                </label>
-                <select
-                  value={selectedLga}
-                  onChange={(e) => setSelectedLga(e.target.value)}
-                  disabled={!selectedState}
-                  className="border p-2 w-full capitalize text-gray-700 text-md border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                >
-                  <option value="">Select LGA</option>
-                  {lgas.map((lga) => (
-                    <option key={lga} value={lga}>
-                      {lga}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
               <div>
                 <LabelWithRequired
-                  label="Upload any valid document(NIN, CAC, TIN, drivers license etc)"
+                  label="Upload any valid Government ID Document"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 />
 
@@ -601,20 +759,35 @@ export default function RegistrationForm({
           return (
             <>
               {/*Section One */}
-              <div></div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="Enter company name"
-                  required
-                />
+              <div className="flex gap-4 items-center">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter company name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Valid Government ID No.
+                  </label>
+                  <input
+                    type="text"
+                    name="additionalInfo"
+                    value={formData.additionalInfo}
+                    onChange={handleInputChange}
+                    className="px-2 py-2 w-[240px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="1234567890"
+                    required
+                  />
+                </div>
               </div>
               <div className="flex items-center gap-4 mt-2">
                 <div className="">
@@ -661,39 +834,55 @@ export default function RegistrationForm({
                 </div>
               </div>
               <div className="flex items-center gap-4 mt-2">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Valid Government ID No.
-                  </label>
-                  <input
-                    type="text"
-                    name="additionalInfo"
-                    value={formData.additionalInfo}
-                    onChange={handleInputChange}
-                    className="px-2 py-2 w-[240px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="1234567890"
-                    required
-                  />
-                </div>
-                <div>
+                <div className="">
                   <LabelWithRequired
-                    label="Upload any valid document"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    label="Company Address"
+                    className="block text-sm font-medium text-gray-700"
                   />
 
                   <input
-                    type="file"
-                    onChange={handleFileChange}
-                    className="w-full h-[40px] px-2 py-2 text-sm border border-gray-300 mt-2 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-1 file:px-1 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-green-700 hover:file:bg-blue-100"
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    typeof="text"
+                    name="resiaddress"
+                    value={formData.resiaddress}
+                    onChange={handleInputChange}
+                    className="w-full px-4 mt-1 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter your address"
                     required
                   />
-                  {formData.document && (
-                    <p className="mt-2 text-sm text-gray-600">
-                      Selected: {formData.document.name}
-                    </p>
-                  )}
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Association
+                  </label>
+                  <input
+                    type="text"
+                    name="association"
+                    value={formData.association}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="08011223344"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <LabelWithRequired
+                  label="Upload TIN/CAC Document"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                />
+
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="w-full h-[40px] px-2 py-2 text-sm border border-gray-300 mt-2 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent file:mr-4 file:py-1 file:px-1 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-green-700 hover:file:bg-blue-100"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  required
+                />
+                {formData.document && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Selected: {formData.document.name}
+                  </p>
+                )}
               </div>
             </>
           );
@@ -705,6 +894,7 @@ export default function RegistrationForm({
                 <h3 className="font-semibold mb-4">
                   Contact Person's Information
                 </h3>
+
                 <div className="flex gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -740,23 +930,39 @@ export default function RegistrationForm({
                     </select>
                   </div>
                 </div>
+                <div className="flex gap-x-4 items-center">
+                  <div>
+                    <LabelWithRequired
+                      label="Phone Number"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    />
 
-                <div className="mt-4">
-                  <LabelWithRequired
-                    label="Phone Number"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  />
-
-                  <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="Enter registration number"
-                    required
-                  />
+                    <input
+                      type="text"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                      placeholder="Enter registration number"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Valid Government ID No.
+                    </label>
+                    <input
+                      type="text"
+                      name="additionalInfo"
+                      value={formData.additionalInfo}
+                      onChange={handleInputChange}
+                      className="px-2 py-2 w-[240px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                      placeholder="1234567890"
+                      required
+                    />
+                  </div>
                 </div>
+
                 <div className="mt-4">
                   <LabelWithRequired
                     label="Residential Address"
@@ -786,14 +992,16 @@ export default function RegistrationForm({
 
   return (
     <div>
-      <div className="flex justify-between px-32 items-center">
-        <Header />
-        <button className="text-red-500" onClick={handleLogout}>
+      <div className="flex items-center">
+        <div>
+          <Header />
+        </div>
+        <button className="text-red-500 ml-24" onClick={handleLogout}>
           Logout
         </button>
       </div>
       <div>
-        <div className="relative flex h-full items-center justify-between p-24 py-10">
+        <div className="relative flex h-full items-center justify-between p-24 py-8">
           <div
             className="absolute inset-0 min-h-screen bg-center opacity-50 bg-repeat bg-blend-multiply -z-10 pointer-events-none"
             style={{ backgroundImage: "url(/images/pattern.png)" }}
@@ -927,9 +1135,9 @@ export default function RegistrationForm({
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600"
                     >
-                      Back
+                      <ArrowLeft />
                     </button>
                     <button className="text-green-600 border-green-600 font-medium rounded-lg px-8 py-2 border-2 bg-transparent text-sm">
                       Save and Continue Later
