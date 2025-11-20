@@ -392,7 +392,7 @@ export default function RegistrationForm({
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                      className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
                       placeholder=""
                       required
                     />
@@ -421,7 +421,7 @@ export default function RegistrationForm({
 
                   {/* LGA Dropdown */}
                   <div>
-                    <label className="block mt-4 text-sm">
+                    <label className="block mt-4 font-medium text-gray-700 text-sm">
                       Local Government
                     </label>
                     <select
@@ -850,7 +850,43 @@ export default function RegistrationForm({
                 Please fill out the form below to register as a{" "}
                 {profileType?.toLowerCase()}.
               </p>
+              <div className="flex items-center mt-4 mb-6">
+                <div className="flex items-center gap-1">
+                  <div
+                    className={`w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold 
+                  ${step === 1 ? "bg-green-600" : "bg-gray-300"}`}
+                  >
+                    1
+                  </div>
+                  <span
+                    className={`font-medium ${
+                      step === 1 ? "text-green-600" : "text-gray-500"
+                    }`}
+                  >
+                    Basic Info
+                  </span>
+                </div>
 
+                {/* Divider */}
+                <div className="w-24 h-[2px] bg-gray-300"></div>
+
+                {/* STEP 2 */}
+                <div className="flex items-center gap-1">
+                  <div
+                    className={`w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold 
+        ${step === 2 ? "bg-green-600" : "bg-gray-300"}`}
+                  >
+                    2
+                  </div>
+                  <span
+                    className={`font-medium ${
+                      step === 2 ? "text-green-600" : "text-gray-500"
+                    }`}
+                  >
+                    Additional Info
+                  </span>
+                </div>
+              </div>
               <form onSubmit={handleSubmit} className="space-y-6 w-[500px]">
                 {getFormFields()}
 
