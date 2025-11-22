@@ -182,12 +182,6 @@ const clearanceDetails = ({ params }: { params: { id: string } }) => {
                 <span className="text-gray-600 font-medium">Admin Comment</span>
                 <span className="text-gray-800">No Comment</span>
               </div>
-              <div className="flex items-center justify-between pb-3">
-                <span className="text-gray-600 font-medium">
-                  Client Category
-                </span>
-                <span className="text-gray-800">Company</span>
-              </div>
             </div>
           </div>
 
