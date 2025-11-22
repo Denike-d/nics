@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Header from "@/components/dashboard/header";
+import CertificateModal from "@/components/dashboard/certificatemodal";
+import cert from "../../../../../public/images/cert.jpg";
 
 interface Activity {
   id: number;
@@ -10,6 +12,7 @@ interface Activity {
   nesreaID: string;
   issuedate: string;
   certificateNo: string;
+  url: string;
   expirydate: string;
 }
 
@@ -22,7 +25,9 @@ const RecentActivities: React.FC = () => {
       issuedate: "21st Oct, 2025 - 8:30pm",
       certificateNo: "111111111111111111111111111111",
       expirydate: "21st Oct, 2025 - 8:30pm",
+      url: "/images/cert.pdf",
     },
+
     {
       id: 2,
       name: "Prof",
@@ -30,6 +35,7 @@ const RecentActivities: React.FC = () => {
       issuedate: "21st Oct, 2025 - 8:30pm",
       certificateNo: "111111111111111111111111111111",
       expirydate: "21st Oct, 2025 - 8:30pm",
+      url: "/images/cert.pdf",
     },
     {
       id: 3,
@@ -38,6 +44,7 @@ const RecentActivities: React.FC = () => {
       issuedate: "21st Oct, 2025 - 8:30pm",
       certificateNo: "111111111111111111111111111111",
       expirydate: "21st Oct, 2025 - 8:30pm",
+      url: "/images/cert.pdf",
     },
     {
       id: 4,
@@ -46,11 +53,15 @@ const RecentActivities: React.FC = () => {
       issuedate: "21st Oct, 2025 - 8:30pm",
       certificateNo: "111111111111111111111111111111",
       expirydate: "21st Oct, 2025 - 8:30pm",
+      url: "/images/cert.pdf",
     },
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
+  const [selectedCertificate, setSelectedCertificate] = useState<string | null>(
+    null
+  );
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -83,7 +94,7 @@ const RecentActivities: React.FC = () => {
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
             </div>
 
@@ -91,7 +102,7 @@ const RecentActivities: React.FC = () => {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             >
               <option>All Activities</option>
               <option>Profile Registration</option>
@@ -166,14 +177,22 @@ const RecentActivities: React.FC = () => {
                     {activity.expirydate}
                   </td> */}
                   <td className="px-2 py-4">
-                    <button className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">
-                      View More
+                    <button
+                      onClick={() => setSelectedCertificate(activity.url)}
+                      className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline"
+                    >
+                      View
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <CertificateModal
+            isOpen={!!selectedCertificate}
+            onClose={() => setSelectedCertificate(null)}
+            certificateUrl={selectedCertificate || ""}
+          />
         </div>
       </div>
     </main>

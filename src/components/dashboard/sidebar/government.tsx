@@ -46,11 +46,19 @@ const navItems: NavItem[] = [
   },
   { name: "Payments", href: "/government/payment", icon: <Wallet size={18} /> },
   // { name: "Invoices", href: "/agent/invoices", icon: <FileText size={18} /> },
-  { name: "Support", href: "/support", icon: <HelpCircle size={18} /> },
-  { name: "Profile", href: "/profile", icon: <CircleUserRound size={18} /> },
+  {
+    name: "Support",
+    href: "/government/support",
+    icon: <HelpCircle size={18} />,
+  },
+  {
+    name: "Profile",
+    href: "/government/profile",
+    icon: <CircleUserRound size={18} />,
+  },
   {
     name: "Settings",
-    href: "/settings",
+    href: "/government/settings",
     icon: <Settings size={18} />,
   },
 ];
@@ -74,14 +82,21 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="w-full space-y-2 mt-6">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const currentPath =
+            pathname && pathname.length > 0 ? pathname : "/government";
+
+          const isActive =
+            item.href === "/government"
+              ? currentPath === "/government"
+              : currentPath.startsWith(item.href);
+
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer text-sm transition
                 ${
-                  active
+                  isActive
                     ? "bg-green-600 text-white"
                     : "text-gray-700 hover:bg-green-100"
                 }

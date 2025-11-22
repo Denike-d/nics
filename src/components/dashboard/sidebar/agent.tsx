@@ -78,14 +78,21 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="w-full space-y-2 mt-6">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const currentPath =
+            pathname && pathname.length > 0 ? pathname : "/agent";
+
+          const isActive =
+            item.href === "/agent"
+              ? currentPath === "/agent"
+              : currentPath.startsWith(item.href);
+
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer text-sm transition
                 ${
-                  active
+                  isActive
                     ? "bg-green-600 text-white"
                     : "text-gray-700 hover:bg-green-100"
                 }

@@ -7,7 +7,7 @@ import NotificationSettings from "./notifications";
 import SecuritySettings from "./security";
 
 export default function ProfileSettings() {
-  const [activeTab, setActiveTab] = useState("profile");
+  const [activeTab, setActiveTab] = useState("security");
   const [profileData, setProfileData] = useState({
     fullName: "",
     preferredCity: "",

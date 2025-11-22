@@ -2,7 +2,6 @@
 
 import {
   LayoutDashboard,
-  Users,
   CheckCircle,
   FileBadge2,
   Wallet,
@@ -11,6 +10,7 @@ import {
   Settings,
   LogOut,
   CircleUserRound,
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 import nesrea from "../../../../public/images/nesrea.png";
@@ -30,6 +30,11 @@ const navItems: NavItem[] = [
     icon: <LayoutDashboard size={18} />,
   },
   {
+    name: "Agent Management",
+    href: "/company/agent-management",
+    icon: <Users size={18} />,
+  },
+  {
     name: "Clearance",
     href: "/company/clearance",
     icon: <CheckCircle size={18} />,
@@ -39,22 +44,22 @@ const navItems: NavItem[] = [
     href: "/company/certificates",
     icon: <FileBadge2 size={18} />,
   },
-  { name: "Payments", href: "/dashboard/payment", icon: <Wallet size={18} /> },
+  { name: "Payments", href: "/company/payment", icon: <Wallet size={18} /> },
   // { name: "Invoices", href: "/invoices", icon: <FileText size={18} /> },
   {
     name: "Support",
-    href: "/dashboard/support",
+    href: "/company/support",
     icon: <HelpCircle size={18} />,
   },
   {
     name: "Profile",
-    href: "/dashboard/profile",
+    href: "/company/profile",
     icon: <CircleUserRound size={18} />,
   },
 
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/company/settings",
     icon: <Settings size={18} />,
   },
 ];
@@ -78,14 +83,21 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="w-full space-y-2 mt-6">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const currentPath =
+            pathname && pathname.length > 0 ? pathname : "/company";
+
+          const isActive =
+            item.href === "/company"
+              ? currentPath === "/company"
+              : currentPath.startsWith(item.href);
+
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer text-sm transition
                 ${
-                  active
+                  isActive
                     ? "bg-green-600 text-white"
                     : "text-gray-700 hover:bg-green-100"
                 }
