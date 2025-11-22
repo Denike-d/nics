@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Camera, Upload } from "lucide-react";
 import Header from "@/components/dashboard/header";
+import FileUploadPreview from "@/components/dashboard/fileupload";
 
 export default function () {
   const [profileData, setProfileData] = useState({
@@ -30,6 +31,10 @@ export default function () {
         nationalIdCard: e.target.files![0],
       }));
     }
+  };
+
+  const handleFileChange = (file: File | null) => {
+    console.log("Selected file:", file);
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -86,7 +91,7 @@ export default function () {
               </button>
             </div>
             <div>
-              <p className="text-sm text-gray-600 mb-1">Name</p>
+              <p className="text-sm text-gray-600 mb-2">Emmanuel Ojo</p>
               <button
                 onClick={() =>
                   document.getElementById("profilePicInput")?.click()
@@ -234,7 +239,7 @@ export default function () {
                 Uploaded Document (NIN)
               </label>
               <div className="flex items-center space-x-3">
-                <label className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md cursor-pointer transition-colors">
+                {/* <label className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md cursor-pointer transition-colors">
                   <Upload className="w-4 h-4" />
 
                   <p className="text-gray-600 text-sm">
@@ -248,7 +253,13 @@ export default function () {
                     className="hidden"
                     accept=".pdf,.jpg,.jpeg,.png"
                   />
-                </label>
+                </label> */}
+                <FileUploadPreview
+                  label=""
+                  defaultFileName="Document.pdf"
+                  onFileChange={handleFileChange}
+                  isEditable={isEditable}
+                />
                 {profileData.nationalIdCard && (
                   <span className="text-sm text-gray-600">
                     {profileData.nationalIdCard.name}

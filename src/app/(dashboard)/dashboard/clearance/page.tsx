@@ -239,7 +239,7 @@ export default function ImportClearanceCertificate() {
                   Application ID
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-medium text-gray-600 uppercase tracking-wider">
-                  Client Name
+                  Applicant's Name
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-medium text-gray-600 uppercase tracking-wider">
                   Category

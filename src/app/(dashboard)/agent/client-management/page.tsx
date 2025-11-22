@@ -23,7 +23,7 @@ export default function OverviewCards() {
     totalClearance: string;
     appointmentDate: string;
     nesreaID: string;
-    status: "Rejected" | "Approved" | "Pending";
+    status: "Rejected" | "Approved" | "Pending" | "Revoked";
   }
 
   const [activities] = useState<Activity[]>([
@@ -39,10 +39,10 @@ export default function OverviewCards() {
     {
       id: 2,
       name: "John Paul",
-      clientType: "agent",
+      clientType: "Individual",
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
-      status: "Pending",
+      status: "Rejected",
       nesreaID: "NES-23494-hhr",
     },
     {
@@ -61,7 +61,7 @@ export default function OverviewCards() {
       clientType: "individual",
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
-      status: "Pending",
+      status: "Revoked",
       nesreaID: "NES-23494-hhr",
     },
   ]);
@@ -69,6 +69,7 @@ export default function OverviewCards() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Activities");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
   const itemsPerPage = 10;
 
   const totalPages = Math.ceil(activities.length / itemsPerPage);
@@ -87,8 +88,8 @@ export default function OverviewCards() {
         return "text-green-600 bg-green-50";
       case "Pending":
         return "text-yellow-600 bg-yellow-50";
-      default:
-        return "text-gray-600 bg-gray-50";
+      case "Revoked":
+        return "text-orange-600 bg-orange-50";
     }
   };
 
@@ -157,7 +158,7 @@ export default function OverviewCards() {
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
             </div>
 

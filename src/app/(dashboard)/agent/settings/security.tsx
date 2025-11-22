@@ -1,8 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
+import OtpModal from "@/components/dashboard/otpmodal";
 
 export default function SecuritySettings() {
   const [showPasswordChange, setShowPasswordChange] = useState(false);
   const [showEmailChange, setShowEmailChange] = useState(false);
+  const [otpOpen, setOtpOpen] = useState(false);
+
   const [securityData, setSecurityData] = useState({
     email: "example@gmail.com",
     currentEmail: "",
@@ -16,6 +21,11 @@ export default function SecuritySettings() {
 
   const handleSecurityChange = (field: string, value: string) => {
     setSecurityData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleVerify = (otp: string) => {
+    console.log("Entered OTP:", otp);
+    setOtpOpen(false);
   };
 
   const handleEmailChange = () => {
@@ -78,27 +88,9 @@ export default function SecuritySettings() {
               Change Email
             </button>
           </div>
-        </div>
-
-        {/* Password Section */}
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-1">
-                Password
-              </h3>
-              <p className="text-sm text-gray-600">{"0".repeat(12)}</p>
-            </div>
-            <button
-              onClick={() => setShowPasswordChange(!showPasswordChange)}
-              className="px-5 py-2 border border-green-600 text-green-600 rounded-md text-sm font-medium hover:bg-green-50 transition-colors"
-            >
-              Change Password
-            </button>
-          </div>
 
           {showEmailChange && (
-            <div className="space-y-5">
+            <div className="space-y-5 mt-8">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-2">
                   Your current email
@@ -146,14 +138,37 @@ export default function SecuritySettings() {
 
               <div className="flex justify-end pt-4">
                 <button
-                  onClick={handleEmailChange}
+                  onClick={() => setOtpOpen(true)}
                   className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-medium transition-colors shadow-sm"
                 >
-                  Change email
+                  Proceed
                 </button>
               </div>
+              <OtpModal
+                isOpen={otpOpen}
+                onClose={() => setOtpOpen(false)}
+                onVerify={handleVerify}
+              />
             </div>
           )}
+        </div>
+
+        {/* Password Section */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h3 className="text-base font-semibold text-gray-900 mb-1">
+                Password
+              </h3>
+              <p className="text-sm text-gray-600">{"0".repeat(12)}</p>
+            </div>
+            <button
+              onClick={() => setShowPasswordChange(!showPasswordChange)}
+              className="px-5 py-2 border border-green-600 text-green-600 rounded-md text-sm font-medium hover:bg-green-50 transition-colors"
+            >
+              Change Password
+            </button>
+          </div>
         </div>
 
         {/* Password Change Form */}

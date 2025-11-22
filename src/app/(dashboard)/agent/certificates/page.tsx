@@ -127,7 +127,7 @@ const RecentActivities: React.FC = () => {
                   Name
                 </th>
                 <th className=" px-2 py-3 text-sm font-semibold text-gray-700">
-                  NESREA ID
+                  Clearance ID
                 </th>
                 <th className=" px-2 py-3 text-sm font-semibold text-gray-700">
                   Issue Date

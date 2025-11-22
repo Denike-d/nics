@@ -17,7 +17,7 @@ export default function OverviewCards() {
 
   interface Activity {
     id: number;
-    clearanceID: string;
+    referenceID: string;
     nesreaID: string;
     amount: string;
     date: string;
@@ -29,7 +29,7 @@ export default function OverviewCards() {
   const [activities] = useState<Activity[]>([
     {
       id: 1,
-      clearanceID: "N112247488444",
+      referenceID: "N112247488444",
       nesreaID: "NESRES-234",
       description: "Registration",
       date: "21st Oct, 2025 - 8:30pm",
@@ -39,7 +39,7 @@ export default function OverviewCards() {
     },
     {
       id: 2,
-      clearanceID: "N1122474884444",
+      referenceID: "N1122474884444",
       nesreaID: "NESRES-234",
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
@@ -49,7 +49,7 @@ export default function OverviewCards() {
     },
     {
       id: 3,
-      clearanceID: "N11224748844444",
+      referenceID: "N11224748844444",
       nesreaID: "NESRES-234",
       description: "Registration",
       amount: "N35,000",
@@ -59,7 +59,7 @@ export default function OverviewCards() {
     },
     {
       id: 3,
-      clearanceID: "N11224748844444",
+      referenceID: "N11224748844444",
       nesreaID: "NESRES-234",
       description: "Clearance",
       amount: "N145,500",
@@ -69,7 +69,7 @@ export default function OverviewCards() {
     },
     {
       id: 4,
-      clearanceID: "N1122474884444",
+      referenceID: "N1122474884444",
       nesreaID: "NESRES-234",
       description: "Clearance",
       date: "21st Oct, 2025 - 8:30pm",
@@ -172,10 +172,7 @@ export default function OverviewCards() {
                     S/N
                   </th>
                   <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
-                    Clearance ID
-                  </th>
-                  <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
-                    Nesrea ID
+                    Refrence ID
                   </th>
                   <th className="text-left px-2 py-3 text-sm font-semibold text-gray-700">
                     Decription
@@ -204,11 +201,9 @@ export default function OverviewCards() {
                       {activity.id}
                     </td>
                     <td className="px-2 py-4 text-sm text-gray-800">
-                      {activity.clearanceID}
+                      {activity.referenceID}
                     </td>
-                    <td className="px-2 py-4 text-sm text-gray-800">
-                      {activity.nesreaID}
-                    </td>
+
                     <td className="px-2 py-4 text-sm text-gray-600">
                       {activity.description}
                     </td>

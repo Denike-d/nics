@@ -11,6 +11,8 @@ import {
   Building2,
   FileText,
 } from "lucide-react";
+import Image from "next/image";
+import profil from "../../../public/images/profil.png";
 
 interface SideModalProps {
   isOpen: boolean;
@@ -30,6 +32,18 @@ const ClientSideModal = ({
   function handleApprove() {
     onClose();
   }
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Approved":
+        return "bg-green-100 text-green-700";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "Rejected":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
 
   return (
     <div>
@@ -43,7 +57,7 @@ const ClientSideModal = ({
           />
 
           {/* Modal */}
-          <div className="fixed right-0 top-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto">
+          <div className="fixed right-0 top-0 h-full w-full md:w-1/3 bg-white shadow-2xl z-50 overflow-y-auto">
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
               {/* <h2 className="text-xl font-semibold text-gray-800">
@@ -61,40 +75,37 @@ const ClientSideModal = ({
             <div className="p-6 space-y-6">
               {/* Client Basic Info */}
               <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <User className="w-5 h-5 text-gray-400 mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-500">Name</p>
-                    <p className="text-base font-semibold text-gray-900">
-                      {content.name}
-                    </p>
+                <div className="flex justify-between items-center">
+                  <Image src={profil} alt="profile" className="w-30" />
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <User className="w-5 h-5 text-gray-400 mt-1" />
+                      <div>
+                        <p className="text-sm text-gray-500">Name</p>
+                        <p className="text-base font-semibold text-gray-900">
+                          {content.name}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Building2 className="w-5 h-5 text-gray-400 mt-1" />
+                      <div>
+                        <p className="text-sm text-gray-500">User Type</p>
+                        <p className="text-base font-semibold text-gray-900">
+                          {content.clientType}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <FileText className="w-5 h-5 text-gray-400 mt-1" />
+                      <div>
+                        <p className="text-sm text-gray-500">Nesrea ID</p>
+                        <p className="text-base font-medium text-gray-900">
+                          {content.nesreaID}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Building2 className="w-5 h-5 text-gray-400 mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-500">Company</p>
-                    <p className="text-base font-semibold text-gray-900">
-                      {content.clientType}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <FileText className="w-5 h-5 text-gray-400 mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-500">Nesrea ID</p>
-                    <p className="text-base font-medium text-gray-900">
-                      {content.nesreaID}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-2 pb-3 border-t border-gray-100">
-                  <span className="inline-block px-3 py-1 bg-blue-50 text-green-700 text-sm font-medium rounded-full">
-                    {content.userType}
-                  </span>
                 </div>
               </div>
 
@@ -146,16 +157,21 @@ const ClientSideModal = ({
               </div>
 
               {/* Statistics */}
-              <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-200">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-500 mb-1">Total Clearances</p>
-                  <p className="text-2xl font-bold text-gray-900">3</p>
-                </div>
-                <div className="bg-amber-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-500 mb-1">Status</p>
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-amber-100">
-                    {content.status}
-                  </span>
+              <div className="border-t  pt-2 border-gray-200">
+                <h3>Clearance Info</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">
+                      Total Clearances
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">3</p>
+                  </div>
+                  <div className="bg-amber-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">Total Payments</p>
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full font-bold text-2xl">
+                      N300,000
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -166,14 +182,18 @@ const ClientSideModal = ({
                 </h3>
 
                 <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                  {/* <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">
                       Appointment Status
                     </span>
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                      Pending
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800  ${getStatusColor(
+                        content.status
+                      )}`}
+                    >
+                      {content.status}
                     </span>
-                  </div> */}
+                  </div>
 
                   <div className="flex items-start gap-2">
                     <Calendar className="w-4 h-4 text-gray-400 mt-0.5" />
@@ -186,16 +206,6 @@ const ClientSideModal = ({
                       </p>
                     </div>
                   </div>
-
-                  {/* <div className="flex items-start gap-2">
-                    <Clock className="w-4 h-4 text-gray-400 mt-0.5" />
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-600">Duration</p>
-                      <p className="text-base font-medium text-gray-900">
-                        45 minutes
-                      </p>
-                    </div>
-                  </div> */}
                 </div>
               </div>
 
@@ -225,28 +235,49 @@ const ClientSideModal = ({
               </div> */}
 
               {/* Action Buttons */}
+
               <div className="flex gap-3 pt-4">
-                <button
-                  onClick={handleApprove}
-                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-400 transition-colors font-medium"
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={handleApprove}
-                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition-colors font-medium"
-                >
-                  Reject
-                </button>
-                <button
-                  onClick={handleApprove}
-                  className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-400 transition-colors font-medium"
-                >
-                  Revoke
-                </button>
-                {/* <button className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium">
-                  View Documents
-                </button> */}
+                {content.status === "Pending" && (
+                  <>
+                    <button
+                      onClick={handleApprove}
+                      className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-400 transition-colors font-medium"
+                    >
+                      Accept
+                    </button>
+
+                    <button
+                      onClick={handleApprove}
+                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition-colors font-medium"
+                    >
+                      Reject
+                    </button>
+                  </>
+                )}
+                {content.status === "Approved" && (
+                  <button
+                    onClick={handleApprove}
+                    className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-400 transition-colors font-medium"
+                  >
+                    Revoke
+                  </button>
+                )}
+                {content.status === "Rejected" && (
+                  <button
+                    onClick={handleApprove}
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition-colors font-medium"
+                  >
+                    Delete
+                  </button>
+                )}
+                {content.status === "Revoked" && (
+                  <button
+                    onClick={handleApprove}
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 transition-colors font-medium"
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           </div>

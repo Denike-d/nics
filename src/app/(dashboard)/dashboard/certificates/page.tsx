@@ -117,7 +117,7 @@ const RecentActivities: React.FC = () => {
                   S/N
                 </th>
                 <th className="px-2 py-3 text-sm font-semibold text-gray-700">
-                  Client Name
+                  Name
                 </th>
                 <th className=" px-2 py-3 text-sm font-semibold text-gray-700">
                   Clearance ID
