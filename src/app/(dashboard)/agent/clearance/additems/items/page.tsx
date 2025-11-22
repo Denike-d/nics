@@ -6,7 +6,6 @@ import Pagination from "@/components/pagination";
 import Link from "next/link";
 import AddImportItemModal from "@/components/dashboard/additemform";
 import FileUpload from "@/components/dashboard/upload";
-import HSCodeSelector from "@/components/dashboard/hscode";
 
 interface ImportItem {
   id: number;
@@ -182,8 +181,6 @@ export default function ImportDetailsPage() {
       portOfLoading: "Ghana",
     },
   ]);
-  const [hsCode, setHsCode] = useState("");
-  const [hsDescription, setHsDescription] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleAddItem = () => {
     const newItem: ImportItem = {
