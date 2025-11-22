@@ -57,7 +57,7 @@ const ClientSideModal = ({
           />
 
           {/* Modal */}
-          <div className="fixed right-0 top-0 h-full w-full md:w-1/3 bg-white shadow-2xl z-50 overflow-y-auto">
+          <div className="fixed right-0 top-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto">
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
               {/* <h2 className="text-xl font-semibold text-gray-800">
@@ -158,8 +158,8 @@ const ClientSideModal = ({
 
               {/* Statistics */}
               <div className="border-t  pt-2 border-gray-200">
-                <h3>Clearance Info</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <h3 className="font-bold mb-2">Clearance Info</h3>
+                <div className="grid grid-cols-2 gap-4 mb-2">
                   <div className="bg-gray-50 rounded-lg p-4">
                     <p className="text-sm text-gray-500 mb-1">
                       Total Clearances
@@ -172,6 +172,20 @@ const ClientSideModal = ({
                       N300,000
                     </span>
                   </div>
+                </div>
+                <div className="bg-gray-50 p-4 space-y-4 rounded-md">
+                  <p>
+                    <span className="font-semibold  text-gray-700">
+                      Clearance ID:
+                    </span>{" "}
+                    N2374884999EED
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-700">
+                      Date and Time:
+                    </span>{" "}
+                    25th OCtober, 2025; 12:00pm
+                  </p>
                 </div>
               </div>
 

@@ -23,6 +23,7 @@ interface RegistrationFormProps {
 interface FormData {
   name: string;
   email: string;
+  position: string;
   phone: string;
   gender: string;
   resiaddress: string;
@@ -59,6 +60,7 @@ export default function RegistrationForm({
     ministryname: "",
     nin: "",
     contactname: "",
+    position: "",
     additionalInfo: "",
     governmentid: "",
     association: "",
@@ -72,6 +74,7 @@ export default function RegistrationForm({
   const [gender, setGender] = useState("");
   const [step, setStep] = useState(1);
   const lgas = selectedState ? nigeriaStates[selectedState] : [];
+  const [docType, setDocType] = useState("NIN");
 
   const router = useRouter();
 
@@ -211,34 +214,36 @@ export default function RegistrationForm({
             <>
               <div className="flex items-center gap-4">
                 <div>
+                  {" "}
                   <LabelWithRequired
-                    label="Any Valid Government ID No."
+                    label="Select a valid document"
                     className="block text-sm font-medium text-gray-700"
                   />
+                  <div className="flex gap-4 items-center w-full">
+                    {/* Dropdown */}
 
-                  <input
-                    type="text"
-                    name="nin"
-                    value={formData.nin}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="1234567890"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Association
-                  </label>
-                  <input
-                    type="text"
-                    name="association"
-                    value={formData.association}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="08011223344"
-                    required
-                  />
+                    <select
+                      value={docType}
+                      onChange={(e) => setDocType(e.target.value)}
+                      className="border w-[240px] rounded-md px-3 py-2 bg-gray-100 focus:outline-none"
+                    >
+                      <option value="NIN">NIN</option>
+                      <option value="CAC">CAC</option>
+                      <option value="International Passport">
+                        International Passport
+                      </option>
+                      <option value="Drivers License">Driver's License</option>
+                    </select>
+
+                    {/* Input Field */}
+                    <input
+                      type="text"
+                      placeholder={`Enter ${docType} number`}
+                      value={formData.nin}
+                      onChange={handleInputChange}
+                      className="flex-1 border w-[240px] rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -286,26 +291,42 @@ export default function RegistrationForm({
                   </select>
                 </div>
               </div>
-              <div className="mt-4">
-                <LabelWithRequired
-                  label="Residential Address"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                />
+              <div className="flex items-center gap-4">
+                <div>
+                  <LabelWithRequired
+                    label="Residential Address"
+                    className="block text-sm font-medium text-gray-700"
+                  />
 
-                <textarea
-                  typeof="text"
-                  name="resiaddress"
-                  value={formData.resiaddress}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="Enter your address"
-                  required
-                />
+                  <input
+                    typeof="text"
+                    name="resiaddress"
+                    value={formData.resiaddress}
+                    onChange={handleInputChange}
+                    className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter your address"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Association
+                  </label>
+                  <input
+                    type="text"
+                    name="association"
+                    value={formData.association}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="08011223344"
+                    required
+                  />
+                </div>
               </div>
               <div>
                 <LabelWithRequired
                   className="block text-sm font-medium text-gray-700 mb-2"
-                  label="Upload any valid document"
+                  label="Upload Your Selected ID Document"
                 />
 
                 <input
@@ -443,7 +464,7 @@ export default function RegistrationForm({
 
               <div>
                 <LabelWithRequired
-                  label="Upload any valid Government ID Document"
+                  label="Upload Your Valid Government ID Document"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 />
 
@@ -635,21 +656,39 @@ export default function RegistrationForm({
                   <option value="female">Female</option>
                 </select>
               </div>
-              <div>
-                <LabelWithRequired
-                  label="Any Valid Government ID No."
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                />
+              <div className="flex items-center gap-4">
+                <div>
+                  {" "}
+                  <LabelWithRequired
+                    label="Select a valid document"
+                    className="block text-sm font-medium text-gray-700"
+                  />
+                  <div className="flex gap-4 items-center w-full">
+                    {/* Dropdown */}
 
-                <input
-                  type="text"
-                  name="nin"
-                  value={formData.nin}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                  placeholder="Enter ID number"
-                  required
-                />
+                    <select
+                      value={docType}
+                      onChange={(e) => setDocType(e.target.value)}
+                      className="border w-[240px] rounded-md px-3 py-2 bg-gray-100 focus:outline-none"
+                    >
+                      <option value="NIN">NIN</option>
+                      <option value="CAC">CAC</option>
+                      <option value="International Passport">
+                        International Passport
+                      </option>
+                      <option value="Drivers License">Driver's License</option>
+                    </select>
+
+                    {/* Input Field */}
+                    <input
+                      type="text"
+                      placeholder={`Enter ${docType} number`}
+                      value={formData.nin}
+                      onChange={handleInputChange}
+                      className="flex-1 border w-[240px] rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                    />
+                  </div>
+                </div>
               </div>
             </>
           );
@@ -734,7 +773,7 @@ export default function RegistrationForm({
               </div>
               <div>
                 <LabelWithRequired
-                  label="Upload any valid Government ID Document"
+                  label="Upload Your Selected ID Document"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 />
 
@@ -759,36 +798,22 @@ export default function RegistrationForm({
           return (
             <>
               {/*Section One */}
-              <div className="flex gap-4 items-center">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="Enter company name"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Valid Government ID No.
-                  </label>
-                  <input
-                    type="text"
-                    name="additionalInfo"
-                    value={formData.additionalInfo}
-                    onChange={handleInputChange}
-                    className="px-2 py-2 w-[240px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="1234567890"
-                    required
-                  />
-                </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                  placeholder="Enter company name"
+                  required
+                />
               </div>
+
               <div className="flex items-center gap-4 mt-2">
                 <div className="">
                   <LabelWithRequired
@@ -865,9 +890,39 @@ export default function RegistrationForm({
                   />
                 </div>
               </div>
+              <div className="flex items-center gap-4 mt-4">
+                <div>
+                  {" "}
+                  <LabelWithRequired
+                    label="Select a valid document"
+                    className="block text-sm font-medium text-gray-700"
+                  />
+                  <div className="flex gap-4 items-center w-full">
+                    {/* Dropdown */}
+
+                    <select
+                      value={docType}
+                      onChange={(e) => setDocType(e.target.value)}
+                      className="border w-[240px] rounded-md px-3 py-2 bg-gray-100 focus:outline-none"
+                    >
+                      <option value="NIN">TIN</option>
+                      <option value="CAC">CAC</option>
+                    </select>
+
+                    {/* Input Field */}
+                    <input
+                      type="text"
+                      placeholder={`Enter ${docType} number`}
+                      value={formData.nin}
+                      onChange={handleInputChange}
+                      className="flex-1 border w-[240px] rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                    />
+                  </div>
+                </div>
+              </div>
               <div>
                 <LabelWithRequired
-                  label="Upload TIN/CAC Document"
+                  label="Upload Your Selected Document ID"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 />
 
@@ -895,21 +950,22 @@ export default function RegistrationForm({
                   Contact Person's Information
                 </h3>
 
-                <div className="flex gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Contact Person's Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-[230px] px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                      placeholder="Enter company name"
-                      required
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Contact Person's Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-4 items-center">
                   <div>
                     <LabelWithRequired
                       label="Gender"
@@ -929,8 +985,6 @@ export default function RegistrationForm({
                       <option value="other">Other</option>
                     </select>
                   </div>
-                </div>
-                <div className="flex gap-x-4 items-center">
                   <div>
                     <LabelWithRequired
                       label="Phone Number"
@@ -947,37 +1001,76 @@ export default function RegistrationForm({
                       required
                     />
                   </div>
+                </div>
+                <div className="flex items-center gap-4 mt-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Valid Government ID No.
-                    </label>
+                    {" "}
+                    <LabelWithRequired
+                      label="Select a valid document"
+                      className="block text-sm font-medium text-gray-700"
+                    />
+                    <div className="flex gap-4 items-center w-full">
+                      {/* Dropdown */}
+
+                      <select
+                        value={docType}
+                        onChange={(e) => setDocType(e.target.value)}
+                        className="border w-[240px] rounded-md px-3 py-2 bg-gray-100 focus:outline-none"
+                      >
+                        <option value="NIN">NIN</option>
+
+                        <option value="International Passport">
+                          International Passport
+                        </option>
+                        <option value="Drivers License">
+                          Driver's License
+                        </option>
+                      </select>
+
+                      {/* Input Field */}
+                      <input
+                        type="text"
+                        placeholder={`Enter ${docType} number`}
+                        value={formData.nin}
+                        onChange={handleInputChange}
+                        className="flex-1 border w-[240px] rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 mt-4">
+                  <div>
+                    <LabelWithRequired
+                      label="Residential Address"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    />
+
                     <input
-                      type="text"
-                      name="additionalInfo"
-                      value={formData.additionalInfo}
+                      typeof="text"
+                      name="resiaddress"
+                      value={formData.resiaddress}
                       onChange={handleInputChange}
-                      className="px-2 py-2 w-[240px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                      placeholder="1234567890"
+                      className="w-[240px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                      placeholder="Enter your address"
                       required
                     />
                   </div>
-                </div>
+                  <div>
+                    <LabelWithRequired
+                      label="Position"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    />
 
-                <div className="mt-4">
-                  <LabelWithRequired
-                    label="Residential Address"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  />
-
-                  <textarea
-                    typeof="text"
-                    name="resiaddress"
-                    value={formData.resiaddress}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
-                    placeholder="Enter your address"
-                    required
-                  />
+                    <input
+                      typeof="text"
+                      name="position"
+                      value={formData.position}
+                      onChange={handleInputChange}
+                      className="w-[240px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:green-500 focus:border-transparent placeholder:text-gray-200 placeholder:text-sm"
+                      placeholder="Example: Manager"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
             </>

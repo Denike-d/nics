@@ -382,7 +382,7 @@ export default function OverviewCards() {
     {
       id: 1,
       name: "Esther Hownard",
-      clientType: "Nerea-12252",
+      clientType: "Agent",
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Pending",
@@ -391,7 +391,7 @@ export default function OverviewCards() {
     {
       id: 2,
       name: "John Paul",
-      clientType: "Nerea-12252",
+      clientType: "Agent",
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Pending",
@@ -400,7 +400,7 @@ export default function OverviewCards() {
     {
       id: 3,
       name: "M$N Enterprise",
-      clientType: "Nerea-12252",
+      clientType: "Agent",
       totalClearance: "3",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Approved",
@@ -410,7 +410,7 @@ export default function OverviewCards() {
     {
       id: 4,
       name: "Esther Hownard",
-      clientType: "Nerea-12252",
+      clientType: "Agent",
       totalClearance: "1",
       appointmentDate: "11th Oct, 2025 - 7:55pm",
       status: "Pending",

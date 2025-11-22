@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import HSCodeSelector from "./hscode";
 
 interface AddImportItemFormProps {
   isOpen: boolean;
@@ -26,6 +27,8 @@ export default function AddImportItemModal({
     finalDestinationAddress: "",
     expectedDateOfArrival: "",
   });
+  const [hsCode, setHsCode] = useState("");
+  const [hsDescription, setHsDescription] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -86,8 +89,13 @@ export default function AddImportItemModal({
             <h1 className="text-xl font-bold text-gray-900 mb-6">
               Add Import Item
             </h1>
-
-            <div className="space-y-5">
+            <HSCodeSelector
+              onSelect={(item) => {
+                setHsCode(item.code);
+                setHsDescription(item.description);
+              }}
+            />
+            <div className="space-y-5 mt-4">
               {/* Item Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -110,7 +118,7 @@ export default function AddImportItemModal({
                 <input
                   type="text"
                   name="hsCode"
-                  value={formData.hsCode}
+                  value={hsCode}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
@@ -122,7 +130,7 @@ export default function AddImportItemModal({
                 <input
                   type="text"
                   name="hsCode"
-                  value={formData.hsCode}
+                  value={hsDescription}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
